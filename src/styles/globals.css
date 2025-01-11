@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -56,14 +57,6 @@
     --chart-5: 340 75% 55%;
   }
 }
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
 
 @layer components {
   .spinner {
@@ -91,4 +84,104 @@
       transform: rotate(1turn);
     }
   }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+/* 
+nextjs-portal {
+  display: none;
+} */
+
+.footer {
+  padding: 6.4rem 0;
+  background-color: #3b4f8b;
+  border-top: 1px solid #eee;
+}
+
+.grid--footer {
+  grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr;
+}
+
+.logo-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  display: block;
+  margin-bottom: 1.6rem;
+}
+
+.social-links {
+  list-style: none;
+  display: flex;
+  gap: 1.2rem;
+}
+
+.social-icon {
+  color: #fff;
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.copyright {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #fff;
+  margin-top: auto;
+}
+
+.footer-heading {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.contacts {
+  font-style: normal;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.address {
+  color: #c5c4c4;
+  margin-bottom: 1.2rem;
+}
+
+.footer-nav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.footer-link:link,
+.footer-link:visited {
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #c5c4c4;
+  /* color: #fff; */
+  transition: all 0.2s;
+}
+
+.footer-link:hover,
+.footer-link:active {
+  color: #f5f3f3;
 }
