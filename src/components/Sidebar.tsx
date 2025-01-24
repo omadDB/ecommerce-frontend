@@ -1,39 +1,58 @@
 "use client"
 
 import Link from "next/link"
-import { CalendarDaysIcon, HomeIcon, UserIcon } from "@heroicons/react/24/solid"
+import { ShoppingBagIcon, UserIcon } from "@heroicons/react/24/solid"
 import SignOutButton from "./SignOutButton"
 import { usePathname } from "next/navigation"
-
-const navLinks = [
-  {
-    name: "Home",
-    href: "/account",
-    icon: <HomeIcon className="h-5 w-5 text-primary-600" />,
-  },
-  {
-    name: "Reservations",
-    href: "/account/reservations",
-    icon: <CalendarDaysIcon className="h-5 w-5 text-primary-600" />,
-  },
-  {
-    name: "Guest profile",
-    href: "/account/profile",
-    icon: <UserIcon className="h-5 w-5 text-primary-600" />,
-  },
-]
+import { Shield } from "lucide-react"
 
 function Sidebar() {
   const pathname = usePathname()
 
+  const navLinks = [
+    {
+      name: "Profile",
+      href: "/profile",
+      icon: (
+        <UserIcon
+          className={`h-5 w-5 text-gray-400 group-hover:text-primary-600 ${
+            pathname === "/profile" ? "text-primary-600" : ""
+          }`}
+        />
+      ),
+    },
+    {
+      name: "Account info",
+      href: "/profile/account",
+      icon: (
+        <Shield
+          className={`h-5 w-5 text-gray-400 group-hover:text-primary-600 ${
+            pathname === "/profile/account" ? "text-primary-600" : ""
+          }`}
+        />
+      ),
+    },
+    {
+      name: "Orders",
+      href: "/profile/orders",
+      icon: (
+        <ShoppingBagIcon
+          className={`h-5 w-5 text-gray-400 group-hover:text-primary-600 ${
+            pathname === "/profile/orders" ? "text-primary-600" : ""
+          }`}
+        />
+      ),
+    },
+  ]
+
   return (
-    <nav className="border-r border-primary-900">
+    <div className="rounded-lg p-4 border border-gray-200">
       <ul className="flex flex-col gap-2 h-full text-lg">
         {navLinks.map((link) => (
           <li key={link.name}>
             <Link
-              className={`py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 ${
-                pathname === link.href ? "bg-primary-900" : ""
+              className={`py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-gray-400 group rounded-lg ${
+                pathname === link.href ? "bg-primary-900 text-primary-100" : ""
               }`}
               href={link.href}
             >
@@ -47,7 +66,7 @@ function Sidebar() {
           <SignOutButton />
         </li>
       </ul>
-    </nav>
+    </div>
   )
 }
 

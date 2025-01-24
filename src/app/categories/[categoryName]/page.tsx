@@ -15,7 +15,7 @@ export default function Page({ params }) {
         <div className="grid grid-cols-4 gap-8">
           {Array.from({ length: 26 }).map((_, index) => (
             <div
-              className="flex flex-col gap-4 leading-5 group duration-400"
+              className="flex flex-col gap-4 border border-gray-300 rounded-md p-4 leading-5 group duration-400"
               key={index}
             >
               <div className="relative w-full aspect-[4/4]">

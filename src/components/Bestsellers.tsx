@@ -13,7 +13,7 @@ export default function Bestsellers() {
         <div className="grid grid-cols-4 gap-8">
           {Array.from({ length: 10 }).map((_, index) => (
             <div
-              className="flex flex-col justify-center items-center gap-4 text-white leading-5 group duration-400 shadow-[0_0_10px_rgba(0,0,0,0.2)] rounded-md bg-[#4260b9] p-4"
+              className="flex flex-col justify-center items-center gap-4 text-white leading-5 group duration-400 shadow-[0_0_10px_rgba(0,0,0,0.2)] rounded-md bg-[#3d5cb8b9] p-4"
               key={index}
             >
               <div className="relative w-full aspect-[4/4]">
