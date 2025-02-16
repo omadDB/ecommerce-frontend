@@ -8,34 +8,34 @@ export default function Footer() {
     <footer className="footer">
       <Container className="grid gap-5 grid--footer">
         <div className="logo-col">
-          <a href="#" className="footer-logo">
+          <Link href="#" className="footer-logo">
             <Image src="/favicon.ico" width={50} height={50} alt="Logo" />
-          </a>
+          </Link>
 
           <ul className="social-links">
             <li>
-              <a className="footer-link" href="#">
+              <Link className="footer-link" href="#">
                 <InstagramIcon />
                 {/* <ion-icon
                       className="social-icon"
                       name="logo-instagram"
                     ></ion-icon> */}
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="footer-link" href="#">
+              <Link className="footer-link" href="#">
                 <FacebookIcon />
                 {/* <Io className="social-icon" name="logo-facebook"></Io> */}
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="footer-link" href="#">
+              <Link className="footer-link" href="#">
                 <TwitterIcon />
                 {/* <ion-icon
                       className="social-icon"
                       name="logo-twitter"
                     ></ion-icon> */}
-              </a>
+              </Link>
             </li>
           </ul>
 
@@ -50,13 +50,13 @@ export default function Footer() {
           <address className="contacts">
             <p className="address">13B Alisher Navoi St.</p>
             <p>
-              <a className="footer-link" href="tel:+998-97-480-33-44">
+              <Link className="footer-link" href="tel:+998-97-480-33-44">
                 +998-97-480-33-44
-              </a>
+              </Link>
               <br />
-              <a className="footer-link" href="mailto:hello@omnifood.com">
+              <Link className="footer-link" href="mailto:hello@omnifood.com">
                 odilshodbekov@gmail.com
-              </a>
+              </Link>
             </p>
           </address>
         </div>
@@ -65,14 +65,14 @@ export default function Footer() {
           <p className="footer-heading">Account</p>
           <ul className="footer-nav">
             <li>
-              <a className="footer-link" href="#">
+              <Link className="footer-link" href="/register">
                 Create account
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="footer-link" href="#">
+              <Link className="footer-link" href="/login">
                 Sign in
-              </a>
+              </Link>
             </li>
             {/* <li>
               <a className="footer-link" href="#">
@@ -91,24 +91,24 @@ export default function Footer() {
           <p className="footer-heading">Company</p>
           <ul className="footer-nav">
             <li>
-              <a className="footer-link" href="#">
+              <Link className="footer-link" href="#">
                 About us
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="footer-link" href="#">
+              <Link className="footer-link" href="#">
                 For Business
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="footer-link" href="#">
+              <Link className="footer-link" href="#">
                 Partners
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="footer-link" href="#">
+              <Link className="footer-link" href="#">
                 Careers
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
@@ -117,14 +117,14 @@ export default function Footer() {
           <p className="footer-heading">Resources</p>
           <ul className="footer-nav">
             <li>
-              <a className="footer-link" href="#">
+              <Link className="footer-link" href="#">
                 Help center
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="footer-link" href="#">
+              <Link className="footer-link" href="#">
                 Privacy & terms
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

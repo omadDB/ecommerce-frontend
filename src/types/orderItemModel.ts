@@ -7,6 +7,6 @@ export type OrderItem = {
   order: Order
   productId: number
   product: Product
-  quantity: number
-  price: number
+  count: number
+  sum: number
 }

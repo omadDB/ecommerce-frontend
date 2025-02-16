@@ -1,11 +1,9 @@
-import { Cart } from "./cartModel"
 import { Product } from "./productModel"
 
-export type CartItem = {
-  id: number
-  cartId: number
-  cart: Cart
+export interface CartItem extends Pick<Product, "price" | "name" | "stock"> {
   productId: number
-  product: Product
-  quantity: number
+  cartId?: number
+  count: number
+  sum: number
+  images?: Product["images"]
 }

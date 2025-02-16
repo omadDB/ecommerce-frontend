@@ -1,37 +1,19 @@
 "use client"
 
 import Container from "@/components/Container"
-import ItemCounter from "@/components/ItemCounter"
-import { TrashIcon } from "@heroicons/react/24/solid"
-import Image from "next/image"
+import CartItem from "@/features/cart/CartItem"
+import { useAppSelector } from "@/lib/store/hooks"
+import { formatCurrency } from "@/utils/helpers"
+import { ShoppingBagIcon, TagIcon } from "lucide-react"
 import Link from "next/link"
-import { useState } from "react"
-
-type Product = {
-  id: number
-  name: string
-  price: number
-  count: number
-}
+import { useEffect } from "react"
 
 export default function Page() {
-  const [count, setCount] = useState<number>(1)
+  const cartItems = useAppSelector((state) => state.cart.cartItems)
 
-  // const [products, setProducts] = useState<Product[]>([
-  //   { id: 1, name: "Product 1", price: 310000, count: 1 },
-  //   { id: 2, name: "Product 2", price: 310000, count: 1 },
-  //   { id: 3, name: "Product 3", price: 310000, count: 1 },
-  //   { id: 4, name: "Product 4", price: 310000, count: 1 },
-  // ])
-
-  // // Function to update the count for a specific product
-  // const updateProductCount = (id: number, newCount: number) => {
-  //   setProducts((prevProducts) =>
-  //     prevProducts.map((product) =>
-  //       product.id === id ? { ...product, count: newCount } : product
-  //     )
-  //   )
-  // }
+  useEffect(() => {
+    window.scrollTo(0, 0) // Scroll to top when the component mounts
+  }, [])
 
   return (
     <Container>
@@ -47,7 +29,7 @@ export default function Page() {
         </div>
 
         <div className="mt-1 w-full">
-          <table className="w-full border-collapse ">
+          <table className="w-full border-collapse">
             <thead className="border-b border-gray-300">
               <tr>
                 <th className="p-4 text-left" colSpan={2}>
@@ -61,74 +43,60 @@ export default function Page() {
                 </th>
               </tr>
             </thead>
-            <tbody className="border-b border-gray-300">
-              {Array.from({ length: 5 }).map((product, index) => (
-                <tr key={index} className="">
-                  {/* Product and Image */}
-                  <td className="p-4" colSpan={2}>
-                    <div className="flex items-center gap-4">
-                      <div className="w-[80px] h-[80px] relative">
-                        <Image
-                          src="/example-product.webp"
-                          fill
-                          className="object-cover"
-                          alt="Product image"
-                        />
-                      </div>
-                      <div>
-                        {/* <h4 className="font-medium">{product.name}</h4> */}
-                        <h4 className="font-medium">Product 1</h4>
-                        <p className="text-gray-500">310.000 so'm</p>
-                      </div>
+            <tbody
+              className={`${
+                cartItems.length > 0 && "border-b border-gray-300"
+              } w-full`}
+            >
+              {cartItems.length ? (
+                cartItems.map((product) => (
+                  <CartItem product={product} key={product.productId} />
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={4} className="p-2">
+                    <div className="flex flex-col justify-center items-center w-full text-center gap-4 my-14">
+                      <ShoppingBagIcon size={50} color="gray" />
+                      <p className="text-xl font-semibold text-gray-600">
+                        Корзина пуста
+                      </p>
+                      <Link
+                        href="/categories/all"
+                        className="mt-4 py-2 px-4 text-white bg-primary-600 rounded-lg hover:bg-primary-700 duration-200 flex items-center gap-3"
+                      >
+                        Перейти в каталог <TagIcon width={18} height={18} />
+                      </Link>
                     </div>
-                  </td>
-
-                  {/* Quantity */}
-                  <td className="p-4  text-center">
-                    <div className="flex items-center justify-center gap-2">
-                      <ItemCounter count={count} setCount={setCount} />
-                      {/* <ItemCounter
-                        count={product.count}
-                        setCount={(newCount) =>
-                          updateProductCount(product.id, newCount)
-                        }
-                      /> */}
-                      <button className="cursor-pointer">
-                        <TrashIcon
-                          width={20}
-                          height={20}
-                          stroke="black"
-                          className="ml-4 hover:scale-110 duration-300"
-                          fill="none"
-                        />
-                      </button>
-                    </div>
-                  </td>
-
-                  {/* Total */}
-                  <td className="p-4 text-center">
-                    <p className="tracking-widest text-lg">310 000 so'm</p>
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
 
-          <div className="w-full mt-6 flex justify-end">
-            <div className="w-[30%] flex flex-col gap-5">
-              <div className="flex gap-6">
-                <h4>Ориентировочная общая сумма</h4>
-                <p>1 250 000 UZS</p>
+          {cartItems.length > 0 && (
+            <div className="w-full mt-6 flex justify-end">
+              <div className="w-[30%] flex flex-col gap-5">
+                <div className="flex gap-6">
+                  <h4>Ориентировочная общая сумма</h4>
+                  <p>
+                    {formatCurrency(
+                      cartItems.reduce(
+                        (acc, cur) => acc + cur.price * cur.count,
+                        0
+                      )
+                    )}
+                  </p>
+                </div>
+                <p>
+                  Налоги, скидки и стоимость доставки рассчитываются при
+                  оформлении заказа.
+                </p>
+                <button className="w-full mt-5 py-3 text-center bg-primary-700 text-white hover:bg-white hover:text-primary-950 duration-200 rounded-md border-transparent border hover:border-primary-700">
+                  Оформить заказ
+                </button>
               </div>
-              <p>
-                Налоги, скидки и стоимость доставки рассчитываются при
-                оформлении заказа.
-              </p>
-              <button className="w-full mt-5 py-3 text-center bg-[#3b4f8b] text-white hover:bg-white hover:text-primary-950 duration-200 rounded-md border-transparent border hover:border-[#3b4f8b]">
-                Оформить заказ
-              </button>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </Container>

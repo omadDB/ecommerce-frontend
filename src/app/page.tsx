@@ -1,37 +1,44 @@
 "use client"
 
-import { store } from "@/store/store"
-import { Provider } from "react-redux"
-
 import Bestsellers from "@/components/Bestsellers"
 import CarouselHero from "@/components/CarouselHero"
-import Contact from "@/components/Contact"
+import Categories from "@/components/Categories"
 import Container from "@/components/Container"
-import Footer from "@/components/Footer"
 import Faq from "@/components/Faq"
+import { OrderCall } from "@/components/OrderCall"
 
 export default function Home() {
   return (
-    <Provider store={store}>
-      <>
-        <main>
+    <>
+      <main>
+        <Container>
+          <section className=" my-8">
+            <CarouselHero />
+          </section>
+        </Container>
+
+        <section>
+          <Bestsellers />
+        </section>
+
+        <section className="my-12">
           <Container>
-            <section className=" my-8">
-              <CarouselHero />
-            </section>
+            <Categories />
           </Container>
+        </section>
 
-          <section>
-            <Bestsellers />
-          </section>
+        <section>
+          <div className="flex justify-center items-center min-h-screen bg-gray-300 p-4">
+            <Container>
+              <OrderCall />
+            </Container>
+          </div>
+        </section>
 
-          <section>
-            <Faq />
-          </section>
-        </main>
-
-        {/* <Footer /> */}
-      </>
-    </Provider>
+        <section>
+          <Faq />
+        </section>
+      </main>
+    </>
   )
 }

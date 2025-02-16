@@ -1,0 +1,9 @@
+<!-- public/illustration.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" fill="none">
+  <circle cx="250" cy="250" r="250" fill="#5575d4" />
+  <path d="M200 300H300V350H200V300Z" fill="#3e5cb4" />
+  <path d="M225 200H275V300H225V200Z" fill="#3e5cb4" />
+  <circle cx="250" cy="150" r="30" fill="#3e5cb4" />
+  <path d="M250 180V200" stroke="#3e5cb4" stroke-width="10" />
+  <path d="M250 300V350" stroke="#3e5cb4" stroke-width="10" />
+</svg>

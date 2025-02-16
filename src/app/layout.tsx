@@ -5,6 +5,7 @@ import "../styles/globals.css"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Footer from "@/components/Footer"
+import StoreProvider from "./StoreProvider"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -20,16 +21,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} antialiased min-h-screen  grid grid-rows-[90px_1fr] `}
-      >
-        <Navbar />
-        {/* <div className="container-box w-full !py-8 !pb-10 relative"> */}
-        {children}
-        {/* </div> */}
+      <StoreProvider>
+        <body
+          className={`${inter.className} antialiased min-h-screen  grid grid-rows-[90px_1fr] `}
+        >
+          <Navbar />
+          {/* <div className="container-box w-full !py-8 !pb-10 relative"> */}
+          {children}
+          {/* </div> */}
 
-        <Footer />
-      </body>
+          <Footer />
+        </body>
+      </StoreProvider>
     </html>
   )
 }
