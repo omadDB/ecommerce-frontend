@@ -1,19 +1,46 @@
-"use client"
+'use client';
 
-import Container from "@/components/Container"
-import CartItem from "@/features/cart/CartItem"
-import { useAppSelector } from "@/lib/store/hooks"
-import { formatCurrency } from "@/utils/helpers"
-import { ShoppingBagIcon, TagIcon } from "lucide-react"
-import Link from "next/link"
-import { useEffect } from "react"
+import Container from '@/components/Container';
+import Spinner from '@/components/Spinner';
+import CartItem from '@/features/cart/CartItem';
+import axiosInstance from '@/lib/axios';
+import { setCart } from '@/lib/store/cartSlice';
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { formatCurrency } from '@/utils/helpers';
+import { ShoppingBagIcon, TagIcon } from 'lucide-react';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function Page() {
-  const cartItems = useAppSelector((state) => state.cart.cartItems)
+  const dispatch = useAppDispatch();
+  const { items, totalPrice } = useAppSelector((state) => state.cart);
+  // const userId = useAppSelector((state) => state.auth.userId);
+  const userId = 2;
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    window.scrollTo(0, 0) // Scroll to top when the component mounts
-  }, [])
+    window.scrollTo(0, 0);
+    if (!userId) return;
+
+    async function fetchCart() {
+      try {
+        setLoading(true);
+        const res = await axiosInstance.get(`/cart/${userId}`);
+        dispatch(setCart(res.data));
+      } catch (err) {
+        console.error(err);
+        setError('Failed to fetch cart');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCart();
+  }, [userId, dispatch]);
+
+  if (error) return <p>{error}</p>;
+  if (loading) return <Spinner />;
 
   return (
     <Container>
@@ -45,13 +72,16 @@ export default function Page() {
             </thead>
             <tbody
               className={`${
-                cartItems.length > 0 && "border-b border-gray-300"
+                items.length > 0 && 'border-b border-gray-300'
               } w-full`}
             >
-              {cartItems.length ? (
-                cartItems.map((product) => (
-                  <CartItem product={product} key={product.productId} />
-                ))
+              {items.length ? (
+                items
+                  .slice()
+                  .sort((a, b) => a.id! - b.id!)
+                  .map((product) => (
+                    <CartItem product={product} key={product.id} />
+                  ))
               ) : (
                 <tr>
                   <td colSpan={4} className="p-2">
@@ -73,19 +103,12 @@ export default function Page() {
             </tbody>
           </table>
 
-          {cartItems.length > 0 && (
+          {items.length > 0 && (
             <div className="w-full mt-6 flex justify-end">
               <div className="w-[30%] flex flex-col gap-5">
                 <div className="flex gap-6">
                   <h4>Ориентировочная общая сумма</h4>
-                  <p>
-                    {formatCurrency(
-                      cartItems.reduce(
-                        (acc, cur) => acc + cur.price * cur.count,
-                        0
-                      )
-                    )}
-                  </p>
+                  <p>{formatCurrency(totalPrice)}</p>
                 </div>
                 <p>
                   Налоги, скидки и стоимость доставки рассчитываются при
@@ -100,5 +123,5 @@ export default function Page() {
         </div>
       </div>
     </Container>
-  )
+  );
 }

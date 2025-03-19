@@ -1,68 +1,67 @@
-"use client"
+'use client';
 
-import Container from "@/components/Container"
-import Spinner from "@/components/Spinner"
-import { Button } from "@/components/ui/button"
-import axiosInstance from "@/lib/axios"
-import { Category } from "@/types/categoryModel"
-import { Product } from "@/types/productModel"
-import { ShoppingBagIcon } from "@heroicons/react/24/solid"
-import Image from "next/image"
-import Link from "next/link"
-import { useSearchParams } from "next/navigation"
-import { use, useEffect, useState } from "react"
+import Container from '@/components/Container';
+import Spinner from '@/components/Spinner';
+import { Button } from '@/components/ui/button';
+import axiosInstance from '@/lib/axios';
+import { Category } from '@/types/categoryModel';
+import { Product } from '@/types/productModel';
+import { ShoppingBagIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { use, useEffect, useState } from 'react';
 
 export default function Page({
   params,
 }: {
-  params: Promise<{ categoryName: string }>
+  params: Promise<{ categoryName: string }>;
 }) {
   //   const category = params.categoryName || "All"
-  const searchParams = useSearchParams()
-  const id = searchParams.get("id")
-  const { categoryName } = use(params)
-  const isAll = String(categoryName) === "all"
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
+  const { categoryName } = use(params);
+  const isAll = String(categoryName) === 'all';
 
-  const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string | null>(null)
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
 
     async function fetchProducts() {
-      let response
+      let response;
       try {
-        setLoading(true)
+        setLoading(true);
         if (isAll) {
-          response = await axiosInstance.get<Product[]>(`/products`)
-          setProducts(response.data)
-          console.log(response)
+          response = await axiosInstance.get<Product[]>(`/products`);
+          setProducts(response.data);
         } else {
-          response = await axiosInstance.get<Category>(`/categories/${id}`)
-          setProducts(response.data.products)
+          response = await axiosInstance.get<Category>(`/categories/${id}`);
+          setProducts(response.data.products);
         }
       } catch (err) {
-        console.error(err)
-        setError("Faield to fetch products")
+        console.error(err);
+        setError('Faield to fetch products');
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
 
-    fetchProducts()
-  }, [id, isAll])
+    fetchProducts();
+  }, [id, isAll]);
 
-  if (loading) return <Spinner />
-  if (error) return <p>Error: {error}</p>
+  if (loading) return <Spinner />;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <Container>
       <div className="my-8">
         <h2 className="text-4xl font-bold mb-6">
           {(categoryName.charAt(0).toUpperCase() + categoryName.slice(1))
-            .split("%20")
-            .join(" ")}
+            .split('%20')
+            .join(' ')}
         </h2>
 
         <div className="grid grid-cols-4 gap-8">
@@ -99,5 +98,5 @@ export default function Page({
         </div>
       </div>
     </Container>
-  )
+  );
 }

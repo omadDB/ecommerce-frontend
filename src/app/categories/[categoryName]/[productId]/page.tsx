@@ -1,76 +1,92 @@
-"use client"
+'use client';
 
-import Container from "@/components/Container"
-import Spinner from "@/components/Spinner"
-import axiosInstance from "@/lib/axios"
-import { addItem } from "@/lib/store/cartSlice"
-import { useAppDispatch } from "@/lib/store/hooks"
-import { Product } from "@/types/productModel"
-import { formatCurrency } from "@/utils/helpers"
-import { ShoppingBagIcon } from "@heroicons/react/24/solid"
-import clsx from "clsx"
-import { ChevronRight } from "lucide-react"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
-import { use, useEffect, useState } from "react"
+import Container from '@/components/Container';
+import Spinner from '@/components/Spinner';
+import useCartActions from '@/hooks/useCartActions';
+import axiosInstance from '@/lib/axios';
+import { CartItem } from '@/types/cartItemModel';
+import { Product } from '@/types/productModel';
+import { formatCurrency } from '@/utils/helpers';
+import { ShoppingBagIcon } from '@heroicons/react/24/solid';
+import { useQueryClient } from '@tanstack/react-query';
+import clsx from 'clsx';
+import { ChevronRight } from 'lucide-react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { use, useEffect, useState } from 'react';
 
 export default function Page({
   params,
 }: {
-  params: Promise<{ productId: number }>
+  params: Promise<{ productId: number }>;
 }) {
-  const dispatch = useAppDispatch()
-  const router = useRouter()
-  const [size, setSize] = useState("s")
-  const [localQuantity, setLocalQuantity] = useState<number>(1)
-  const [product, setProduct] = useState<Product | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState<boolean>(false)
-  const { productId: id } = use(params)
+  const { addMutation, updateMutation } = useCartActions();
+  const queryClient = useQueryClient();
+
+  const router = useRouter();
+  const [size, setSize] = useState('s');
+  const [localQuantity, setLocalQuantity] = useState<number>(1);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const { productId: id } = use(params);
 
   useEffect(() => {
-    if (!id) return
+    if (!id) return;
 
     async function fetchProduct() {
       try {
-        setLoading(true)
-        const response = await axiosInstance.get<Product>(`/products/${id}`)
-        console.log(response)
-        setProduct(response.data)
+        setLoading(true);
+        const response = await axiosInstance.get<Product>(`/products/${id}`);
+
+        setProduct(response.data);
       } catch (err) {
-        console.error(err)
-        setError("Failed to fetch product")
+        console.error(err);
+        setError('Failed to fetch product');
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
-    fetchProduct()
-  }, [id])
+    fetchProduct();
+  }, [id]);
 
-  if (error) return <p>{error}</p>
-  if (loading || !product) return <Spinner />
-
-  console.log(product)
+  if (error) return <p>{error}</p>;
+  if (loading || !product) return <Spinner />;
 
   function handleAddToCart() {
-    if (!product) return
+    if (!product) return;
 
-    const newItem = {
-      productId: id,
-      name: product.name,
-      price: product.price,
-      stock: product.stock,
-      count: localQuantity,
-      sum: product.price * localQuantity,
+    const cartItems = queryClient.getQueryData<CartItem[]>(['cart']) || [];
+    console.log(cartItems);
+    console.log(id);
+    const existingItem = cartItems.find((item) => item.productId === id);
+
+    // If the item is already in the cart, update the quantity instead of adding a duplicate
+    if (existingItem) {
+      updateMutation.mutate({
+        productId: id,
+        count: localQuantity,
+        sum: product.price * localQuantity,
+        product,
+      });
+    } else {
+      // If the item is not in the cart, add a new entry
+      addMutation.mutate({
+        productId: id,
+        count: localQuantity,
+        sum: product.price * localQuantity,
+        product,
+      });
     }
-    dispatch(addItem(newItem))
 
-    router.push("/cart")
+    console.log(existingItem);
+
+    router.push('/cart');
   }
 
   function handleLocalQuantityChange(newQuantity: number) {
     if (product && newQuantity >= 1 && newQuantity <= product.stock) {
-      setLocalQuantity(newQuantity)
+      setLocalQuantity(newQuantity);
     }
   }
 
@@ -104,25 +120,25 @@ export default function Page({
                 <ChevronRight width={18} />
               </span>
               <p className="text-gray-400 font-normal">
-                {size === "s" ? "Small" : "Medium"}
+                {size === 's' ? 'Small' : 'Medium'}
               </p>
             </div>
             <div className="flex gap-4">
               <button
                 className={clsx(
-                  "border border-gray-300 hover:bg-[#1c284b] duration-200 py-2 px-4 rounded-lg hover:text-white",
-                  size.toLowerCase() === "s" ? "bg-[#1c284b] text-white" : ""
+                  'border border-gray-300 hover:bg-[#1c284b] duration-200 py-2 px-4 rounded-lg hover:text-white',
+                  size.toLowerCase() === 's' ? 'bg-[#1c284b] text-white' : ''
                 )}
-                onClick={() => setSize("s")}
+                onClick={() => setSize('s')}
               >
                 S
               </button>
               <button
                 className={clsx(
-                  "border border-gray-300 hover:bg-[#1c284b] duration-200 py-2 px-4 rounded-lg hover:text-white",
-                  size.toLowerCase() === "m" ? "bg-[#1c284b] text-white" : ""
+                  'border border-gray-300 hover:bg-[#1c284b] duration-200 py-2 px-4 rounded-lg hover:text-white',
+                  size.toLowerCase() === 'm' ? 'bg-[#1c284b] text-white' : ''
                 )}
-                onClick={() => setSize("m")}
+                onClick={() => setSize('m')}
               >
                 M
               </button>
@@ -199,11 +215,11 @@ export default function Page({
               height={24}
               fill="none"
               stroke="white"
-            />{" "}
+            />{' '}
             Добавить в корзину
           </button>
         </div>
       </div>
     </Container>
-  )
+  );
 }

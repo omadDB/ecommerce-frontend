@@ -28,9 +28,6 @@ export function OrderCall() {
 
         {/* Form Section */}
         <div className="w-[50%] p-16">
-          <h2 className="text-center text-4xl font-bold text-white mb-4">
-            Order a Call
-          </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-4">
               <div className="flex flex-col gap-1">

@@ -1,42 +1,57 @@
-"use client"
+'use client';
 
-import {
-  decrementCount,
-  incrementCount,
-  setItemCount,
-} from "@/lib/store/cartSlice"
-import { useAppDispatch } from "@/lib/store/hooks"
+import useCartActions from '@/hooks/useCartActions';
+import { useQueryClient } from '@tanstack/react-query';
+import { CartItem } from '@/types/cartItemModel';
 
 export default function UpdateProductQuantity({
   productId,
   currentQuantity,
   stock,
 }: {
-  productId: number
-  currentQuantity: number
-  stock: number
+  productId: number;
+  currentQuantity: number;
+  stock: number;
 }) {
-  const dispatch = useAppDispatch()
+  const { updateMutation } = useCartActions();
+  const queryClient = useQueryClient();
+
+  function updateQuantity(newCount: number) {
+    // Get the full cart from cache
+    const cart: CartItem[] | undefined = queryClient.getQueryData(['cart']);
+
+    // Find the item to update
+    const itemToUpdate = cart?.find((item) => item.productId === productId);
+
+    if (!itemToUpdate) return;
+
+    // Create the updated item with the new count
+    const updatedItem: CartItem = {
+      ...itemToUpdate,
+      count: newCount,
+      sum: newCount * itemToUpdate.product!.price!, // Update total sum
+    };
+
+    // Mutate with full updated item
+    updateMutation.mutate(updatedItem);
+  }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = Number(e.target.value)
-
+    const value = Number(e.target.value);
     if (!isNaN(value) && value >= 1 && value <= stock) {
-      dispatch(setItemCount({ id: productId, count: value }))
+      updateQuantity(value);
     }
   }
 
   function handleIncrement() {
     if (currentQuantity < stock) {
-      dispatch(incrementCount(productId))
-      // setInputCount((v) => v + 1)
+      updateQuantity(currentQuantity + 1);
     }
   }
 
   function handleDecrement() {
     if (currentQuantity > 1) {
-      dispatch(decrementCount(productId))
-      // setInputCount((v) => v - 1)
+      updateQuantity(currentQuantity - 1);
     }
   }
 
@@ -65,5 +80,5 @@ export default function UpdateProductQuantity({
         +
       </button>
     </div>
-  )
+  );
 }

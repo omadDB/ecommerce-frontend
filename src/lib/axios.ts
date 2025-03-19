@@ -1,21 +1,37 @@
 // lib/axios.ts
 import axios, {
   AxiosInstance,
-  AxiosResponse,
   AxiosError,
   InternalAxiosRequestConfig,
-} from "axios"
+} from 'axios';
 
 // Define the base URL from environment variables
-const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
+const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 // Create an Axios instance
 const axiosInstance: AxiosInstance = axios.create({
   baseURL,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
-})
+});
+
+axiosInstance.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    // You can modify the request config here (e.g., add auth tokens)
+    const token = localStorage.getItem('token'); // Example: Get token from localStorage
+    if (token) {
+      config.headers = config.headers || {};
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error: AxiosError) => {
+    return Promise.reject(error);
+  }
+);
+
+export default axiosInstance;
 
 // Add request interceptor
 // axiosInstance.interceptors.request.use(
@@ -48,5 +64,3 @@ const axiosInstance: AxiosInstance = axios.create({
 //     return Promise.reject(error)
 //   }
 // )
-
-export default axiosInstance
