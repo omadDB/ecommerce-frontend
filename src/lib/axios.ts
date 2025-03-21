@@ -16,20 +16,20 @@ const axiosInstance: AxiosInstance = axios.create({
   },
 });
 
-axiosInstance.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    // You can modify the request config here (e.g., add auth tokens)
-    const token = localStorage.getItem('token'); // Example: Get token from localStorage
-    if (token) {
-      config.headers = config.headers || {};
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error: AxiosError) => {
-    return Promise.reject(error);
-  }
-);
+// axiosInstance.interceptors.request.use(
+//   (config: InternalAxiosRequestConfig) => {
+//     // You can modify the request config here (e.g., add auth tokens)
+//     const token = localStorage.getItem('token'); // Example: Get token from localStorage
+//     if (token) {
+//       config.headers = config.headers || {};
+//       config.headers.Authorization = `Bearer ${token}`;
+//     }
+//     return config;
+//   },
+//   (error: AxiosError) => {
+//     return Promise.reject(error);
+//   }
+// );
 
 export default axiosInstance;
 

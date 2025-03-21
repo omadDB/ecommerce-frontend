@@ -1,29 +1,27 @@
 import { useQuery } from '@tanstack/react-query';
-import { useDispatch } from 'react-redux';
-import { setCart } from '@/lib/store/cartSlice';
-import { CartItem } from '@/types/cartItemModel';
-import { useEffect } from 'react';
+import { getCart } from './useCartActions';
 
-const fetchCart = async (userId: number): Promise<CartItem[]> => {
-  const res = await fetch(`/api/cart/${userId}`);
-  if (!res.ok) throw new Error('Failed to fetch cart');
-  return res.json();
-};
+export function useCart(userId: number | null) {
+  const fetchCart = async () => {
+    if (userId) {
+      return await getCart(userId); // Fetch from backend if logged in
+    } else {
+      // Retrieve guest cart from localStorage
+      const guestCart = localStorage.getItem('guestCart');
+      return guestCart ? JSON.parse(guestCart) : [];
+    }
+  };
 
-export const useCart = (userId: number) => {
-  const dispatch = useDispatch();
-
-  const cartQuery = useQuery({
+  const {
+    data: cart = [], // Default to an empty array
+    isSuccess,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ['cart', userId],
-    queryFn: () => fetchCart(userId),
+    queryFn: fetchCart,
+    enabled: userId !== undefined || typeof window !== 'undefined',
   });
 
-  // Sync Redux state when data changes
-  useEffect(() => {
-    if (cartQuery.data) {
-      dispatch(setCart(cartQuery.data));
-    }
-  }, [cartQuery.data, dispatch]);
-
-  return cartQuery;
-};
+  return { cart, isSuccess, isLoading, error };
+}

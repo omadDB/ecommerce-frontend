@@ -5,6 +5,7 @@ function makeQueryClient() {
     defaultOptions: {
       queries: {
         staleTime: 60 * 1000,
+        refetchInterval: 65 * 1000,
       },
     },
   });

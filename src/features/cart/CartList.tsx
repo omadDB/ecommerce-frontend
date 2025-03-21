@@ -1,8 +1,10 @@
-import { useSyncCartWithRedux } from '@/hooks/useCart';
+import { ShoppingBagIcon, TagIcon } from 'lucide-react';
+import CartItem from './CartItem';
+import Link from 'next/link';
+import { CartItem as CartItemModel } from '@/types/cartItemModel';
+import CartCta from './CartCTA';
 
-export function CartList() {
-  const { items, totalPrice } = useSyncCartWithRedux();
-
+export function CartList({ cart }: { cart: CartItemModel[] }) {
   return (
     <div className="mt-1 w-full">
       <table className="w-full border-collapse">
@@ -20,13 +22,15 @@ export function CartList() {
           </tr>
         </thead>
         <tbody
-          className={`${items.length > 0 && 'border-b border-gray-300'} w-full`}
+          className={`${cart.length > 0 && 'border-b border-gray-300'} w-full`}
         >
-          {items.length ? (
-            items
+          {cart.length ? (
+            cart
               .slice()
               .sort((a, b) => a.id! - b.id!)
-              .map((product) => <CartItem product={product} key={product.id} />)
+              .map((cartItem) => (
+                <CartItem cartItem={cartItem} key={cartItem.id} />
+              ))
           ) : (
             <tr>
               <td colSpan={4} className="p-2">
@@ -48,23 +52,7 @@ export function CartList() {
         </tbody>
       </table>
 
-      {items.length > 0 && (
-        <div className="w-full mt-6 flex justify-end">
-          <div className="w-[30%] flex flex-col gap-5">
-            <div className="flex gap-6">
-              <h4>Ориентировочная общая сумма</h4>
-              <p>{formatCurrency(totalPrice)}</p>
-            </div>
-            <p>
-              Налоги, скидки и стоимость доставки рассчитываются при оформлении
-              заказа.
-            </p>
-            <button className="w-full mt-5 py-3 text-center bg-primary-700 text-white hover:bg-white hover:text-primary-950 duration-200 rounded-md border-transparent border hover:border-primary-700">
-              Оформить заказ
-            </button>
-          </div>
-        </div>
-      )}
+      <CartCta />
     </div>
   );
 }

@@ -1,32 +1,31 @@
 import Spinner from '@/components/Spinner';
-import UpdateProductQuantity from '@/components/UpdateItemQuantity';
+import UpdateItemQuantity from '@/components/UpdateItemQuantity';
 import useCartActions from '@/hooks/useCartActions';
-import { getCurrentQuantityById, removeFromCart } from '@/lib/store/cartSlice';
-import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { getCurrentQuantityById } from '@/lib/store/cartSlice';
+import { useAppSelector } from '@/lib/store/hooks';
 import { CartItem as CartItemModel } from '@/types/cartItemModel';
 import { formatCurrency } from '@/utils/helpers';
 import { TrashIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 
-function CartItem({ product }: { product: CartItemModel }) {
-  const dispatch = useAppDispatch();
+function CartItem({ cartItem }: { cartItem: CartItemModel }) {
   const { removeMutation } = useCartActions();
 
   const currentQuantity =
     useAppSelector((state) =>
-      getCurrentQuantityById(product.productId)(state)
+      getCurrentQuantityById(cartItem.productId)(state)
     ) || 1;
 
   function handleRemove() {
-    removeMutation.mutate(product.productId);
+    removeMutation.mutate(cartItem.productId);
     // dispatch(removeFromCart(product.productId));
   }
 
-  if (!product) return <Spinner />;
-  if (!product.product) return null;
+  if (!cartItem) return <Spinner />;
+  if (!cartItem.product) return null;
 
   return (
-    <tr key={product.productId} className="">
+    <tr key={cartItem.productId} className="">
       {/* Product and Image */}
       <td className="p-4" colSpan={2}>
         <div className="flex items-center gap-4">
@@ -39,9 +38,9 @@ function CartItem({ product }: { product: CartItemModel }) {
             />
           </div>
           <div>
-            <h4 className="font-medium">{product.product.name}</h4>
+            <h4 className="font-medium">{cartItem.product.name}</h4>
             <p className="text-gray-500">
-              {formatCurrency(product.product.price)}
+              {formatCurrency(cartItem.product.price)}
             </p>
           </div>
         </div>
@@ -50,9 +49,8 @@ function CartItem({ product }: { product: CartItemModel }) {
       {/* Quantity */}
       <td className="p-4  text-center">
         <div className="flex items-center justify-center gap-2">
-          <UpdateProductQuantity
-            productId={product.productId}
-            stock={product.product.stock!}
+          <UpdateItemQuantity
+            cartItem={cartItem}
             currentQuantity={currentQuantity}
           />
           <button className="cursor-pointer" onClick={handleRemove}>
@@ -70,7 +68,7 @@ function CartItem({ product }: { product: CartItemModel }) {
       {/* Total */}
       <td className="p-4 text-center">
         <p className="tracking-widest text-lg">
-          {formatCurrency(product.product.price! * currentQuantity)}
+          {formatCurrency(cartItem.product.price! * currentQuantity)}
         </p>
       </td>
     </tr>

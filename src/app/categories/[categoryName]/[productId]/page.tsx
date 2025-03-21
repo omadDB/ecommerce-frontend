@@ -4,6 +4,7 @@ import Container from '@/components/Container';
 import Spinner from '@/components/Spinner';
 import useCartActions from '@/hooks/useCartActions';
 import axiosInstance from '@/lib/axios';
+import { useAppSelector } from '@/lib/store/hooks';
 import { CartItem } from '@/types/cartItemModel';
 import { Product } from '@/types/productModel';
 import { formatCurrency } from '@/utils/helpers';
@@ -22,6 +23,7 @@ export default function Page({
 }) {
   const { addMutation, updateMutation } = useCartActions();
   const queryClient = useQueryClient();
+  const { items } = useAppSelector((state) => state.cart);
 
   const router = useRouter();
   const [size, setSize] = useState('s');
@@ -30,6 +32,14 @@ export default function Page({
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const { productId: id } = use(params);
+  const cartItem = items.find((item) => item.productId === id);
+
+  useEffect(() => {
+    // Sync the UI quantity with the cart if the item exists
+    if (cartItem) {
+      setLocalQuantity(cartItem.count);
+    }
+  }, [cartItem]);
 
   useEffect(() => {
     if (!id) return;
@@ -56,17 +66,16 @@ export default function Page({
   function handleAddToCart() {
     if (!product) return;
 
-    const cartItems = queryClient.getQueryData<CartItem[]>(['cart']) || [];
-    console.log(cartItems);
-    console.log(id);
-    const existingItem = cartItems.find((item) => item.productId === id);
+    // const cartItems = queryClient.getQueryData<CartItem[]>(['cart']) || [];
+    // console.log(cartItems, cartItem);
+    // const existingItem = cartItems.find((item) => item.productId === id);
 
     // If the item is already in the cart, update the quantity instead of adding a duplicate
-    if (existingItem) {
+    if (cartItem) {
       updateMutation.mutate({
         productId: id,
-        count: localQuantity,
-        sum: product.price * localQuantity,
+        count: cartItem.count + localQuantity,
+        sum: product.price * (cartItem.count + localQuantity),
         product,
       });
     } else {
@@ -79,13 +88,24 @@ export default function Page({
       });
     }
 
-    console.log(existingItem);
+    console.log(cartItem);
 
     router.push('/cart');
   }
 
+  console.log(cartItem, items);
+
   function handleLocalQuantityChange(newQuantity: number) {
     if (product && newQuantity >= 1 && newQuantity <= product.stock) {
+      updateMutation.mutate({
+        productId: id,
+        count: newQuantity,
+        sum: product.price * newQuantity,
+        product: {
+          ...product,
+          stock: product.stock - newQuantity,
+        },
+      });
       setLocalQuantity(newQuantity);
     }
   }
@@ -167,7 +187,7 @@ export default function Page({
                 type="number"
                 value={localQuantity}
                 min={1}
-                max={product.stock}
+                max={product?.stock}
                 onChange={(e) =>
                   handleLocalQuantityChange(Number(e.target.value))
                 }

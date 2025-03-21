@@ -8,6 +8,15 @@ import {
 import { CartItem } from '@/types/cartItemModel';
 import axiosInstance from '@/lib/axios';
 
+export async function getCart(userId: number) {
+  try {
+    const res = await axiosInstance.get<CartItem[]>(`/cart/${userId}`);
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 const addCartItem = async (item: CartItem) => {
   try {
     const res = await axiosInstance.post<CartItem>('/cart/add', item);
@@ -19,6 +28,7 @@ const addCartItem = async (item: CartItem) => {
 
 const updateCartItemAPI = async (item: CartItem) => {
   try {
+    console.log('Adding to cart:', item);
     const res = await axiosInstance.put<CartItem>('/cart/update', item);
     return res.data;
   } catch (err) {
@@ -32,6 +42,7 @@ const removeCartItemAPI = async (productId: number) => {
     const res = await axiosInstance.delete<CartItem>(
       `/cart/remove/${productId}`
     );
+    return res.data;
   } catch (err) {
     console.error(err);
   }
@@ -50,10 +61,14 @@ export const useCartActions = () => {
       ]);
       dispatch(addToCart(newItem));
     },
-    onSuccess: () =>
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['cart'],
-      }),
+      });
+      queryClient.refetchQueries({
+        queryKey: ['cart'],
+      });
+    },
   });
 
   const updateMutation = useMutation({
