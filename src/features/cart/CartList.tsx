@@ -1,10 +1,11 @@
 import { ShoppingBagIcon, TagIcon } from 'lucide-react';
 import CartItem from './CartItem';
 import Link from 'next/link';
-import { CartItem as CartItemModel } from '@/types/cartItemModel';
+import { CartData } from '@/types/cartItemModel';
 import CartCta from './CartCTA';
 
-export function CartList({ cart }: { cart: CartItemModel[] }) {
+export function CartList({ cart }: { cart: CartData }) {
+  const cartItems = cart.cartItems;
   return (
     <div className="mt-1 w-full">
       <table className="w-full border-collapse">
@@ -22,10 +23,12 @@ export function CartList({ cart }: { cart: CartItemModel[] }) {
           </tr>
         </thead>
         <tbody
-          className={`${cart.length > 0 && 'border-b border-gray-300'} w-full`}
+          className={`${
+            cartItems.length > 0 && 'border-b border-gray-300'
+          } w-full`}
         >
-          {cart.length ? (
-            cart
+          {cartItems.length ? (
+            cartItems
               .slice()
               .sort((a, b) => a.id! - b.id!)
               .map((cartItem) => (

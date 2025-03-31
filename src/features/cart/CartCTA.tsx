@@ -1,16 +1,19 @@
 'use client';
 
-import { useAppSelector } from '@/lib/store/hooks';
+import { useCart } from '@/hooks/useCart';
 import { formatCurrency } from '@/utils/helpers';
 
 export default function CartCta() {
-  const { items, totalPrice } = useAppSelector((state) => state.cart);
+  const userId = 2;
+  const {
+    cart: { cartItems, totalPrice },
+  } = useCart(userId);
 
-  if (!items) return null;
+  if (!cartItems) return null;
 
   return (
     <>
-      {items.length > 0 && (
+      {cartItems.length > 0 && (
         <div className="w-full mt-6 flex justify-end">
           <div className="w-[30%] flex flex-col gap-5">
             <div className="flex gap-6">

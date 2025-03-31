@@ -4,12 +4,23 @@ function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 60 * 1000,
-        refetchInterval: 65 * 1000,
+        staleTime: 0,
+        refetchInterval: 10000,
       },
     },
   });
 }
+// function makeQueryClient() {
+//   const queryClient = new QueryClient({
+//     mutationCache: new MutationCache({
+//       onSuccess: () => {
+//         queryClient.invalidateQueries();
+//       },
+//     }),
+//   });
+
+//   return queryClient;
+// }
 
 let browserQueryClient: QueryClient | undefined;
 

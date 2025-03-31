@@ -1,8 +1,6 @@
 import Spinner from '@/components/Spinner';
-import UpdateItemQuantity from '@/components/UpdateItemQuantity';
+import UpdateCartItemQuantity from '@/components/UpdateCartItemQuantity';
 import useCartActions from '@/hooks/useCartActions';
-import { getCurrentQuantityById } from '@/lib/store/cartSlice';
-import { useAppSelector } from '@/lib/store/hooks';
 import { CartItem as CartItemModel } from '@/types/cartItemModel';
 import { formatCurrency } from '@/utils/helpers';
 import { TrashIcon } from '@heroicons/react/24/solid';
@@ -10,11 +8,6 @@ import Image from 'next/image';
 
 function CartItem({ cartItem }: { cartItem: CartItemModel }) {
   const { removeMutation } = useCartActions();
-
-  const currentQuantity =
-    useAppSelector((state) =>
-      getCurrentQuantityById(cartItem.productId)(state)
-    ) || 1;
 
   function handleRemove() {
     removeMutation.mutate(cartItem.productId);
@@ -49,10 +42,7 @@ function CartItem({ cartItem }: { cartItem: CartItemModel }) {
       {/* Quantity */}
       <td className="p-4  text-center">
         <div className="flex items-center justify-center gap-2">
-          <UpdateItemQuantity
-            cartItem={cartItem}
-            currentQuantity={currentQuantity}
-          />
+          <UpdateCartItemQuantity cartItem={cartItem} />
           <button className="cursor-pointer" onClick={handleRemove}>
             <TrashIcon
               width={20}
@@ -68,7 +58,7 @@ function CartItem({ cartItem }: { cartItem: CartItemModel }) {
       {/* Total */}
       <td className="p-4 text-center">
         <p className="tracking-widest text-lg">
-          {formatCurrency(cartItem.product.price! * currentQuantity)}
+          {formatCurrency(cartItem.product.price! * cartItem.count!)}
         </p>
       </td>
     </tr>

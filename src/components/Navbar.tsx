@@ -1,10 +1,10 @@
-"use client"
+'use client';
 
-import Image from "next/image"
-import Link from "next/link"
-import { ShoppingBagIcon, UserIcon } from "@heroicons/react/24/solid"
-import { usePathname, useRouter } from "next/navigation"
-import ContainerBig from "./ContainerBig"
+import Image from 'next/image';
+import Link from 'next/link';
+import { ShoppingBagIcon, UserIcon } from '@heroicons/react/24/solid';
+import { usePathname } from 'next/navigation';
+import ContainerBig from './ContainerBig';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,47 +12,49 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
-import { cn } from "@/lib/utils"
-import * as React from "react"
+} from '@/components/ui/navigation-menu';
+import { cn } from '@/lib/utils';
+import * as React from 'react';
+import AuthModal from '../features/authentication/AuthModal';
 
 // Define your categories (replace with your actual data)
 const categories = [
   {
-    title: "Electronics",
-    href: "/categories/electronics",
-    description: "Explore the latest gadgets and devices.",
+    title: 'Electronics',
+    href: '/categories/electronics',
+    description: 'Explore the latest gadgets and devices.',
   },
   {
-    title: "Fashion",
-    href: "/categories/fashion",
-    description: "Discover trendy clothing and accessories.",
+    title: 'Fashion',
+    href: '/categories/fashion',
+    description: 'Discover trendy clothing and accessories.',
   },
   {
-    title: "Home & Kitchen",
-    href: "/categories/home-kitchen",
-    description: "Find everything for your home and kitchen.",
+    title: 'Home & Kitchen',
+    href: '/categories/home-kitchen',
+    description: 'Find everything for your home and kitchen.',
   },
   {
-    title: "Beauty",
-    href: "/categories/beauty",
-    description: "Shop for skincare, makeup, and more.",
+    title: 'Beauty',
+    href: '/categories/beauty',
+    description: 'Shop for skincare, makeup, and more.',
   },
   {
-    title: "Sports",
-    href: "/categories/sports",
-    description: "Gear up for your favorite sports and activities.",
+    title: 'Sports',
+    href: '/categories/sports',
+    description: 'Gear up for your favorite sports and activities.',
   },
   {
-    title: "Books",
-    href: "/categories/books",
-    description: "Browse a wide selection of books.",
+    title: 'Books',
+    href: '/categories/books',
+    description: 'Browse a wide selection of books.',
   },
-]
+];
 
 export default function Navbar() {
-  const pathname = usePathname()
-  const router = useRouter()
+  const pathname = usePathname();
+
+  const [isAuthModalOpen, setisAuthModalOpen] = React.useState<boolean>(false);
 
   return (
     <header className="flex justify-center items-center bg-[#1E3A8A]">
@@ -64,9 +66,9 @@ export default function Navbar() {
               <li>
                 <Link
                   className={`${
-                    pathname === "/"
-                      ? "text-white underline-offset-4 underline"
-                      : "text-gray-300 hover:text-white underline-offset-4 hover:underline duration-400"
+                    pathname === '/'
+                      ? 'text-white underline-offset-4 underline'
+                      : 'text-gray-300 hover:text-white underline-offset-4 hover:underline duration-400'
                   } `}
                   href="/"
                 >
@@ -76,9 +78,9 @@ export default function Navbar() {
               <li>
                 <Link
                   className={`${
-                    pathname === "/categories/all"
-                      ? "text-white underline-offset-4 underline"
-                      : "text-gray-300 hover:text-white underline-offset-4 hover:underline duration-400"
+                    pathname === '/categories/all'
+                      ? 'text-white underline-offset-4 underline'
+                      : 'text-gray-300 hover:text-white underline-offset-4 hover:underline duration-400'
                   } `}
                   href="/categories/all"
                 >
@@ -91,13 +93,13 @@ export default function Navbar() {
                     <NavigationMenuItem>
                       <NavigationMenuTrigger
                         className={cn(
-                          "bg-transparent hover:bg-transparent p-0 data-[state=open]:bg-transparent focus:bg-transparent text-md",
+                          'bg-transparent hover:bg-transparent p-0 data-[state=open]:bg-transparent focus:bg-transparent text-md',
 
-                          "text-gray-300 hover:text-white underline-offset-4 hover:underline duration-400"
+                          'text-gray-300 hover:text-white underline-offset-4 hover:underline duration-400'
                         )}
                       >
                         <span
-                          className={`${"text-gray-300 hover:text-white underline-offset-4 hover:underline duration-400"}`}
+                          className={`${'text-gray-300 hover:text-white underline-offset-4 hover:underline duration-400'}`}
                         >
                           Categories
                         </span>
@@ -122,9 +124,9 @@ export default function Navbar() {
               <li>
                 <Link
                   className={`${
-                    pathname === "/contacts"
-                      ? "text-white underline-offset-4 underline"
-                      : "text-gray-300 hover:text-white underline-offset-4 hover:underline duration-400"
+                    pathname === '/contacts'
+                      ? 'text-white underline-offset-4 underline'
+                      : 'text-gray-300 hover:text-white underline-offset-4 hover:underline duration-400'
                   } `}
                   href="/contacts"
                 >
@@ -159,22 +161,30 @@ export default function Navbar() {
               stroke="white"
             />
           </Link>
-          <div
-            onClick={() => router.push("/login")}
-            className="rounded-lg bg-[#5575d4] hover:bg-[#3e5cb4] duration-300 cursor-pointer py-1.5 px-4 text-white"
-          >
-            Sign in
+          <div>
+            <button
+              // onClick={() => router.push("/login")}
+              onClick={() => setisAuthModalOpen(true)}
+              className="rounded-lg bg-[#5575d4] hover:bg-[#3e5cb4] duration-300 cursor-pointer py-1.5 px-4 text-white"
+            >
+              Sign in
+            </button>
+            <AuthModal
+              isAuthModalOpen={isAuthModalOpen}
+              setIsAuthModalOpen={setisAuthModalOpen}
+              defaultForm="login"
+            />
           </div>
         </div>
       </ContainerBig>
     </header>
-  )
+  );
 }
 
 // Reusable ListItem component for the mega menu
 const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
+  React.ElementRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'>
 >(({ className, title, children, ...props }, ref) => {
   return (
     <li className="h-full">
@@ -182,7 +192,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block h-full select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            'block h-full select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
             className
           )}
           {...props}
@@ -194,6 +204,6 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = 'ListItem';

@@ -1,104 +1,48 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useDispatch } from 'react-redux';
-import {
-  addToCart,
-  updateCartItem,
-  removeFromCart,
-} from '@/lib/store/cartSlice';
-import { CartItem } from '@/types/cartItemModel';
-import axiosInstance from '@/lib/axios';
-
-export async function getCart(userId: number) {
-  try {
-    const res = await axiosInstance.get<CartItem[]>(`/cart/${userId}`);
-    return res.data;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-const addCartItem = async (item: CartItem) => {
-  try {
-    const res = await axiosInstance.post<CartItem>('/cart/add', item);
-    return res.data;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-const updateCartItemAPI = async (item: CartItem) => {
-  try {
-    console.log('Adding to cart:', item);
-    const res = await axiosInstance.put<CartItem>('/cart/update', item);
-    return res.data;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-const removeCartItemAPI = async (productId: number) => {
-  try {
-    console.log('Adding to cart:', productId);
-    const res = await axiosInstance.delete<CartItem>(
-      `/cart/remove/${productId}`
-    );
-    return res.data;
-  } catch (err) {
-    console.error(err);
-  }
-};
+import { useMutation } from '@tanstack/react-query';
+import { getQueryClient } from '@/app/get-query-client';
+import { cartApi } from '@/services/apiCart';
+import toast from 'react-hot-toast';
+import useAxiosPrivate from '@/lib/axios/useAxiosPrivate';
 
 export const useCartActions = () => {
-  const dispatch = useDispatch();
-  const queryClient = useQueryClient();
+  const axiosPrivate = useAxiosPrivate();
+  const { addCartItem, removeCartItemAPI, updateCartItemAPI } =
+    cartApi(axiosPrivate);
+  const queryClient = getQueryClient();
 
   const addMutation = useMutation({
     mutationFn: addCartItem,
-    onMutate: (newItem) => {
-      queryClient.setQueryData(['cart'], (oldCart: CartItem[] = []) => [
-        ...oldCart,
-        newItem,
-      ]);
-      dispatch(addToCart(newItem));
-    },
     onSuccess: () => {
+      toast.success('Item successfully added to cart!');
+
       queryClient.invalidateQueries({
         queryKey: ['cart'],
       });
-      queryClient.refetchQueries({
-        queryKey: ['cart'],
-      });
     },
+    onError: (err) => toast.error(err.message),
   });
 
   const updateMutation = useMutation({
     mutationFn: updateCartItemAPI,
-    onMutate: (updatedItem) => {
-      queryClient.setQueryData(['cart'], (oldCart: CartItem[] = []) =>
-        oldCart.map((item) =>
-          item.productId === updatedItem.productId ? updatedItem : item
-        )
-      );
-      dispatch(updateCartItem(updatedItem));
-    },
-    onSuccess: () =>
+    onSuccess: () => {
+      toast.success('Cart item successfully updated!');
+
       queryClient.invalidateQueries({
         queryKey: ['cart'],
-      }),
+      });
+    },
+    onError: (err) => toast.error(err.message),
   });
 
   const removeMutation = useMutation({
     mutationFn: removeCartItemAPI,
-    onMutate: (productId) => {
-      queryClient.setQueryData(['cart'], (oldCart: CartItem[] = []) =>
-        oldCart.filter((oldItem) => productId !== oldItem.productId)
-      );
-      dispatch(removeFromCart(productId));
-    },
-    onSuccess: () =>
+    onSuccess: () => {
+      toast.success('Item successfully removed from cart!');
       queryClient.invalidateQueries({
         queryKey: ['cart'],
-      }),
+      });
+    },
+    onError: (err) => toast.error(err.message),
   });
 
   return { addMutation, updateMutation, removeMutation };

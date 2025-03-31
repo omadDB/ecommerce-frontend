@@ -1,10 +1,10 @@
-"use client"
+'use client';
 
-import Link from "next/link"
-import Image from "next/image"
-import { useEffect, useState } from "react"
-import axiosInstance from "@/lib/axios"
-import { Category } from "@/types/categoryModel"
+import Link from 'next/link';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { axiosPublic } from '@/lib/axios/axios';
+import { Category } from '@/types/categoryModel';
 
 // const categories = [
 //   {
@@ -35,29 +35,29 @@ import { Category } from "@/types/categoryModel"
 // ]
 
 export default function Categories() {
-  const [categories, setCategories] = useState<Category[]>([])
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string | null>(null)
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchCategories() {
       try {
-        setLoading(true)
-        const response = await axiosInstance.get<Category[]>("/categories")
-        setCategories(response.data)
+        setLoading(true);
+        const response = await axiosPublic.get<Category[]>('/categories');
+        setCategories(response.data);
       } catch (err) {
-        console.error(err)
-        setError("Failed to fetch categories")
+        console.error(err);
+        setError('Failed to fetch categories');
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
 
-    fetchCategories()
-  }, [])
+    fetchCategories();
+  }, []);
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error: {error}</p>
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="text-center">
@@ -87,5 +87,5 @@ export default function Categories() {
         ))}
       </div>
     </div>
-  )
+  );
 }

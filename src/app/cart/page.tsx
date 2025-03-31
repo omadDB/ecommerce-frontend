@@ -1,16 +1,22 @@
 import Container from '@/components/Container';
-import { getCart } from '@/hooks/useCartActions';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { getQueryClient } from '../get-query-client';
 import CartClient from '@/features/cart/CartClient';
+import { redirect } from 'next/navigation';
+import { getServerAuth } from '@/app/_lib/serverAuth';
+import { getServerCart } from '@/services/apiCart';
 
 export default async function Page() {
   const queryClient = getQueryClient();
-  const userId = 2;
+  const { userId } = await getServerAuth();
+
+  if (!userId) {
+    redirect('/');
+  }
 
   await queryClient.prefetchQuery({
     queryKey: ['cart', userId],
-    queryFn: () => getCart(userId),
+    queryFn: () => getServerCart(userId),
   });
 
   const dehydratedState = dehydrate(queryClient);
