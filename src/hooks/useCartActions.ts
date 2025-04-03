@@ -1,13 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
 import { getQueryClient } from '@/app/get-query-client';
-import { cartApi } from '@/services/apiCart';
 import toast from 'react-hot-toast';
-import useAxiosPrivate from '@/lib/axios/useAxiosPrivate';
+import {
+  addCartItem,
+  removeCartItemAPI,
+  updateCartItemAPI,
+} from '@/services/apiCart';
 
 export const useCartActions = () => {
-  const axiosPrivate = useAxiosPrivate();
-  const { addCartItem, removeCartItemAPI, updateCartItemAPI } =
-    cartApi(axiosPrivate);
   const queryClient = getQueryClient();
 
   const addMutation = useMutation({

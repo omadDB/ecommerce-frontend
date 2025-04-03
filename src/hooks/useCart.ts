@@ -1,13 +1,12 @@
-import useAxiosPrivate from '@/lib/axios/useAxiosPrivate';
-import { cartApi } from '@/services/apiCart';
+import { getCart } from '@/services/apiCart';
 import { useQuery } from '@tanstack/react-query';
 
 export function useCart(userId: number | null) {
-  const axiosPrivate = useAxiosPrivate();
+  // const axiosPrivate = useAxiosPrivate();
 
   const fetchCart = async () => {
     if (userId) {
-      return await cartApi(axiosPrivate).getCart(userId); // Fetch from backend if logged in
+      return await getCart(userId); // Fetch from backend if logged in
     } else {
       // Retrieve guest cart from localStorage
       const guestCart = localStorage.getItem('guestCart');

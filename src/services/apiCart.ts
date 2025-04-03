@@ -1,65 +1,46 @@
-import { axiosPublic } from '@/lib/axios/axios';
+import { axiosPrivate } from '@/lib/axios/axios';
 import { CartData, CartItem } from '@/types/cartItemModel';
-import { AxiosInstance } from 'axios';
 
-export async function getServerCart(userId: number) {
+export async function getCart(userId: number) {
   try {
-    const res = await axiosPublic.get<CartData>(`/cart/${userId}`);
+    const res = await axiosPrivate.get<CartData>(`/cart/${userId}`);
     return res.data;
   } catch (err) {
     console.error(err);
   }
 }
 
-export function cartApi(axiosPrivate: AxiosInstance) {
-  async function getCart(userId: number) {
-    try {
-      const res = await axiosPrivate.get<CartData>(`/cart/${userId}`);
-      return res.data;
-    } catch (err) {
-      console.error(err);
-    }
+export const addCartItem = async (item: CartItem) => {
+  try {
+    console.log(item);
+    const res = await axiosPrivate.post<CartItem>('/cart/add', item);
+    return res.data;
+  } catch (err) {
+    console.error(err);
   }
+};
 
-  const addCartItem = async (item: CartItem) => {
-    try {
-      console.log(item);
-      const res = await axiosPrivate.post<CartItem>('/cart/add', item);
-      return res.data;
-    } catch (err) {
-      console.error(err);
-    }
-  };
+export const updateCartItemAPI = async (item: CartItem) => {
+  try {
+    console.log('Adding to cart:', item);
+    const res = await axiosPrivate.put<CartItem>('/cart/update', item);
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
 
-  const updateCartItemAPI = async (item: CartItem) => {
-    try {
-      console.log('Adding to cart:', item);
-      const res = await axiosPrivate.put<CartItem>('/cart/update', item);
-      return res.data;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const removeCartItemAPI = async (productId: number) => {
-    try {
-      console.log('Adding to cart:', productId);
-      const res = await axiosPrivate.delete<CartItem>(
-        `/cart/remove/${productId}`
-      );
-      return res.data;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  return {
-    getCart,
-    addCartItem,
-    removeCartItemAPI,
-    updateCartItemAPI,
-  };
-}
+export const removeCartItemAPI = async (productId: number) => {
+  try {
+    console.log('Adding to cart:', productId);
+    const res = await axiosPrivate.delete<CartItem>(
+      `/cart/remove/${productId}`
+    );
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 // 'use client';
 

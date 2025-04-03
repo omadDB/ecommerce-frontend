@@ -7,8 +7,13 @@ import { useProduct } from '@/hooks/useProduct';
 import { useCart } from '@/hooks/useCart';
 import { CartItem } from '@/types/cartItemModel';
 
-export default function ProductClient({ id }: { id: number }) {
-  const userId = 2;
+export default function ProductClient({
+  id,
+  userId,
+}: {
+  id: number;
+  userId: number;
+}) {
   const {
     cart: { cartItems },
     isLoading: isFetchingCart,
@@ -21,7 +26,7 @@ export default function ProductClient({ id }: { id: number }) {
   } = useProduct(Number(id));
 
   let cartItem;
-  if (cartItems.length > 0) {
+  if (cartItems?.length > 0) {
     cartItem = (cartItems || []).find(
       (item: CartItem) => item.productId === product?.id
     );
@@ -35,7 +40,7 @@ export default function ProductClient({ id }: { id: number }) {
   return (
     <div className="grid grid-cols-[50%_1fr] gap-12 my-8">
       <ProductImage />
-      <ProductDetails product={product} cartItem={cartItem} />
+      <ProductDetails userId={userId} product={product} cartItem={cartItem} />
     </div>
   );
 }

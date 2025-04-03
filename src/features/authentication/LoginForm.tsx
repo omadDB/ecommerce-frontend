@@ -27,8 +27,8 @@ const classnames = {
 };
 
 interface LoginFormProps extends React.ComponentPropsWithoutRef<'div'> {
-  setIsRegistering: (open: boolean) => void;
-  setIsAuthModalOpen: (open: boolean) => void;
+  setIsRegistering?: (open: boolean) => void;
+  setIsAuthModalOpen?: (open: boolean) => void;
 }
 
 export function LoginForm({
@@ -62,7 +62,7 @@ export function LoginForm({
           setEmail('');
           setPhone('');
           setPassword('');
-          setIsAuthModalOpen(false);
+          setIsAuthModalOpen?.(false);
         },
       }
     );
@@ -204,7 +204,7 @@ export function LoginForm({
               Don&apos;t have an account?{' '}
               <button
                 type="reset"
-                onClick={() => setIsRegistering(true)}
+                onClick={() => setIsRegistering?.(true)}
                 className="underline underline-offset-4"
               >
                 Create account

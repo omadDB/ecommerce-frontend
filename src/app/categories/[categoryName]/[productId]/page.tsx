@@ -2,7 +2,7 @@ import { getQueryClient } from '@/app/get-query-client';
 import Container from '@/components/Container';
 import ProductClient from '@/features/products/ProductClient';
 import { getServerAuth } from '@/app/_lib/serverAuth';
-import { getServerCart } from '@/services/apiCart';
+import { getCart } from '@/services/apiCart';
 import { getProduct } from '@/services/apiProducts';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
@@ -16,9 +16,10 @@ export default async function Page({ params }: { params: tParams }) {
   if (userId) {
     await queryClient.prefetchQuery({
       queryKey: ['cart', userId],
-      queryFn: () => getServerCart(userId),
+      queryFn: () => getCart(userId),
     });
   }
+
   await queryClient.prefetchQuery({
     queryKey: ['product', Number(id)],
     queryFn: () => getProduct(Number(id)),
@@ -29,7 +30,7 @@ export default async function Page({ params }: { params: tParams }) {
   return (
     <Container>
       <HydrationBoundary state={dehydratedState}>
-        <ProductClient id={id} />
+        <ProductClient id={id} userId={userId} />
       </HydrationBoundary>
     </Container>
   );

@@ -1,5 +1,7 @@
 // lib/api.ts
 import axios from 'axios';
+import useRefreshToken from './useRefreshToken';
+import { getAccessToken } from '../authToken';
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -14,6 +16,33 @@ const axiosPrivate = axios.create({
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 });
+
+axiosPrivate.interceptors.request.use(
+  (config) => {
+    const token = getAccessToken();
+    if (!config.headers['Authorization']) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+axiosPrivate.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const refresh = useRefreshToken();
+    const prevRequest = error?.config;
+    if (error?.response?.status === 403 && !prevRequest?.sent) {
+      prevRequest.sent = true;
+      const newAccessToken = await refresh();
+      prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+      return axiosPrivate(prevRequest);
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 // Request interceptor for adding the auth token
 // axiosPrivate.interceptors.request.use(

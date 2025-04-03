@@ -4,19 +4,19 @@ import { getQueryClient } from '../get-query-client';
 import CartClient from '@/features/cart/CartClient';
 import { redirect } from 'next/navigation';
 import { getServerAuth } from '@/app/_lib/serverAuth';
-import { getServerCart } from '@/services/apiCart';
+import { getCart } from '@/services/apiCart';
 
 export default async function Page() {
   const queryClient = getQueryClient();
   const { userId } = await getServerAuth();
 
   if (!userId) {
-    redirect('/');
+    redirect('/login');
   }
 
   await queryClient.prefetchQuery({
     queryKey: ['cart', userId],
-    queryFn: () => getServerCart(userId),
+    queryFn: () => getCart(userId),
   });
 
   const dehydratedState = dehydrate(queryClient);

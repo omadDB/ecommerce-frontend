@@ -8,13 +8,16 @@ import { CartItem } from '@/types/cartItemModel';
 import { Product } from '@/types/productModel';
 import useCartActions from '@/hooks/useCartActions';
 import UpdateProductOneQuantity from './UpdateProductOneQuantity';
+import { redirect } from 'next/navigation';
 
 export function ProductDetails({
   product,
   cartItem,
+  userId,
 }: {
   product: Product;
   cartItem: CartItem;
+  userId: number;
 }) {
   const { addMutation } = useCartActions();
   const [size, setSize] = useState('s');
@@ -22,6 +25,7 @@ export function ProductDetails({
   const [localQuantity, setLocalQuantity] = useState<number>(1);
 
   function handleAddToCart() {
+    if (!userId) redirect('/login');
     console.log(localQuantity);
     addMutation.mutate({
       productId: product.id,

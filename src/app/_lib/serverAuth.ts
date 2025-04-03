@@ -1,22 +1,32 @@
+// getServerAuth.js (server-side only)
 'use server';
 
-import { decode, JwtPayload } from 'jsonwebtoken';
+import { verify, JwtPayload } from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 
 interface CustomJwtPayload extends JwtPayload {
   id: number;
 }
-export async function getServerAuth() {
-  const token = (await cookies()).get('jwt')?.value;
 
-  let decoded;
+export async function getServerAuth() {
+  const cookieStore = cookies();
+  const token = (await cookieStore).get('jwt')?.value;
+
   if (token) {
-    // Decode the token (no verification)
-    decoded = decode(token) as CustomJwtPayload;
-    console.log(token, decoded);
-    return {
-      token,
-      userId: decoded.id, // Extract userId if it exists
-    };
+    try {
+      // Token verification happens here on the server, safely using your secret.
+      const decoded = verify(
+        token,
+        process.env.REFRESH_TOKEN_SECRET!
+      ) as CustomJwtPayload;
+      return {
+        token,
+        userId: decoded.id,
+      };
+    } catch (err) {
+      console.error('Token verification failed:', err);
+      return { userId: null, token: null };
+    }
   }
+  return { userId: null, token: null };
 }
