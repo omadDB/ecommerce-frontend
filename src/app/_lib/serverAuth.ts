@@ -10,7 +10,7 @@ interface CustomJwtPayload extends JwtPayload {
 
 export async function getServerAuth() {
   const cookieStore = cookies();
-  const token = (await cookieStore).get('jwt')?.value;
+  const token = (await cookieStore).get('jwt')?.value || '';
 
   if (token) {
     try {

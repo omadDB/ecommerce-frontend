@@ -1,28 +1,27 @@
 import { getCart } from '@/services/apiCart';
 import { useQuery } from '@tanstack/react-query';
+import { getAccessToken } from '@/lib/authToken';
 
 export function useCart(userId: number | null) {
-  // const axiosPrivate = useAxiosPrivate();
+  const token = getAccessToken();
 
   const fetchCart = async () => {
-    if (userId) {
-      return await getCart(userId); // Fetch from backend if logged in
+    if (userId && token) {
+      return await getCart(userId);
     } else {
-      // Retrieve guest cart from localStorage
-      const guestCart = localStorage.getItem('guestCart');
-      return guestCart ? JSON.parse(guestCart) : [];
+      return { cartItems: [], totalQuantity: 0, totalPrice: 0 };
     }
   };
 
   const {
-    data: cart = [], // Default to an empty array
+    data: cart = { cartItems: [], totalQuantity: 0, totalPrice: 0 },
     isSuccess,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ['cart', userId],
+    queryKey: ['cart', userId, token],
     queryFn: fetchCart,
-    enabled: userId !== undefined || typeof window !== 'undefined',
+    enabled: !!userId && !!token,
   });
 
   return { cart, isSuccess, isLoading, error };

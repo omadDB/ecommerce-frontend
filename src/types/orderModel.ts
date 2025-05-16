@@ -1,3 +1,5 @@
+import { OrderItem } from './orderItemModel';
+
 export type Order = {
   id: number;
   userId: number;
@@ -9,11 +11,4 @@ export type Order = {
   deliveredAt?: Date;
   deductedFromStock: boolean;
   items: OrderItem[];
-};
-
-export type OrderItem = {
-  productId: number;
-  name: string;
-  price: number;
-  count: number;
 };

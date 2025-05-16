@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { CartData } from '@/types/cartItemModel';
 import CartCta from './CartCTA';
 
-export function CartList({ cart }: { cart: CartData }) {
+export function CartList({ cart, userId }: { cart: CartData; userId: number }) {
   const cartItems = cart.cartItems;
   return (
     <div className="mt-1 w-full">
@@ -24,10 +24,10 @@ export function CartList({ cart }: { cart: CartData }) {
         </thead>
         <tbody
           className={`${
-            cartItems.length > 0 && 'border-b border-gray-300'
+            cartItems?.length > 0 && 'border-b border-gray-300'
           } w-full`}
         >
-          {cartItems.length ? (
+          {cartItems?.length ? (
             cartItems
               .slice()
               .sort((a, b) => a.id! - b.id!)
@@ -55,7 +55,7 @@ export function CartList({ cart }: { cart: CartData }) {
         </tbody>
       </table>
 
-      <CartCta />
+      <CartCta userId={userId} />
     </div>
   );
 }

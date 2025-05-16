@@ -6,39 +6,41 @@ export async function getCart(userId: number) {
     const res = await axiosPrivate.get<CartData>(`/cart/${userId}`);
     return res.data;
   } catch (err) {
-    console.error(err);
+    console.error('Error fetching cart:', err);
+    // Return empty cart on error
+    return { cartItems: [], totalQuantity: 0, totalPrice: 0 };
   }
 }
 
 export const addCartItem = async (item: CartItem) => {
   try {
-    console.log(item);
     const res = await axiosPrivate.post<CartItem>('/cart/add', item);
     return res.data;
   } catch (err) {
-    console.error(err);
+    console.error('Error adding to cart:', err);
+    throw err;
   }
 };
 
 export const updateCartItemAPI = async (item: CartItem) => {
   try {
-    console.log('Adding to cart:', item);
     const res = await axiosPrivate.put<CartItem>('/cart/update', item);
     return res.data;
   } catch (err) {
-    console.error(err);
+    console.error('Error updating cart:', err);
+    throw err;
   }
 };
 
 export const removeCartItemAPI = async (productId: number) => {
   try {
-    console.log('Adding to cart:', productId);
     const res = await axiosPrivate.delete<CartItem>(
       `/cart/remove/${productId}`
     );
     return res.data;
   } catch (err) {
-    console.error(err);
+    console.error('Error removing from cart:', err);
+    throw err;
   }
 };
 

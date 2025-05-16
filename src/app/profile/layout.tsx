@@ -1,13 +1,17 @@
-import Container from "@/components/Container"
-import Sidebar from "@/components/Sidebar"
+import { redirect } from 'next/navigation';
+import { getServerAuth } from '@/app/_lib/serverAuth';
+import ProfileContent from '@/features/profile/ProfileContent';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <Container>
-      <div className="grid grid-cols-[20%_1fr] gap-8 h-[calc(100vh-154px)] my-8">
-        <Sidebar />
-        <div className="py-1">{children}</div>
-      </div>
-    </Container>
-  )
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { userId } = await getServerAuth();
+
+  if (!userId) {
+    redirect('/login');
+  }
+
+  return <ProfileContent>{children}</ProfileContent>;
 }

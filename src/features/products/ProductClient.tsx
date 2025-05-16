@@ -12,7 +12,7 @@ export default function ProductClient({
   userId,
 }: {
   id: number;
-  userId: number;
+  userId: number | null;
 }) {
   const {
     cart: { cartItems },

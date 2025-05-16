@@ -1,4 +1,4 @@
-import { axiosPublic } from '@/lib/axios/axios';
+import { axiosPrivate, axiosPublic } from '@/lib/axios/axios';
 import {
   IUserLoggedIn,
   IUserLogin,
@@ -46,7 +46,7 @@ export async function loginService(newUser: IUserLogin) {
 
 export async function logoutService() {
   try {
-    const res = await axiosPublic.post<User>('/auth/logout');
+    const res = await axiosPrivate.post<User>('/auth/logout');
     return res.data;
   } catch (err) {
     console.error(err);

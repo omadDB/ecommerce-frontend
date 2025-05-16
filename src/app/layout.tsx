@@ -2,12 +2,16 @@ import Navbar from '@/components/Navbar';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
+import '../styles/base.css';
+import '../styles/embla.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Footer from '@/components/Footer';
 import QueryProvider from './QueryClientProvider';
 import { Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
+import FooterWrapper from '@/components/FooterWrapper';
+import LayoutWrapper from '@/components/LayoutWrapper';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -20,13 +24,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const { userId } = await getServerAuth();
-
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} antialiased min-h-screen  grid grid-rows-[90px_1fr] `}
-      >
+      <body className={`${inter.className} antialiased min-h-screen`}>
         <QueryProvider>
           {/* <AuthProvider> */}
           <Suspense fallback={<div>Loading...</div>}>
@@ -51,12 +51,11 @@ export default async function RootLayout({
                 },
               }}
             />
-            <Navbar />
-            {/* <div className="container-box w-full !py-8 !pb-10 relative"> */}
-            {children}
-            {/* </div> */}
-
-            <Footer />
+            <LayoutWrapper>
+              <Navbar />
+              <main className="">{children}</main>
+              <FooterWrapper />
+            </LayoutWrapper>
           </Suspense>
           {/* </AuthProvider> */}
         </QueryProvider>

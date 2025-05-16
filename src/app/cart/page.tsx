@@ -14,6 +14,8 @@ export default async function Page() {
     redirect('/login');
   }
 
+  // Only prefetch if we have a userId
+
   await queryClient.prefetchQuery({
     queryKey: ['cart', userId],
     queryFn: () => getCart(userId),
@@ -24,7 +26,7 @@ export default async function Page() {
   return (
     <Container>
       <HydrationBoundary state={dehydratedState}>
-        <CartClient />
+        <CartClient userId={userId} />
       </HydrationBoundary>
     </Container>
   );

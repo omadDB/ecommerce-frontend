@@ -1,6 +1,25 @@
 import { axiosPublic } from '@/lib/axios/axios';
 import { Product } from '@/types/productModel';
 
+export interface PaginatedProducts {
+  products: Product[];
+  total: number;
+  totalPages: number;
+  currentPage: number;
+}
+
+export async function getAllProducts(page = 1, limit = 12) {
+  try {
+    const res = await axiosPublic.get<PaginatedProducts>(
+      `/products?page=${page}&limit=${limit}`
+    );
+    return res.data;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
 export async function getProduct(id: number | null) {
   try {
     const res = await axiosPublic.get<Product>(`/products/${id}`);

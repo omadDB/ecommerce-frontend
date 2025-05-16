@@ -1,6 +1,7 @@
 'use client';
 
 import { Product } from '@/types/productModel';
+import { MinusIcon, PlusIcon } from 'lucide-react';
 
 export default function UpdateProductOneQuantity({
   product,
@@ -40,29 +41,34 @@ export default function UpdateProductOneQuantity({
   }
 
   return (
-    <div className="flex rounded-md border border-[#1c284b]">
-      <button
-        className="px-4 py-2 disabled:cursor-not-allowed"
-        onClick={handleDecrement}
-        disabled={localQuantity <= 1}
-      >
-        -
-      </button>
-      <input
-        className="w-14 text-center outline-none"
-        type="number"
-        value={localQuantity ?? 1}
-        min={1}
-        max={stock}
-        onChange={handleChange}
-      />
-      <button
-        disabled={localQuantity >= stock}
-        className="px-4 py-2 disabled:cursor-not-allowed"
-        onClick={handleIncrement}
-      >
-        +
-      </button>
+    <div className="flex items-center gap-4">
+      <div className="flex items-center overflow-hidden bg-white border border-gray-200 shadow-sm rounded-xl">
+        <button
+          className="p-4 transition-colors border-r border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          onClick={handleDecrement}
+          disabled={localQuantity <= 1}
+          aria-label="Уменьшить количество"
+        >
+          <MinusIcon className="w-5 h-5 text-gray-600" />
+        </button>
+        <input
+          className="w-20 py-4 text-lg font-medium text-center text-gray-900 outline-none"
+          type="number"
+          value={localQuantity ?? 1}
+          min={1}
+          max={stock}
+          onChange={handleChange}
+          aria-label="Количество товара"
+        />
+        <button
+          className="p-4 transition-colors border-l border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={localQuantity >= stock}
+          onClick={handleIncrement}
+          aria-label="Увеличить количество"
+        >
+          <PlusIcon className="w-5 h-5 text-gray-600" />
+        </button>
+      </div>
 
       {/* <div>
         <button onClick={updateMutation.mutate({})}></button>

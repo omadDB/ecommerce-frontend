@@ -13,7 +13,9 @@ export const useCartActions = () => {
   const addMutation = useMutation({
     mutationFn: addCartItem,
     onSuccess: () => {
-      toast.success('Item successfully added to cart!');
+      toast.success('Товар добавлен в корзину', {
+        duration: 1000,
+      });
 
       queryClient.invalidateQueries({
         queryKey: ['cart'],
@@ -25,7 +27,9 @@ export const useCartActions = () => {
   const updateMutation = useMutation({
     mutationFn: updateCartItemAPI,
     onSuccess: () => {
-      toast.success('Cart item successfully updated!');
+      toast.success('Количество товара обновлено', {
+        duration: 1000,
+      });
 
       queryClient.invalidateQueries({
         queryKey: ['cart'],
@@ -37,7 +41,9 @@ export const useCartActions = () => {
   const removeMutation = useMutation({
     mutationFn: removeCartItemAPI,
     onSuccess: () => {
-      toast.success('Item successfully removed from cart!');
+      toast.success('Товар удален из корзины', {
+        duration: 1000,
+      });
       queryClient.invalidateQueries({
         queryKey: ['cart'],
       });

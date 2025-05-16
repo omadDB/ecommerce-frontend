@@ -4,8 +4,7 @@ import { CartList } from '@/features/cart/CartList';
 import { useCart } from '@/hooks/useCart';
 import Spinner from '@/components/Spinner';
 
-export default function CartClient() {
-  const userId = 2;
+export default function CartClient({ userId }: { userId: number }) {
   const { cart, isLoading, error } = useCart(userId);
   console.log(cart);
 
@@ -21,7 +20,7 @@ export default function CartClient() {
   return (
     <div className="flex flex-col my-8">
       <CartHeader />
-      <CartList cart={cart} />
+      <CartList cart={cart} userId={userId} />
     </div>
   );
 }

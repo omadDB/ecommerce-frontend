@@ -50,11 +50,9 @@ export default function RegisterForm({
   const { errors } = formState;
 
   const onSubmit: SubmitHandler<IUserRegister> = (data) => {
-    console.log(data, fullName, email, password, passwordConfirm);
     if (!fullName) return;
     if (!email && !phone) return;
     if (!password || !passwordConfirm) return;
-    console.log(data, fullName, email, password, passwordConfirm);
     registerAPI(
       {
         fullName,
@@ -90,7 +88,7 @@ export default function RegisterForm({
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <Card className="border-none">
+      <Card className="p-6 border-none">
         <CardHeader>
           <CardTitle className="text-2xl">Register</CardTitle>
           <CardDescription>
@@ -100,7 +98,7 @@ export default function RegisterForm({
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-4">
-              <div className="flex justify-around w-full border-b pb-4">
+              <div className="flex justify-around w-full pb-4 border-b">
                 <Button
                   type="reset"
                   variant="outline"
@@ -138,7 +136,7 @@ export default function RegisterForm({
                   placeholder="Omadbek Dilshodbekov"
                 />
                 {errors?.fullName && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-sm text-red-500">
                     {errors.fullName.message}
                   </p>
                 )}
@@ -159,7 +157,7 @@ export default function RegisterForm({
                       placeholder="omad@example.com"
                     />
                     {errors?.email && (
-                      <p className="text-red-500 text-sm">
+                      <p className="text-sm text-red-500">
                         {errors.email.message}
                       </p>
                     )}
@@ -180,7 +178,7 @@ export default function RegisterForm({
                       placeholder="+998-97-123-45-67"
                     />
                     {errors?.phone && (
-                      <p className="text-red-500 text-sm">
+                      <p className="text-sm text-red-500">
                         {errors.phone.message}
                       </p>
                     )}
@@ -194,7 +192,7 @@ export default function RegisterForm({
                   </label>
                   <a
                     href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    className="inline-block ml-auto text-sm underline-offset-4 hover:underline"
                   >
                     Forgot your password?
                   </a>
@@ -208,7 +206,7 @@ export default function RegisterForm({
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 {errors?.password && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-sm text-red-500">
                     {errors.password.message}
                   </p>
                 )}
@@ -220,13 +218,13 @@ export default function RegisterForm({
                 <input
                   {...register('confirmPassword')}
                   className={classnames.input}
-                  id="password"
+                  id="confirmPassword"
                   type="password"
                   value={passwordConfirm}
                   onChange={(e) => setPasswordConfirm(e.target.value)}
                 />
                 {errors?.confirmPassword && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-sm text-red-500">
                     {errors.confirmPassword.message}
                   </p>
                 )}
@@ -246,7 +244,7 @@ export default function RegisterForm({
                 </Button>
               </div>
             </div>
-            <div className="mt-4 text-center text-sm">
+            <div className="mt-4 text-sm text-center">
               Already have an account?{' '}
               <button
                 onClick={() => setIsRegistering(false)}

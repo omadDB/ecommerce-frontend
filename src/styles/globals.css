@@ -64,8 +64,8 @@
     width: 60px;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 8px solid theme("colors.primary.900");
-    border-right-color: theme("colors.primary.200");
+    border: 8px solid theme('colors.primary.900');
+    border-right-color: theme('colors.primary.200');
     animation: rotate 1s infinite linear;
   }
 
@@ -74,7 +74,7 @@
     width: 20px;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 2px solid theme("colors.primary.200");
+    border: 2px solid theme('colors.primary.200');
     border-right-color: transparent;
     animation: rotate 1s infinite linear;
   }
@@ -100,7 +100,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 /* 

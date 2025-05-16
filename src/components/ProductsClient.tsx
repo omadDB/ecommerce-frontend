@@ -13,6 +13,8 @@ import { Button } from './ui/button';
 import { ShoppingBagIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { getAllProducts } from '@/services/apiProducts';
+import AuthModal from '@/features/authentication/AuthModal';
 
 interface ProductsClientProps {
   userId: number | null;
@@ -24,6 +26,9 @@ export default function ProductsClient({
   userId,
 }: ProductsClientProps) {
   const searchParams = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   // Track mounted state to ensure we don't use client-only APIs during SSR.
   const [mounted, setMounted] = useState(false);
@@ -49,6 +54,10 @@ export default function ProductsClient({
   const { addMutation } = useCartActions();
 
   function handleAddToCart(product: Product) {
+    if (!userId) {
+      setIsAuthModalOpen(true);
+      return;
+    }
     addMutation.mutate({
       productId: product.id,
       countForUpdate: 1,
@@ -67,8 +76,11 @@ export default function ProductsClient({
       try {
         setLoading(true);
         if (isAll) {
-          response = await axiosPublic.get<Product[]>(`/products`);
-          setProducts(response.data);
+          response = await getAllProducts(currentPage);
+          if (response) {
+            setProducts(response.products);
+            setTotalPages(response.totalPages);
+          }
         } else if (id) {
           response = await axiosPublic.get<Category>(`/categories/${id}`);
           setProducts(response.data.products);
@@ -82,7 +94,12 @@ export default function ProductsClient({
     }
 
     fetchProducts();
-  }, [id, isAll, mounted]);
+  }, [id, isAll, mounted, currentPage]);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    window.scrollTo(0, 0);
+  };
 
   // Until mounted, show a spinner so the initial HTML stays consistent.
   if (!mounted || loading || isFetchingCart) return <Spinner />;
@@ -90,15 +107,20 @@ export default function ProductsClient({
 
   return (
     <Container>
+      <AuthModal
+        isAuthModalOpen={isAuthModalOpen}
+        setIsAuthModalOpen={setIsAuthModalOpen}
+        defaultForm="login"
+      />
       <div className="my-8">
-        <h2 className="text-4xl font-bold mb-6">
+        <h2 className="mb-6 text-4xl font-bold">
           {categoryName.charAt(0).toUpperCase() +
             categoryName.slice(1).replace(/%20/g, ' ')}
         </h2>
         <div className="grid grid-cols-4 gap-8">
           {products.map((product) => (
             <div
-              className="flex flex-col gap-4 border border-gray-300 rounded-md p-4 leading-5 group duration-400"
+              className="flex flex-col gap-4 p-4 leading-5 border border-gray-300 rounded-md group duration-400"
               key={product.id}
             >
               <div className="relative w-full aspect-[4/4]">
@@ -125,11 +147,34 @@ export default function ProductsClient({
                 >
                   <h4 className="text-lg">{product.name}</h4>
                 </Link>
-                <p className="font-bold text-xl">{product.price} so'm</p>
+                <p className="text-xl font-bold">{product.price} so'm</p>
               </div>
             </div>
           ))}
         </div>
+
+        {/* Pagination */}
+        {isAll && totalPages > 1 && (
+          <div className="flex justify-center gap-2 mt-8">
+            <Button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              variant="outline"
+            >
+              Previous
+            </Button>
+            <span className="flex items-center px-4">
+              Page {currentPage} of {totalPages}
+            </span>
+            <Button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              variant="outline"
+            >
+              Next
+            </Button>
+          </div>
+        )}
       </div>
     </Container>
   );

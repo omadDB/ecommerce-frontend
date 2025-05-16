@@ -1,19 +1,25 @@
 'use client';
 
 import Bestsellers from '@/components/Bestsellers';
-import CarouselHero from '@/components/CarouselHero';
+import EmblaCarousel from '@/components/Carousel/EmblaCarousel';
+// import { EmblaCarousel } from '@/components/CarouselHero';
 import Categories from '@/components/Categories';
 import Container from '@/components/Container';
 import Faq from '@/components/Faq';
 import { OrderCall } from '@/components/OrderCall';
+import { EmblaOptionsType } from 'embla-carousel';
+
+const OPTIONS: EmblaOptionsType = { loop: true };
+const SLIDE_COUNT = 5;
+const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
 export default function Home() {
   return (
     <>
       <main>
         <Container>
-          <section className=" my-8">
-            <CarouselHero />
+          <section className="flex justify-center my-8">
+            <EmblaCarousel options={OPTIONS} slides={SLIDES} />
           </section>
         </Container>
 

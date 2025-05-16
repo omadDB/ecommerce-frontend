@@ -18,6 +18,7 @@ import { loginSchema } from '@/lib/zod/schema';
 import { IUserLogin } from '@/types/userModel';
 import clsx from 'clsx';
 import SpinnerMini from '@/components/SpinnnerMini';
+import { useRouter } from 'next/navigation';
 
 const classnames = {
   label:
@@ -42,6 +43,7 @@ export function LoginForm({
   const [password, setPassword] = useState('');
   const [isUsingEmail, setIsUsingEmail] = useState(true);
   const { login, isPending } = useLogin();
+  const router = useRouter();
 
   const { register, formState, handleSubmit, reset, clearErrors } =
     useForm<IUserLogin>({
@@ -50,10 +52,8 @@ export function LoginForm({
   const { errors } = formState;
 
   const onSubmit: SubmitHandler<IUserLogin> = (data) => {
-    console.log(data, email, phone, password);
     if (!email && !phone) return;
     if (!password) return;
-    console.log(data);
     login(
       { email, phone: data.phone?.replace(/[\s\-\(\)]/g, ''), password },
       {
@@ -63,6 +63,8 @@ export function LoginForm({
           setPhone('');
           setPassword('');
           setIsAuthModalOpen?.(false);
+          router.push('/');
+          router.refresh();
         },
       }
     );
@@ -79,7 +81,7 @@ export function LoginForm({
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <Card className="border-none">
+      <Card className="p-6 border-none">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>
@@ -89,7 +91,7 @@ export function LoginForm({
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-6">
-              <div className="flex justify-around w-full border-b pb-4">
+              <div className="flex justify-around w-full pb-4 border-b">
                 <Button
                   type="reset"
                   variant="outline"
@@ -129,7 +131,7 @@ export function LoginForm({
                       placeholder="omad@example.com"
                     />
                     {errors?.email && (
-                      <p className="text-red-500 text-sm">
+                      <p className="text-sm text-red-500">
                         {errors.email.message}
                       </p>
                     )}
@@ -150,7 +152,7 @@ export function LoginForm({
                       placeholder="+998-97-123-45-67"
                     />
                     {errors?.phone && (
-                      <p className="text-red-500 text-sm">
+                      <p className="text-sm text-red-500">
                         {errors.phone.message}
                       </p>
                     )}
@@ -164,7 +166,7 @@ export function LoginForm({
                   </label>
                   <a
                     href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    className="inline-block ml-auto text-sm underline-offset-4 hover:underline"
                   >
                     Forgot your password?
                   </a>
@@ -178,7 +180,7 @@ export function LoginForm({
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 {errors?.password && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-sm text-red-500">
                     {errors.password.message}
                   </p>
                 )}
@@ -200,7 +202,7 @@ export function LoginForm({
                 </Button>
               </div>
             </div>
-            <div className="mt-4 text-center text-sm">
+            <div className="mt-4 text-sm text-center">
               Don&apos;t have an account?{' '}
               <button
                 type="reset"

@@ -1,3 +1,12 @@
+'use client';
+
+import OrdersTab from '@/features/profile/OrdersTab';
+import useUser from '@/hooks/useUser';
+
 export default function Page() {
-  return <div></div>
+  const { user } = useUser();
+
+  if (!user?.id) return null;
+
+  return <OrdersTab userId={user.id} />;
 }
