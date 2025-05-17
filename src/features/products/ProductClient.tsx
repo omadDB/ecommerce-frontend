@@ -5,7 +5,6 @@ import ProductImage from './ProductImage';
 import Spinner from '@/components/Spinner';
 import { useProduct } from '@/hooks/useProduct';
 import { useCart } from '@/hooks/useCart';
-import { CartItem } from '@/types/cartItemModel';
 
 export default function ProductClient({
   id,
@@ -15,7 +14,7 @@ export default function ProductClient({
   userId: number | null;
 }) {
   const {
-    cart: { cartItems },
+    // cart: { cartItems },
     isLoading: isFetchingCart,
     error: cartError,
   } = useCart(userId);
@@ -25,12 +24,12 @@ export default function ProductClient({
     error: productError,
   } = useProduct(Number(id));
 
-  let cartItem;
-  if (cartItems?.length > 0) {
-    cartItem = (cartItems || []).find(
-      (item: CartItem) => item.productId === product?.id
-    );
-  }
+  // let cartItem;
+  // if (cartItems?.length > 0) {
+  //   cartItem = (cartItems || []).find(
+  //     (item: CartItem) => item.productId === product?.id
+  //   );
+  // }
 
   if (isFetchingCart || isFetchingProduct) return <Spinner />;
   if (cartError || productError)
@@ -40,7 +39,7 @@ export default function ProductClient({
   return (
     <div className="grid grid-cols-[50%_1fr] gap-12 my-8">
       <ProductImage />
-      <ProductDetails userId={userId} product={product} cartItem={cartItem} />
+      <ProductDetails userId={userId} product={product} />
     </div>
   );
 }

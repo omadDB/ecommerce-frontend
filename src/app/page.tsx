@@ -33,10 +33,10 @@ export default function Home() {
           </Container>
         </section>
 
-        <section className="border-y border-gray-400">
-          <div className="flex justify-center items-center min-h-screen p-2">
+        <section className="border-gray-400 border-y">
+          <div className="flex items-center justify-center min-h-screen p-2">
             <Container className="flex flex-col items-center gap-8">
-              <h2 className="text-center text-4xl font-bold text-black mb-4">
+              <h2 className="mb-4 text-4xl font-bold text-center text-black">
                 Order a Call
               </h2>
               <OrderCall />
