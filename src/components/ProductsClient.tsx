@@ -54,6 +54,7 @@ export default function ProductsClient({
   const { addMutation } = useCartActions();
 
   function handleAddToCart(product: Product) {
+    console.log(userId);
     if (!userId) {
       setIsAuthModalOpen(true);
       return;
