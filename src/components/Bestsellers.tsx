@@ -40,7 +40,7 @@ export default function Bestsellers() {
               </div>
               <div className="flex flex-col gap-2">
                 <h4>Универсальный регулируемый ключ-мультиинструмент</h4>
-                <p>{formatCurrency("310000")}</p>
+                <p>{formatCurrency(310000)}</p>
               </div>
             </div>
           ))}
