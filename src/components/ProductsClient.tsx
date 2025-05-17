@@ -48,7 +48,7 @@ export default function ProductsClient({
   const [error, setError] = useState<string | null>(null);
 
   const {
-    cart: { cartItems },
+    // cart: { cartItems },
     isLoading: isFetchingCart,
     error: cartError,
   } = useCart(userId);
@@ -172,7 +172,9 @@ export default function ProductsClient({
                 >
                   <h4 className="text-lg">{product.name}</h4>
                 </Link>
-                <p className="text-xl font-bold">{product.price} so'm</p>
+                <p className="text-xl font-bold">
+                  {product.price} so{'&apos'}m
+                </p>
               </div>
             </div>
           ))}

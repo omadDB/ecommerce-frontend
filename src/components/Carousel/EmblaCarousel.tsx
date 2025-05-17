@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { EmblaOptionsType, EmblaCarouselType } from 'embla-carousel';
-import { DotButton, useDotButton } from './EmblaDotButton';
 import {
   PrevButton,
   NextButton,
@@ -8,7 +7,7 @@ import {
 } from './EmblaCarouselArrowButtons';
 import Autoplay from 'embla-carousel-autoplay';
 import useEmblaCarousel from 'embla-carousel-react';
-import { Card, CardContent } from '../ui/card';
+import { Card } from '../ui/card';
 import Image from 'next/image';
 
 type PropType = {
@@ -32,10 +31,10 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     resetOrStop();
   }, []);
 
-  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(
-    emblaApi,
-    onNavButtonClick
-  );
+  // const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(
+  //   emblaApi,
+  //   onNavButtonClick
+  // );
 
   const {
     prevBtnDisabled,
