@@ -1,7 +1,6 @@
 'use client';
 
 import AuthModal from '@/features/authentication/AuthModal';
-import useUser from '@/hooks/useUser';
 import { ShoppingBagIcon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
@@ -11,15 +10,14 @@ import { PaginatedProducts } from '@/services/apiProducts';
 import SearchResults from './SearchResults';
 import { useCart } from '@/hooks/useCart';
 
-export default function NavbarControls() {
-  const { user } = useUser();
+export default function NavbarControls({ userId }: { userId: number }) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const [cartAnimation, setCartAnimation] = useState(false);
-  const { cart } = useCart(user?.id ?? null);
+  const { cart } = useCart(userId);
 
   // Watch for cart changes to trigger animation
   useEffect(() => {
@@ -93,7 +91,7 @@ export default function NavbarControls() {
         />
       </div>
 
-      {user?.id ? (
+      {userId ? (
         <>
           <Link href="/cart" className="relative">
             <ShoppingBagIcon

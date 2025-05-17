@@ -6,7 +6,7 @@ export async function getCurrentUser() {
     const res = await axiosPrivate.get<User>('/user/me');
     return res.data;
   } catch (err) {
-    // Return null instead of undefined on error
+    console.log(err);
     return null;
   }
 }

@@ -7,7 +7,6 @@ const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const axiosPublic = axios.create({
   baseURL,
   headers: { 'Content-Type': 'application/json' },
-  withCredentials: true,
 });
 
 const axiosPrivate = axios.create({
