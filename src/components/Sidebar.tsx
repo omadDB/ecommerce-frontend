@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { ShoppingBagIcon, UserIcon } from '@heroicons/react/24/solid';
 import SignOutButton from './SignOutButton';
 import { usePathname } from 'next/navigation';
-import { Shield } from 'lucide-react';
 
 function Sidebar() {
   const pathname = usePathname();
