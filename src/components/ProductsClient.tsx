@@ -15,6 +15,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { getAllProducts } from '@/services/apiProducts';
 import AuthModal from '@/features/authentication/AuthModal';
+import { Skeleton } from './ui/skeleton';
 
 interface ProductsClientProps {
   userId: number | null;
@@ -102,8 +103,31 @@ export default function ProductsClient({
     window.scrollTo(0, 0);
   };
 
-  // Until mounted, show a spinner so the initial HTML stays consistent.
-  if (!mounted || loading || isFetchingCart) return <Spinner />;
+  if (!mounted || isFetchingCart) return <Spinner />;
+  if (loading) {
+    return (
+      <Container>
+        <div className="my-8">
+          <h2 className="mb-6 text-4xl font-bold">
+            {categoryName.charAt(0).toUpperCase() +
+              categoryName.slice(1).replace(/%20/g, ' ')}
+          </h2>
+          <div className="grid grid-cols-4 gap-8">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex flex-col gap-4 p-4 border border-gray-300 rounded-md"
+              >
+                <Skeleton height="h-48" rounded="rounded-md" />
+                <Skeleton height="h-6" width="w-3/4" />
+                <Skeleton height="h-6" width="w-1/2" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    );
+  }
   if (error || cartError) return <p>Error: {error || cartError?.message}</p>;
 
   return (

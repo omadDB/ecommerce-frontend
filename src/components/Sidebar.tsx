@@ -14,8 +14,8 @@ function Sidebar() {
       href: '/profile',
       icon: (
         <UserIcon
-          className={`h-5 w-5 text-gray-400 group-hover:text-primary-600 ${
-            pathname === '/profile' ? 'text-primary-600' : ''
+          className={`h-5 w-5 group-hover:text-primary-600 ${
+            pathname === '/profile' ? 'text-primary-600' : 'text-gray-400'
           }`}
         />
       ),
@@ -36,8 +36,10 @@ function Sidebar() {
       href: '/profile/orders',
       icon: (
         <ShoppingBagIcon
-          className={`h-5 w-5 text-gray-400 group-hover:text-primary-600 ${
-            pathname === '/profile/orders' ? 'text-primary-600' : ''
+          className={`h-5 w-5 group-hover:text-primary-600 ${
+            pathname === '/profile/orders'
+              ? 'text-primary-600'
+              : 'text-gray-400'
           }`}
         />
       ),
@@ -45,14 +47,17 @@ function Sidebar() {
   ];
 
   return (
-    <div className="rounded-lg p-4 border border-gray-200 h-full flex flex-col">
+    <div className="flex flex-col h-full p-4 border border-gray-200 rounded-lg">
       <ul className="flex flex-col gap-2 text-lg">
         {navLinks.map((link) => (
           <li key={link.name}>
             <Link
-              className={`py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-gray-400 group rounded-lg ${
-                pathname === link.href ? 'bg-primary-900 text-primary-100' : ''
-              }`}
+              className={`py-3 px-5 flex items-center gap-4 font-semibold group rounded-lg transition-colors
+                ${
+                  pathname === link.href
+                    ? 'bg-primary-50 border-l-4 border-primary-600 text-primary-700'
+                    : 'text-gray-500 hover:bg-neutral-100'
+                }`}
               href={link.href}
             >
               {link.icon}
@@ -62,7 +67,7 @@ function Sidebar() {
         ))}
       </ul>
 
-      <div className="mt-auto pt-4">
+      <div className="pt-4 mt-auto">
         <SignOutButton />
       </div>
     </div>
