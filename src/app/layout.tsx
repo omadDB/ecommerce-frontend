@@ -10,7 +10,6 @@ import QueryProvider from './QueryClientProvider';
 import { Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
 import FooterWrapper from '@/components/FooterWrapper';
-import LayoutWrapper from '@/components/LayoutWrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,7 +25,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased min-h-screen`}>
+      <body className={`${inter.className} antialiased min-h-screen `}>
         <QueryProvider>
           <Suspense fallback={<div>Loading...</div>}>
             <Toaster
@@ -47,14 +46,16 @@ export default async function RootLayout({
                   padding: '16px 24px',
                   backgroundColor: 'white',
                   color: 'black',
+                  borderRadius: '0.75rem',
+                  boxShadow: '0 4px 24px 0 rgba(0,0,0,0.08)',
                 },
               }}
             />
-            <LayoutWrapper>
+            <div className="flex flex-col min-h-screen">
               <Navbar />
-              <main className="">{children}</main>
+              <main className="flex-1 w-full">{children}</main>
               <FooterWrapper />
-            </LayoutWrapper>
+            </div>
           </Suspense>
         </QueryProvider>
       </body>

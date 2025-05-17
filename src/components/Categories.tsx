@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { axiosPublic } from '@/lib/axios/axios';
 import { Category } from '@/types/categoryModel';
+import { Skeleton } from './ui/skeleton';
 
 // const categories = [
 //   {
@@ -56,29 +57,47 @@ export default function Categories() {
     fetchCategories();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="text-center">
+        <h2 className="mb-8 text-3xl font-bold">Shop by Category</h2>
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div
+              key={i}
+              className="relative overflow-hidden rounded-lg shadow-lg group"
+            >
+              <Skeleton height="h-48" rounded="rounded-lg" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Skeleton height="h-8" width="w-2/3" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="text-center">
-      <h2 className="text-3xl font-bold mb-8">Shop by Category</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <h2 className="mb-8 text-3xl font-bold">Shop by Category</h2>
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
         {categories?.map((category, index) => (
           <Link
             key={index}
             href={`/categories/${category.name}?id=${category.id}`}
           >
-            <div className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="relative overflow-hidden transition-shadow duration-300 rounded-lg shadow-lg group hover:shadow-xl">
               <Image
                 // src={category?.image}
                 src="/example-product.webp"
                 alt={category.name}
-                width={300} // Desired width of the image
-                height={192} // Desired height of the image
-                className="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300"
+                width={300}
+                height={192}
+                className="object-cover w-full h-48 transition-transform duration-300 transform group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                <h3 className="text-white text-xl font-semibold">
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+                <h3 className="text-xl font-semibold text-white">
                   {category.name}
                 </h3>
               </div>
