@@ -1,9 +1,9 @@
-import Image from "next/image"
-import { Button } from "./ui/button"
-import { ShoppingBagIcon } from "@heroicons/react/24/solid"
-import Link from "next/link"
-import ContainerBig from "./ContainerBig"
-import { formatCurrency } from "@/utils/helpers"
+import Image from 'next/image';
+import { Button } from './ui/button';
+import { ShoppingBagIcon } from '@heroicons/react/24/solid';
+import Link from 'next/link';
+import ContainerBig from './ContainerBig';
+import { formatCurrency } from '@/utils/helpers';
 
 export default function Bestsellers() {
   return (
@@ -40,7 +40,7 @@ export default function Bestsellers() {
               </div>
               <div className="flex flex-col gap-2">
                 <h4>Универсальный регулируемый ключ-мультиинструмент</h4>
-                <p>{formatCurrency("310000")}</p>
+                <p>{formatCurrency(310000)}</p>
               </div>
             </div>
           ))}
@@ -51,10 +51,10 @@ export default function Bestsellers() {
             href="/categories/all"
             className="text-xl text-gray-300 hover:text-white underline-offset-4 hover:underline duration-400"
           >
-            More products {"->"}
+            More products {'->'}
           </Link>
         </div>
       </ContainerBig>
     </div>
-  )
+  );
 }

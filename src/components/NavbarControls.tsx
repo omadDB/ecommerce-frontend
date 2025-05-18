@@ -10,7 +10,7 @@ import { PaginatedProducts } from '@/services/apiProducts';
 import SearchResults from './SearchResults';
 import { useCart } from '@/hooks/useCart';
 
-export default function NavbarControls({ userId }: { userId: number }) {
+export default function NavbarControls({ userId }: { userId: number | null }) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Product[]>([]);
