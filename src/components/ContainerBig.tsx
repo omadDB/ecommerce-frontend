@@ -10,7 +10,7 @@ export default function ContainerBig({
 }) {
   return (
     <div
-      className={clsx("max-w-[1340px] mx-auto px-5 w-full relative", className)}
+      className={clsx("w-full lg:max-w-[1340px] mx-auto px-8 lg:px-5 w-full relative", className)}
     >
       {children}
     </div>
