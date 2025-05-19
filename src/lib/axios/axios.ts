@@ -5,7 +5,7 @@ import { getAccessToken, setAccessToken } from '../authToken';
 const baseURL =
   process.env.NODE_ENV === 'production'
     ? process.env.NEXT_PUBLIC_API_BASE_URL
-    : 'http://localhost:3000';
+    : 'http://localhost:7000/api/v1';
 
 const axiosPublic = axios.create({
   baseURL,
