@@ -10,6 +10,7 @@ const baseURL =
 const axiosPublic = axios.create({
   baseURL,
   headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
 });
 
 const axiosPrivate = axios.create({
