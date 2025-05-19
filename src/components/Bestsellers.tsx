@@ -9,17 +9,19 @@ export default function Bestsellers() {
   return (
     <div className="bg-[#1E3A8A] py-10">
       <ContainerBig>
-        <h2 className="text-4xl text-white font-bold mb-6">Bestsellers</h2>
+        <h2 className="text-3xl lg:text-4xl text-white font-bold mb-10 text-center lg:text-left">
+            Bestsellers
+        </h2>
 
-        <div className="grid grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {Array.from({ length: 10 }).map((_, index) => (
             <div
               className="flex flex-col justify-center items-center gap-4 text-white leading-5 group duration-400 shadow-[0_0_10px_rgba(0,0,0,0.2)] rounded-md 
               bg-[#3d5cb8b9] 
-              p-4"
+              p-6 lg:p-4"
               key={index}
             >
-              <div className="relative w-full aspect-[4/4]">
+              <div className="relative w-full aspect-[4/3] lg:aspect-[4/4]">
                 <Image
                   src="/example-product.webp"
                   fill
@@ -38,9 +40,9 @@ export default function Bestsellers() {
                   </Link>
                 </Button>
               </div>
-              <div className="flex flex-col gap-2">
-                <h4>Универсальный регулируемый ключ-мультиинструмент</h4>
-                <p>{formatCurrency(310000)}</p>
+              <div className="flex flex-col gap-y-5 py-2">
+                <h4 className="text-pretty text-center">Универсальный регулируемый ключ-мультиинструмент</h4>
+                <p>Price: <span className="font-semibold">{formatCurrency(310000)}</span></p>
               </div>
             </div>
           ))}

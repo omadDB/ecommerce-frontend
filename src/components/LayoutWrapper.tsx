@@ -14,7 +14,7 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
   return (
     <div
       className={`grid ${
-        isProfilePage ? 'grid-rows-[90px_1fr]' : 'grid-rows-[90px_1fr_400px]'
+        isProfilePage ? 'grid-rows-[90px_1fr]' : 'grid-rows-[90px_1fr_400px] grid-cols-1'
       }`}
     >
       {children}

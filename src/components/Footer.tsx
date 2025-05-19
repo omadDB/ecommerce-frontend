@@ -5,8 +5,8 @@ import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer className="footer">
-      <Container className="grid gap-5 grid--footer">
+    <footer className="footer h-fit">
+      <Container className="grid gap-10 grid-cols-1 lg:grid--footer">
         <div className="logo-col">
           <Link href="#" className="footer-logo">
             <Image src="/favicon.ico" width={50} height={50} alt="Logo" />
@@ -39,14 +39,14 @@ export default function Footer() {
             </li>
           </ul>
 
-          <p className="copyright">
+          <p className="text-sm text-white lg:text-base">
             Copyright &copy; <span className="year">2025</span> by Omad, Inc.
             All rights reserved.
           </p>
         </div>
 
         <div className="address-col">
-          <p className="footer-heading">Contact us</p>
+          <p className="text-base text-white">Contact us</p>
           <address className="contacts">
             <p className="address">13B Alisher Navoi St.</p>
             <p>
