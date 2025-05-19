@@ -172,9 +172,7 @@ export default function ProductsClient({
                 >
                   <h4 className="text-lg">{product.name}</h4>
                 </Link>
-                <p className="text-xl font-bold">
-                  {product.price} so{'&apos'}m
-                </p>
+                <p className="text-xl font-bold">{product.price} so&apos;m</p>
               </div>
             </div>
           ))}

@@ -1,10 +1,22 @@
 import { getCurrentUser } from '@/services/apiUser';
 import { useQuery } from '@tanstack/react-query';
 import { getAccessToken } from '@/lib/authToken';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function useUser() {
-  const token = getAccessToken();
+  const [token, setToken] = useState<string | null>(() => {
+    if (typeof window !== 'undefined') {
+      return getAccessToken();
+    }
+    return null;
+  });
+
+  useEffect(() => {
+    const currentToken = getAccessToken();
+    if (currentToken !== token) {
+      setToken(currentToken);
+    }
+  }, [token]);
 
   const {
     data: user,
@@ -12,14 +24,14 @@ export default function useUser() {
     error,
     refetch,
   } = useQuery({
-    queryKey: ['user'],
+    queryKey: ['user', token],
     queryFn: getCurrentUser,
-    enabled: !!token, // Only fetch if we have a token
+    enabled: !!token,
     retry: false,
     staleTime: 1000 * 60 * 5, // 5 minutes
-    refetchOnWindowFocus: false, // Don't refetch on window focus
-    refetchOnMount: false, // Don't refetch on component mount
-    refetchOnReconnect: false, // Don't refetch on reconnect
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
   });
 
   // Only refetch if we have a token but no user data

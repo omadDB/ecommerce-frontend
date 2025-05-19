@@ -32,9 +32,7 @@ export default function SearchResults({
           </div>
           <div className="flex-1">
             <h4 className="font-medium text-[#1c284b]">{product.name}</h4>
-            <p className="text-sm text-black mt-2">
-              {product.price} so{'&apos'}m
-            </p>
+            <p className="text-sm text-black mt-2">{product.price} so&apos;m</p>
           </div>
         </Link>
       ))}
