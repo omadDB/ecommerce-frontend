@@ -19,6 +19,8 @@ export async function getServerAuth() {
         token,
         process.env.REFRESH_TOKEN_SECRET!
       ) as CustomJwtPayload;
+
+      console.log(decoded);
       return {
         token,
         userId: decoded.id,

@@ -19,6 +19,8 @@ export default function NavbarControls({ userId }: { userId: number | null }) {
   const [cartAnimation, setCartAnimation] = useState(false);
   const { cart } = useCart(userId);
 
+  console.log(cart, userId);
+
   // Watch for cart changes to trigger animation
   useEffect(() => {
     if (cart?.cartItems?.length) {

@@ -27,8 +27,10 @@ export default function useLogin() {
       // Invalidate and refetch user data
       queryClient.invalidateQueries({ queryKey: ['user'] });
 
+      console.log(data);
       toast.success('Logged in successfully!');
       router.refresh();
+      router.push('/');
     },
     onError: (err) => {
       setAccessToken(null);

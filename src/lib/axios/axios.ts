@@ -10,13 +10,12 @@ const baseURL =
 const axiosPublic = axios.create({
   baseURL,
   headers: { 'Content-Type': 'application/json' },
-  withCredentials: true,
 });
 
 const axiosPrivate = axios.create({
   baseURL,
   headers: { 'Content-Type': 'application/json' },
-  withCredentials: true, // Enable sending cookies
+  withCredentials: true,
 });
 
 // Request interceptor for adding the auth token
