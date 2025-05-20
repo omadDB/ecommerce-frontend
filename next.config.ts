@@ -1,5 +1,7 @@
+import type { NextConfig } from 'next';
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
@@ -10,6 +12,10 @@ const nextConfig = {
   },
   env: {
     REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
+    NEXT_PUBLIC_API_BASE_URL:
+      process.env.NODE_ENV === 'production'
+        ? 'https://api.ipakyoliurgench.uz/api/v1'
+        : 'http://localhost:7000/api/v1',
   },
   async rewrites() {
     return [
@@ -17,7 +23,7 @@ const nextConfig = {
         source: '/api/v1/:path*',
         destination:
           process.env.NODE_ENV === 'production'
-            ? 'https://ipakyoliurgench-backend-34769688f0a2.herokuapp.com/api/v1/:path*'
+            ? 'https://api.ipakyoliurgench.uz/api/v1/:path*'
             : 'http://localhost:7000/api/v1/:path*',
       },
     ];

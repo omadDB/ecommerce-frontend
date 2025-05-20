@@ -6,6 +6,8 @@ import { getCart } from '@/services/apiCart';
 import { getProduct } from '@/services/apiProducts';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
+export const dynamic = 'force-dynamic';
+
 type tParams = Promise<{ productId: number }>;
 
 export default async function Page({ params }: { params: tParams }) {

@@ -26,6 +26,11 @@ export async function loginService(newUser: IUserLogin) {
       withCredentials: true,
     });
 
+    // if (res.status === 200) {
+    //   document.cookie = `token=${
+    //     res.data
+    //   }; SameSite=Strict; Secure; max-age=${30 * 24 * 60 * 60 * 1000}`;
+    // }
     // if (!res.data) throw new Error('Login failed: no user data received!');
 
     return res.data;

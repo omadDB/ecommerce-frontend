@@ -33,10 +33,10 @@ export default function Home() {
           </Container>
         </section>
 
-        <section className="border-y border-gray-400">
-          <div className="flex justify-center items-center min-h-screen p-2">
+        <section className="border-gray-400 border-y">
+          <div className="flex items-center justify-center min-h-screen p-2">
             <Container className="flex flex-col items-center gap-8 py-16">
-              <h2 className="text-center text-2xl lg:text-4xl font-semibold text-black">
+              <h2 className="text-2xl font-semibold text-center text-black lg:text-4xl">
                 Order a Call
               </h2>
               <OrderCall />

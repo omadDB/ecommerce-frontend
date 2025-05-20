@@ -9,8 +9,10 @@ interface CustomJwtPayload extends JwtPayload {
 }
 
 export async function getServerAuth() {
+  console.log('getServerAuth called');
   const cookieStore = cookies();
   const token = (await cookieStore).get('jwt')?.value || '';
+  console.log('Cookie token exists:', !!token);
 
   if (token) {
     try {
@@ -20,7 +22,7 @@ export async function getServerAuth() {
         process.env.REFRESH_TOKEN_SECRET!
       ) as CustomJwtPayload;
 
-      console.log(decoded);
+      console.log('Token decoded successfully:', decoded);
       return {
         token,
         userId: decoded.id,
@@ -30,5 +32,6 @@ export async function getServerAuth() {
       return { userId: null, token: null };
     }
   }
+  console.log('No token found in cookies');
   return { userId: null, token: null };
 }
