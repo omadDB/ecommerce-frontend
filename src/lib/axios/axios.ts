@@ -10,6 +10,7 @@ const baseURL =
 const axiosPublic = axios.create({
   baseURL,
   headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
 });
 
 const axiosPrivate = axios.create({
@@ -35,11 +36,6 @@ axiosPrivate.interceptors.response.use(
   (response) => response,
   async (error) => {
     const prevRequest = error?.config;
-
-    // Don't retry if it's already a refresh token request
-    if (prevRequest?.url === '/refresh') {
-      return Promise.reject(error);
-    }
 
     // Only attempt refresh if we haven't tried before and it's a 401/403 error
     if (
