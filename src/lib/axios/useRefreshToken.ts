@@ -4,7 +4,7 @@ import { axiosPublic } from './axios';
 const useRefreshToken = () => {
   const refresh = async () => {
     const res = await axiosPublic.get('/refresh', {
-      withCredentials: true,
+      withCredentials: true, // Only add credentials for refresh endpoint
     });
 
     setAccessToken(res.data.accessToken);

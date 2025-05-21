@@ -20,11 +20,38 @@ const axiosPrivate = axios.create({
 
 // Request interceptor for adding the auth token
 axiosPrivate.interceptors.request.use(
-  (config) => {
-    const token = getAccessToken();
-    if (!config.headers['Authorization'] && token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+  async (config) => {
+    // Skip refresh for the refresh endpoint itself
+    if (config.url === '/refresh') {
+      return config;
     }
+
+    try {
+      // Always try to refresh the token first
+      const response = await axiosPublic.get('/refresh', {
+        withCredentials: true,
+      });
+      const newAccessToken = response.data.accessToken;
+
+      if (newAccessToken) {
+        setAccessToken(newAccessToken);
+        config.headers['Authorization'] = `Bearer ${newAccessToken}`;
+      } else {
+        // If no new token received, try to use existing token
+        const existingToken = getAccessToken();
+        if (existingToken) {
+          config.headers['Authorization'] = `Bearer ${existingToken}`;
+        }
+      }
+    } catch (error) {
+      console.error('Failed to refresh token in request interceptor:', error);
+      // If refresh fails, try to use existing token
+      const existingToken = getAccessToken();
+      if (existingToken) {
+        config.headers['Authorization'] = `Bearer ${existingToken}`;
+      }
+    }
+
     return config;
   },
   (error) => Promise.reject(error)
@@ -48,7 +75,6 @@ axiosPrivate.interceptors.response.use(
     ) {
       prevRequest.sent = true;
       try {
-        // Use axiosPublic for refresh token request to avoid circular dependency
         const response = await axiosPublic.get('/refresh', {
           withCredentials: true,
         });
