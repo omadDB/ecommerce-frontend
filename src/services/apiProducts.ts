@@ -1,4 +1,4 @@
-import { axiosPublic } from '@/lib/axios/axios';
+import { axiosInstance } from '@/lib/axios/axios';
 import { Product } from '@/types/productModel';
 
 export interface PaginatedProducts {
@@ -10,7 +10,7 @@ export interface PaginatedProducts {
 
 export async function getAllProducts(page = 1, limit = 12) {
   try {
-    const res = await axiosPublic.get<PaginatedProducts>(
+    const res = await axiosInstance.get<PaginatedProducts>(
       `/products?page=${page}&limit=${limit}`
     );
     return res.data;
@@ -22,7 +22,7 @@ export async function getAllProducts(page = 1, limit = 12) {
 
 export async function getProduct(id: number | null) {
   try {
-    const res = await axiosPublic.get<Product>(`/products/${id}`);
+    const res = await axiosInstance.get<Product>(`/products/${id}`);
     return res.data;
   } catch (err) {
     console.error(err);

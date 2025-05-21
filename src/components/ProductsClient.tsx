@@ -2,7 +2,7 @@
 
 import { useCart } from '@/hooks/useCart';
 import useCartActions from '@/hooks/useCartActions';
-import { axiosPublic } from '@/lib/axios/axios';
+import { axiosInstance } from '@/lib/axios/axios';
 import { Category } from '@/types/categoryModel';
 import { Product } from '@/types/productModel';
 import { useEffect, useState } from 'react';
@@ -84,7 +84,7 @@ export default function ProductsClient({
             setTotalPages(response.totalPages);
           }
         } else if (id) {
-          response = await axiosPublic.get<Category>(`/categories/${id}`);
+          response = await axiosInstance.get<Category>(`/categories/${id}`);
           setProducts(response.data.products);
         }
       } catch (err) {

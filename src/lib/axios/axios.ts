@@ -1,5 +1,5 @@
 // lib/api.ts
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { getAccessToken, setAccessToken } from '../authToken';
 
 const baseURL =
@@ -7,20 +7,14 @@ const baseURL =
     ? process.env.NEXT_PUBLIC_API_BASE_URL
     : 'http://localhost:7000/api/v1';
 
-const axiosPublic = axios.create({
-  baseURL,
-  headers: { 'Content-Type': 'application/json' },
-  withCredentials: true,
-});
-
-const axiosPrivate = axios.create({
+const axiosInstance = axios.create({
   baseURL,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 });
 
 // Request interceptor for adding the auth token
-axiosPrivate.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config) => {
     const token = getAccessToken();
     if (!config.headers['Authorization'] && token) {
@@ -32,38 +26,47 @@ axiosPrivate.interceptors.request.use(
 );
 
 // Response interceptor for handling token refresh
-axiosPrivate.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const prevRequest = error?.config;
+    const prevRequest = error.config;
 
     // Only attempt refresh if we haven't tried before and it's a 401/403 error
     if (
-      (error?.response?.status === 401 || error?.response?.status === 403) &&
-      !prevRequest?.sent
+      (error.response?.status === 401 || error.response?.status === 403) &&
+      !prevRequest._retry &&
+      !prevRequest.url?.includes('/refresh') // Don't retry refresh endpoint
     ) {
-      prevRequest.sent = true;
+      prevRequest._retry = true;
+
       try {
-        // Use axiosPublic for refresh token request to avoid circular dependency
-        const response = await axiosPublic.get('/refresh', {
+        console.log('Attempting to refresh token...');
+        // Use a new axios instance for refresh to avoid interceptors
+        const response = await axios.get(`${baseURL}/refresh`, {
           withCredentials: true,
         });
-        const newAccessToken = response.data.accessToken;
 
+        console.log('Refresh response:', response.data);
+        const newAccessToken = response.data.accessToken;
         if (newAccessToken) {
+          console.log('New access token received');
           setAccessToken(newAccessToken);
           prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-          return axiosPrivate(prevRequest);
+          return axiosInstance(prevRequest);
         } else {
-          // If no new token received, clear the current token
+          console.log('No access token in refresh response');
           setAccessToken(null);
           return Promise.reject(error);
         }
-      } catch (error) {
-        console.error('Refresh token error:', error);
+      } catch (refreshError: unknown) {
+        const axiosError = refreshError as AxiosError;
+        console.error(
+          'Refresh token error:',
+          axiosError.response?.data || axiosError.message
+        );
         // If refresh fails, clear the token and reject
         setAccessToken(null);
-        return Promise.reject(error);
+        return Promise.reject(refreshError);
       }
     }
 
@@ -119,4 +122,4 @@ axiosPrivate.interceptors.response.use(
 //   }
 // );
 
-export { axiosPublic, axiosPrivate };
+export { axiosInstance };

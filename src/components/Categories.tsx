@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { axiosPublic } from '@/lib/axios/axios';
+import { axiosInstance } from '@/lib/axios/axios';
 import { Category } from '@/types/categoryModel';
 import { Skeleton } from './ui/skeleton';
 
@@ -44,7 +44,7 @@ export default function Categories() {
     async function fetchCategories() {
       try {
         setLoading(true);
-        const response = await axiosPublic.get<Category[]>('/categories');
+        const response = await axiosInstance.get<Category[]>('/categories');
         setCategories(response.data);
       } catch (err) {
         console.error(err);

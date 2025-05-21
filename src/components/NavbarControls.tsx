@@ -4,7 +4,7 @@ import AuthModal from '@/features/authentication/AuthModal';
 import { ShoppingBagIcon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
-import { axiosPublic } from '@/lib/axios/axios';
+import { axiosInstance } from '@/lib/axios/axios';
 import { Product } from '@/types/productModel';
 import { PaginatedProducts } from '@/services/apiProducts';
 import SearchResults from './SearchResults';
@@ -53,7 +53,7 @@ export default function NavbarControls({ userId }: { userId: number | null }) {
 
       try {
         setIsSearching(true);
-        const response = await axiosPublic.get<PaginatedProducts>(
+        const response = await axiosInstance.get<PaginatedProducts>(
           `/products?search=${searchQuery}`
         );
         setSearchResults(response.data.products);

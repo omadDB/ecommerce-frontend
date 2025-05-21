@@ -1,4 +1,4 @@
-import { axiosPrivate, axiosPublic } from '@/lib/axios/axios';
+import { axiosInstance } from '@/lib/axios/axios';
 import {
   IUserLoggedIn,
   IUserLogin,
@@ -9,7 +9,7 @@ import { AxiosError } from 'axios';
 
 export async function registerService(newUser: IUserRegister) {
   try {
-    const res = await axiosPublic.post<IUserRegister>(
+    const res = await axiosInstance.post<IUserRegister>(
       '/auth/register',
       newUser
     );
@@ -22,9 +22,13 @@ export async function registerService(newUser: IUserRegister) {
 
 export async function loginService(newUser: IUserLogin) {
   try {
-    const res = await axiosPublic.post<IUserLoggedIn>('/auth/login', newUser, {
-      withCredentials: true,
-    });
+    const res = await axiosInstance.post<IUserLoggedIn>(
+      '/auth/login',
+      newUser,
+      {
+        withCredentials: true,
+      }
+    );
 
     // if (res.status === 200) {
     //   document.cookie = `token=${
@@ -51,7 +55,7 @@ export async function loginService(newUser: IUserLogin) {
 
 export async function logoutService() {
   try {
-    const res = await axiosPrivate.post<User>('/auth/logout');
+    const res = await axiosInstance.post<User>('/auth/logout');
     return res.data;
   } catch (err) {
     console.error(err);
