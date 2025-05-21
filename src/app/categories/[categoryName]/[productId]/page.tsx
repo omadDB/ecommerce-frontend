@@ -2,8 +2,8 @@ import { getQueryClient } from '@/app/get-query-client';
 import Container from '@/components/Container';
 import ProductClient from '@/features/products/ProductClient';
 import { getServerAuth } from '@/app/_lib/serverAuth';
-import { getCart } from '@/services/apiCart';
-import { getProduct } from '@/services/apiProducts';
+// import { getCart } from '@/services/apiCart';
+// import { getProduct } from '@/services/apiProducts';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 export const dynamic = 'force-dynamic';
@@ -15,17 +15,17 @@ export default async function Page({ params }: { params: tParams }) {
   const { productId: id } = await params;
   const { userId } = await getServerAuth();
 
-  if (userId) {
-    await queryClient.prefetchQuery({
-      queryKey: ['cart', userId],
-      queryFn: () => getCart(userId),
-    });
-  }
+  // if (userId) {
+  //   await queryClient.prefetchQuery({
+  //     queryKey: ['cart', userId],
+  //     queryFn: () => getCart(userId),
+  //   });
+  // }
 
-  await queryClient.prefetchQuery({
-    queryKey: ['product', Number(id)],
-    queryFn: () => getProduct(Number(id)),
-  });
+  // await queryClient.prefetchQuery({
+  //   queryKey: ['product', Number(id)],
+  //   queryFn: () => getProduct(Number(id)),
+  // });
 
   const dehydratedState = dehydrate(queryClient);
 
