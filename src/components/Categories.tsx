@@ -80,8 +80,10 @@ export default function Categories() {
 
   return (
     <div className="text-center">
-      <h2 className="mb-8 text-3xl font-bold">Shop by Category</h2>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+      <h2 className="mb-4 text-2xl font-bold sm:mb-6 md:mb-8 sm:text-3xl">
+        Shop by Category
+      </h2>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-4">
         {categories?.map((category, index) => (
           <Link
             key={index}
@@ -89,15 +91,14 @@ export default function Categories() {
           >
             <div className="relative overflow-hidden transition-shadow duration-300 rounded-lg shadow-lg group hover:shadow-xl">
               <Image
-                // src={category?.image}
                 src="/example-product.webp"
                 alt={category.name}
                 width={300}
                 height={192}
-                className="object-cover w-full h-48 transition-transform duration-300 transform group-hover:scale-105"
+                className="object-cover w-full h-32 transition-transform duration-300 transform sm:h-40 md:h-48 group-hover:scale-105"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
-                <h3 className="text-xl font-semibold text-white">
+                <h3 className="px-2 text-lg font-semibold text-white sm:text-xl">
                   {category.name}
                 </h3>
               </div>

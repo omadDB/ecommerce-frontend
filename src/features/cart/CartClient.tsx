@@ -18,7 +18,7 @@ export default function CartClient({ userId }: { userId: number }) {
   if (!cart) return null;
 
   return (
-    <div className="flex flex-col my-8">
+    <div className="flex flex-col my-4 sm:my-6 md:my-8">
       <CartHeader />
       <CartList cart={cart} userId={userId} />
     </div>

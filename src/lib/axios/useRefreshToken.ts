@@ -1,9 +1,11 @@
 import { setAccessToken } from '../authToken';
-import { axiosPrivate } from './axios';
+import { axiosPublic } from './axios';
 
 const useRefreshToken = () => {
   const refresh = async () => {
-    const res = await axiosPrivate.get('/refresh', { withCredentials: true });
+    const res = await axiosPublic.get('/refresh', {
+      withCredentials: true,
+    });
 
     setAccessToken(res.data.accessToken);
 

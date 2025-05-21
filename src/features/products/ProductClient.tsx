@@ -37,7 +37,7 @@ export default function ProductClient({
   if (!product) return null;
 
   return (
-    <div className="grid grid-cols-[50%_1fr] gap-12 my-8">
+    <div className="grid grid-cols-1 md:grid-cols-[50%_1fr] gap-6 md:gap-12 my-4 sm:my-6 md:my-8">
       <ProductImage />
       <ProductDetails userId={userId} product={product} />
     </div>

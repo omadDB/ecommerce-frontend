@@ -49,14 +49,14 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         <div className="embla__container">
           {slides.map((index) => (
             <div className="embla__slide" key={index}>
-              <Card className="embla__slide__number overflow-hidden p-0 relative">
+              <Card className="relative p-0 overflow-hidden embla__slide__number">
                 <Image
                   src="/example-product.webp"
                   alt="Product image"
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 flex items-center justify-center text-white text-xl z-10">
+                <div className="absolute inset-0 z-10 flex items-center justify-center text-xl text-white">
                   Product {/* or link/button here */}
                 </div>
               </Card>

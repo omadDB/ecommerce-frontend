@@ -19,22 +19,22 @@ export default function CartCta({ userId }: { userId: number }) {
   return (
     <>
       {cartItems.length > 0 && (
-        <div className="flex justify-end w-full pr-12 mt-4">
-          <div className="w-full max-w-md p-6 bg-white rounded-lg">
+        <div className="flex justify-end w-full px-4 mt-4 sm:px-12">
+          <div className="w-full max-w-md p-4 bg-white rounded-lg sm:p-6">
             <div className="space-y-4">
               <div className="flex items-center justify-between pb-4 border-b border-gray-200">
-                <h4 className="text-lg font-semibold text-gray-700">
+                <h4 className="text-base font-semibold text-gray-700 sm:text-lg">
                   Total Amount
                 </h4>
-                <p className="text-2xl font-bold text-primary-700">
+                <p className="text-xl font-bold sm:text-2xl text-primary-700">
                   {formatCurrency(totalPrice)}
                 </p>
               </div>
 
-              <div className="flex items-center gap-2 text-sm text-gray-500">
+              <div className="flex items-center gap-2 text-xs text-gray-500 sm:text-sm">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5"
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -52,7 +52,7 @@ export default function CartCta({ userId }: { userId: number }) {
 
               <button
                 onClick={handleCheckout}
-                className="w-full py-3.5 px-6 text-base font-medium text-white transition-all duration-200 bg-primary-700 rounded-lg hover:bg-primary-800 hover:shadow-lg hover:shadow-primary-700/25 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2 text-sm font-medium text-white duration-200 rounded-lg sm:py-3 sm:text-base bg-primary-600 hover:bg-primary-700"
               >
                 Proceed to Checkout
               </button>

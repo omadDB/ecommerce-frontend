@@ -55,7 +55,7 @@ export default function NavbarList() {
     <div className="flex items-center gap-4 lg:gap-8">
       <Image src="/favicon.ico" width={50} height={50} alt="Logo" />
       <nav>
-        <ul className="flex gap-4 lg:gap-6 font-normal text-white items-center">
+        <ul className="flex items-center gap-4 font-normal text-white lg:gap-6">
           <li>
             <Link
               className={`${
@@ -98,7 +98,7 @@ export default function NavbarList() {
                     </span>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    <ul className="grid w-[300px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                       {categories.map((category) => (
                         <ListItem
                           key={category.title}
@@ -120,7 +120,7 @@ export default function NavbarList() {
                 pathname === '/contacts'
                   ? 'text-white underline-offset-4 underline'
                   : 'text-gray-300 hover:text-white underline-offset-4 hover:underline duration-400'
-              } `}
+              }`}
               href="/contacts"
             >
               Contact
@@ -149,7 +149,7 @@ const ListItem = React.forwardRef<
           {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <p className="text-sm leading-snug line-clamp-2 text-muted-foreground">
             {children}
           </p>
         </a>

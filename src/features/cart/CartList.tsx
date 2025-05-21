@@ -7,7 +7,7 @@ import CartCta from './CartCTA';
 export function CartList({ cart, userId }: { cart: CartData; userId: number }) {
   const cartItems = cart.cartItems;
   return (
-    <div className="mt-1 w-full">
+    <div className="w-full mt-1">
       <table className="w-full border-collapse">
         <thead className="border-b border-gray-300">
           <tr>
@@ -37,14 +37,14 @@ export function CartList({ cart, userId }: { cart: CartData; userId: number }) {
           ) : (
             <tr>
               <td colSpan={4} className="p-2">
-                <div className="flex flex-col justify-center items-center w-full text-center gap-4 my-14">
+                <div className="flex flex-col items-center justify-center w-full gap-4 text-center my-14">
                   <ShoppingBagIcon size={50} color="gray" />
                   <p className="text-xl font-semibold text-gray-600">
                     Корзина пуста
                   </p>
                   <Link
                     href="/categories/all"
-                    className="mt-4 py-2 px-4 text-white bg-primary-600 rounded-lg hover:bg-primary-700 duration-200 flex items-center gap-3"
+                    className="flex items-center gap-3 px-4 py-2 mt-4 text-white duration-200 rounded-lg bg-primary-600 hover:bg-primary-700"
                   >
                     Перейти в каталог <TagIcon width={18} height={18} />
                   </Link>

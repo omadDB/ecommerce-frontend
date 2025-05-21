@@ -48,7 +48,10 @@ axiosPrivate.interceptors.response.use(
     ) {
       prevRequest.sent = true;
       try {
-        const response = await axiosPrivate.get('/refresh');
+        // Use axiosPublic for refresh token request to avoid circular dependency
+        const response = await axiosPublic.get('/refresh', {
+          withCredentials: true,
+        });
         const newAccessToken = response.data.accessToken;
 
         if (newAccessToken) {
@@ -61,7 +64,7 @@ axiosPrivate.interceptors.response.use(
           return Promise.reject(error);
         }
       } catch (error) {
-        console.error(error);
+        console.error('Refresh token error:', error);
         // If refresh fails, clear the token and reject
         setAccessToken(null);
         return Promise.reject(error);

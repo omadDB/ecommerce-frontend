@@ -14,13 +14,13 @@ export default function SearchResults({
   if (results.length === 0) return null;
 
   return (
-    <div className="absolute top-full left-0 w-full bg-white rounded-lg shadow-lg mt-2 max-h-96 overflow-y-auto z-50">
+    <div className="absolute left-0 z-50 w-full mt-2 overflow-y-auto bg-white rounded-lg shadow-lg top-full max-h-96">
       {results.map((product) => (
         <Link
           key={product.id}
           href={`/categories/${product.category.name}/${product.id}`}
           onClick={onClose}
-          className="flex items-center gap-4 p-4 hover:bg-gray-100 transition-colors"
+          className="flex items-center gap-4 p-4 transition-colors hover:bg-gray-100"
         >
           <div className="relative w-16 h-16">
             <Image
@@ -32,7 +32,7 @@ export default function SearchResults({
           </div>
           <div className="flex-1">
             <h4 className="font-medium text-[#1c284b]">{product.name}</h4>
-            <p className="text-sm text-black mt-2">{product.price} so&apos;m</p>
+            <p className="mt-2 text-sm text-black">{product.price} so&apos;m</p>
           </div>
         </Link>
       ))}

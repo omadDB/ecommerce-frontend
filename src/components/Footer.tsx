@@ -1,12 +1,12 @@
-import Link from "next/link"
-import Container from "./Container"
-import Image from "next/image"
-import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react"
+import Link from 'next/link';
+import Container from './Container';
+import Image from 'next/image';
+import { FacebookIcon, InstagramIcon, TwitterIcon } from 'lucide-react';
 
 export default function Footer() {
   return (
     <footer className="footer h-fit">
-      <Container className="grid gap-10 grid-cols-1 lg:grid--footer">
+      <Container className="grid grid-cols-1 gap-10 lg:grid--footer">
         <div className="logo-col">
           <Link href="#" className="footer-logo">
             <Image src="/favicon.ico" width={50} height={50} alt="Logo" />
@@ -130,5 +130,5 @@ export default function Footer() {
         </nav>
       </Container>
     </footer>
-  )
+  );
 }

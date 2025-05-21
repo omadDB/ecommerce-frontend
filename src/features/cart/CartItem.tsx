@@ -40,7 +40,7 @@ function CartItem({ cartItem }: { cartItem: CartItemModel }) {
       </td>
 
       {/* Quantity */}
-      <td className="p-4  text-center">
+      <td className="p-4 text-center">
         <div className="flex items-center justify-center gap-2">
           <UpdateCartItemQuantity cartItem={cartItem} />
           <button className="cursor-pointer" onClick={handleRemove}>
@@ -48,7 +48,7 @@ function CartItem({ cartItem }: { cartItem: CartItemModel }) {
               width={20}
               height={20}
               stroke="#DC2626"
-              className="ml-4 hover:scale-110 duration-300"
+              className="ml-4 duration-300 hover:scale-110"
               fill="none"
             />
           </button>
@@ -57,7 +57,7 @@ function CartItem({ cartItem }: { cartItem: CartItemModel }) {
 
       {/* Total */}
       <td className="p-4 text-center">
-        <p className="tracking-widest text-lg">
+        <p className="text-lg tracking-widest">
           {formatCurrency(cartItem.product.price! * cartItem.count!)}
         </p>
       </td>
