@@ -19,10 +19,7 @@ function SignOutButton() {
   const { isPending, logout } = useLogout();
   const { user } = useUser();
 
-  console.log(user);
-
   function handleLogout() {
-    console.log(user);
     logout();
     setIsOpen(false);
   }

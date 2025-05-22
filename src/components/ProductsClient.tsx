@@ -55,7 +55,6 @@ export default function ProductsClient({
   const { addMutation } = useCartActions();
 
   function handleAddToCart(product: Product) {
-    console.log(userId);
     if (!userId) {
       setIsAuthModalOpen(true);
       return;
@@ -109,8 +108,8 @@ export default function ProductsClient({
       <Container>
         <div className="my-8">
           <h2 className="mb-6 text-4xl font-bold">
-            {categoryName.charAt(0).toUpperCase() +
-              categoryName.slice(1).replace(/%20/g, ' ')}
+            {decodeURIComponent(categoryName).charAt(0).toUpperCase() +
+              decodeURIComponent(categoryName).slice(1)}
           </h2>
           <div className="grid grid-cols-4 gap-8">
             {Array.from({ length: 8 }).map((_, i) => (
@@ -139,10 +138,10 @@ export default function ProductsClient({
       />
       <div className="my-8">
         <h2 className="mb-6 text-4xl font-bold">
-          {categoryName.charAt(0).toUpperCase() +
-            categoryName.slice(1).replace(/%20/g, ' ')}
+          {decodeURIComponent(categoryName).charAt(0).toUpperCase() +
+            decodeURIComponent(categoryName).slice(1)}
         </h2>
-        <div className="grid grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 2xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
           {products.map((product) => (
             <div
               className="flex flex-col gap-4 p-4 leading-5 border border-gray-300 rounded-md group duration-400"

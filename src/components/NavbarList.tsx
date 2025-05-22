@@ -48,14 +48,24 @@ const categories = [
   },
 ];
 
-export default function NavbarList() {
+export default function NavbarList({ direction }: { direction: string }) {
   const pathname = usePathname();
 
   return (
-    <div className="flex items-center gap-4 lg:gap-8">
+    <div
+      className={`flex ${
+        direction === 'vertical'
+          ? 'flex-col items-start'
+          : 'flex-row items-center'
+      } items-center gap-4 lg:gap-8`}
+    >
       <Image src="/favicon.ico" width={50} height={50} alt="Logo" />
       <nav>
-        <ul className="flex items-center gap-4 font-normal text-white lg:gap-6">
+        <ul
+          className={`flex ${
+            direction === 'vertical' ? 'flex-col' : ''
+          } items-center gap-4 font-normal md:text-sm lg:text-md xl:text-[16px] text-white lg:gap-6`}
+        >
           <li>
             <Link
               className={`${

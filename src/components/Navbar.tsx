@@ -12,30 +12,48 @@ export default async function Navbar() {
 
   return (
     <header className="flex justify-center items-center bg-[#1E3A8A]">
-      <ContainerBig className="flex w-full justify-between !py-4">
+      <ContainerBig className="flex w-full items-center !py-4">
         {/* Desktop Navigation */}
-        <div className="hidden md:block">
-          <NavbarList />
+        <div className="flex-1 hidden md:block">
+          <NavbarList direction={'horizontal'} />
         </div>
 
         {/* Mobile Navigation */}
-        <div className="md:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-white">
-                <Menu className="w-6 h-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              side="left"
-              className="w-[300px] bg-[#1E3A8A] text-white"
-            >
-              <NavbarList />
-            </SheetContent>
-          </Sheet>
+        <div className="flex items-center justify-between w-full gap-3 md:hidden">
+          {/* Left: Menu button */}
+          <div className="flex items-center">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="w-8 h-8 text-white"
+                >
+                  <Menu />
+                </Button>
+              </SheetTrigger>
+              <SheetContent
+                side="left"
+                className="w-[220px] bg-[#1E3A8A] border-none text-white"
+              >
+                <NavbarList direction={'vertical'} />
+              </SheetContent>
+            </Sheet>
+          </div>
+          {/* Center: Search input, flex-1 and centered */}
+          <div className="flex justify-center flex-1">
+            <NavbarControls userId={userId} onlySearch />
+          </div>
+          {/* Right: Sign in/user/cart */}
+          <div className="flex items-center">
+            <NavbarControls userId={userId} onlyAuth />
+          </div>
         </div>
 
-        <NavbarControls userId={userId} />
+        {/* Desktop controls */}
+        <div className="justify-end hidden md:flex">
+          <NavbarControls userId={userId} />
+        </div>
       </ContainerBig>
     </header>
   );

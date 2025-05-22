@@ -8,8 +8,6 @@ import Spinner from '@/components/Spinner';
 export default function OrdersTab({ userId }: { userId: number }) {
   const { orders, isLoading, error } = useOrders(userId);
 
-  console.log('Orders data:', orders);
-
   if (isLoading) return <Spinner />;
   if (error) return <p className="text-red-500">Error loading orders</p>;
   if (!orders.length) return <p>No orders found</p>;
@@ -17,7 +15,6 @@ export default function OrdersTab({ userId }: { userId: number }) {
   return (
     <div className="space-y-6">
       {orders.map((order) => {
-        console.log('Order items:', order.items);
         return (
           <div
             key={order.id}
@@ -47,7 +44,6 @@ export default function OrdersTab({ userId }: { userId: number }) {
 
             <div className="space-y-2">
               {order.items.map((item) => {
-                console.log('Item data:', item);
                 return (
                   <div
                     key={item.productId}

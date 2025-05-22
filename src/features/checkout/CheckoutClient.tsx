@@ -126,8 +126,8 @@ export default function CheckoutClient({ userId }: { userId: number }) {
                   className="flex items-center justify-between p-3 transition-colors rounded-lg hover:bg-gray-50"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex items-center justify-center w-10 h-10 text-sm font-medium text-gray-600 bg-gray-100 rounded-full">
-                      {item.count || 0}
+                    <div className="flex items-center justify-center w-14 h-14 text-sm font-medium text-gray-600 bg-gray-100 rounded-full">
+                      {item.count || 0} x
                     </div>
                     <div className="flex flex-col">
                       <span className="font-medium text-gray-800">

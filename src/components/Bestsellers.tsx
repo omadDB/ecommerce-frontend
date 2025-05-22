@@ -7,13 +7,13 @@ import { formatCurrency } from '@/utils/helpers';
 
 export default function Bestsellers() {
   return (
-    <div className="bg-[#1E3A8A] py-10">
-      <ContainerBig>
-        <h2 className="text-3xl lg:text-4xl text-white font-bold mb-10 text-center lg:text-left">
-            Bestsellers
+    <div className="bg-[#1E3A8A] py-5 sm:py-6 md:py-8 xl:py-10">
+      <ContainerBig className="!px-6">
+        <h2 className="text-3xl lg:text-4xl text-white font-bold mb-5 sm:mb-6 md:mb-8 xl:mb-10 text-center lg:text-left">
+          Bestsellers
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 2xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
           {Array.from({ length: 10 }).map((_, index) => (
             <div
               className="flex flex-col justify-center items-center gap-4 text-white leading-5 group duration-400 shadow-[0_0_10px_rgba(0,0,0,0.2)] rounded-md 
@@ -41,8 +41,15 @@ export default function Bestsellers() {
                 </Button>
               </div>
               <div className="flex flex-col gap-y-5 py-2">
-                <h4 className="text-pretty text-center">Универсальный регулируемый ключ-мультиинструмент</h4>
-                <p>Price: <span className="font-semibold">{formatCurrency(310000)}</span></p>
+                <h4 className="text-pretty text-center">
+                  Универсальный регулируемый ключ-мультиинструмент
+                </h4>
+                <p>
+                  Price:{' '}
+                  <span className="font-semibold">
+                    {formatCurrency(310000)}
+                  </span>
+                </p>
               </div>
             </div>
           ))}

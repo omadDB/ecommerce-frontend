@@ -6,7 +6,6 @@ import Spinner from '@/components/Spinner';
 
 export default function CartClient({ userId }: { userId: number }) {
   const { cart, isLoading, error } = useCart(userId);
-  console.log(userId, cart);
 
   if (isLoading)
     return (
