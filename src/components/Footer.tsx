@@ -6,7 +6,7 @@ import { FacebookIcon, InstagramIcon, TwitterIcon } from 'lucide-react';
 export default function Footer() {
   return (
     <footer className="footer h-fit">
-      <Container className="grid grid-cols-1 gap-10 lg:grid--footer">
+      <Container className="grid grid-cols-2 gap-10 !px-10 lg:grid--footer">
         <div className="logo-col">
           <Link href="#" className="footer-logo">
             <Image src="/favicon.ico" width={50} height={50} alt="Logo" />
@@ -39,26 +39,10 @@ export default function Footer() {
             </li>
           </ul>
 
-          <p className="text-sm text-white lg:text-base">
-            Copyright &copy; <span className="year">2025</span> by Omad, Inc.
-            All rights reserved.
+          <p className="mt-4 text-sm text-white lg:text-base">
+            Copyright &copy; <span className="year">2025</span> by Omad. All
+            rights reserved.
           </p>
-        </div>
-
-        <div className="address-col">
-          <p className="text-base text-white">Contact us</p>
-          <address className="contacts">
-            <p className="address">13B Alisher Navoi St.</p>
-            <p>
-              <Link className="footer-link" href="tel:+998-97-480-33-44">
-                +998-97-480-33-44
-              </Link>
-              <br />
-              <Link className="footer-link" href="mailto:hello@omnifood.com">
-                odilshodbekov@gmail.com
-              </Link>
-            </p>
-          </address>
         </div>
 
         <nav className="nav-col">
@@ -87,7 +71,7 @@ export default function Footer() {
           </ul>
         </nav>
 
-        <nav className="nav-col">
+        {/* <nav className="nav-col">
           <p className="footer-heading">Company</p>
           <ul className="footer-nav">
             <li>
@@ -111,7 +95,22 @@ export default function Footer() {
               </Link>
             </li>
           </ul>
-        </nav>
+        </nav> */}
+        <div className="address-col">
+          <p className="footer-heading">Contact us</p>
+          <address className="contacts">
+            <p className="address">Tashkent, Uzbekistan</p>
+            <p>
+              <Link className="footer-link" href="tel:+998-97-480-33-44">
+                +998-97-480-33-44
+              </Link>
+              <br />
+              <Link className="footer-link" href="mailto:hello@omnifood.com">
+                odilshodbekov@gmail.com
+              </Link>
+            </p>
+          </address>
+        </div>
 
         <nav className="nav-col">
           <p className="footer-heading">Resources</p>

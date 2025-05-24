@@ -39,6 +39,7 @@ export default async function RootLayout({
                 error: {
                   duration: 3000,
                 },
+                className: 'responsive-toast',
                 style: {
                   fontSize: '16px',
                   maxWidth: '500px',

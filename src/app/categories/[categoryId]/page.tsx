@@ -1,18 +1,18 @@
 import { getServerAuth } from '@/app/_lib/serverAuth';
-import ProductsClient from '@/components/ProductsClient';
+import CategoryPage from '@/components/CategoryPage';
 
 export const dynamic = 'force-dynamic';
 
 export default async function Page({
   params,
 }: {
-  params: Promise<{ categoryName: string }>;
+  params: Promise<{ categoryId: string }>;
 }) {
   const { userId } = await getServerAuth();
-  const { categoryName } = await params;
+  const { categoryId } = await params;
   //   const category = params.categoryName || "All"
 
   console.log('GetServerAuth: ', userId);
 
-  return <ProductsClient userId={userId} categoryName={categoryName} />;
+  return <CategoryPage userId={userId} categoryId={categoryId} />;
 }

@@ -65,15 +65,15 @@ export default function Page() {
   if (error) return <p>{error.message}</p>;
 
   return (
-    <div className="w-full min-h-[calc(100vh-160px)] bg-white border border-gray-200 rounded-lg shadow-sm">
-      <div className="flex flex-col items-center p-8">
+    <div className="flex justify-center w-full p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
+      <div className="w-full max-w-4xl">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full max-w-4xl min-h-full space-y-6"
+          className="w-full min-h-full space-y-4 sm:space-y-6"
         >
           <div className="flex flex-col items-center mb-6">
             <div className="relative">
-              <Avatar className="w-32 h-32 shadow-lg ring-4 ring-white">
+              <Avatar className="w-24 h-24 shadow-lg sm:w-32 sm:h-32 ring-4 ring-white">
                 <AvatarImage
                   src={
                     // avatarPreview || avatar ||
@@ -122,9 +122,12 @@ export default function Page() {
             )} */}
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
             <div className="grid gap-2">
-              <Label htmlFor="fullName" className="text-base font-medium">
+              <Label
+                htmlFor="fullName"
+                className="text-sm font-medium sm:text-base"
+              >
                 Full Name
               </Label>
               <Input
@@ -133,7 +136,7 @@ export default function Page() {
                 placeholder="Enter your full name"
                 value={userData?.fullName}
                 disabled={userData?.fullName !== ''}
-                className="h-11 bg-gray-50/50"
+                className="w-full text-sm h-11 bg-gray-50/50 sm:text-base"
               />
               {errors.fullName && (
                 <p className="text-sm text-red-500">
@@ -143,7 +146,10 @@ export default function Page() {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="email" className="text-base font-medium">
+              <Label
+                htmlFor="email"
+                className="text-sm font-medium sm:text-base"
+              >
                 Email
               </Label>
               <Input
@@ -154,7 +160,7 @@ export default function Page() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isUpdating || isLoading}
-                className="h-11 bg-gray-50/50"
+                className="w-full text-sm h-11 bg-gray-50/50 sm:text-base"
               />
               {errors.email && (
                 <p className="text-sm text-red-500">{errors.email.message}</p>
@@ -162,7 +168,10 @@ export default function Page() {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="phone" className="text-base font-medium">
+              <Label
+                htmlFor="phone"
+                className="text-sm font-medium sm:text-base"
+              >
                 Phone Number
               </Label>
               <Input
@@ -172,7 +181,7 @@ export default function Page() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 disabled={isUpdating || isLoading}
-                className="h-11 bg-gray-50/50"
+                className="w-full text-sm h-11 bg-gray-50/50 sm:text-base"
               />
               {errors.phone && (
                 <p className="text-sm text-red-500">{errors.phone.message}</p>
@@ -198,7 +207,7 @@ export default function Page() {
           <div className="flex justify-end">
             <Button
               type="submit"
-              className="px-4 py-6 text-base font-medium"
+              className="px-4 py-3 text-base font-medium sm:px-8 sm:py-4"
               disabled={isUpdating || isLoading}
             >
               {isUpdating ? 'Updating...' : 'Update Profile'}

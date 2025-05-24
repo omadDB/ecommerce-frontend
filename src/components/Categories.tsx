@@ -53,7 +53,7 @@ export default function Categories() {
   if (isLoading)
     return (
       <div className="container px-4 py-12 mx-auto">
-        <h2 className="mb-8 text-3xl font-bold text-center">
+        <h2 className="mb-8 text-3xl font-bold text-center text-blue-900">
           Shop by Category
         </h2>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
@@ -90,7 +90,9 @@ export default function Categories() {
 
   return (
     <div className="container px-4 py-12 mx-auto">
-      <h2 className="mb-8 text-3xl font-bold text-center">Shop by Category</h2>
+      <h2 className="mb-8 text-3xl font-bold text-center text-blue-900">
+        Shop by Category
+      </h2>
       <Accordion type="single" collapsible className="w-full">
         {parentCategories.map((parent) => {
           const total = subCategoriesMap[parent.id]?.length || 0;

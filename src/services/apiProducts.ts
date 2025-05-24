@@ -8,7 +8,7 @@ export interface PaginatedProducts {
   currentPage: number;
 }
 
-export async function getAllProducts(page = 1, limit = 12) {
+export async function getAllProducts(page = 1, limit = 200) {
   try {
     const res = await axiosInstance.get<PaginatedProducts>(
       `/products?page=${page}&limit=${limit}`
