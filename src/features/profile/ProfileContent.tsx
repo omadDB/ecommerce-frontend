@@ -4,7 +4,7 @@ import Container from '@/components/Container';
 import Sidebar from '@/components/Sidebar';
 import { usePathname, useRouter } from 'next/navigation';
 import { UserIcon, ShoppingBagIcon } from '@heroicons/react/24/solid';
-import SignOutButton from '@/components/SignOutButton';
+// import SignOutButton from '@/components/SignOutButton';
 
 const navLinks = [
   {
