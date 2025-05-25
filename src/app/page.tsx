@@ -291,7 +291,7 @@ export default function HomePage() {
               Find everything you need for construction, renovation, and DIY
               projects. Expert advice and professional-grade materials.
             </p>
-            <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex flex-row gap-4 sm:flex-row">
               <Button size="lg" asChild>
                 <Link href="/products">Shop Now</Link>
               </Button>
