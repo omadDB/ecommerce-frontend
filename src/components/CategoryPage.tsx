@@ -26,6 +26,7 @@ import Image from 'next/image';
 import { Badge } from './ui/badge';
 import useCartActions from '@/hooks/useCartActions';
 import { useRouter } from 'next/navigation';
+import { formatCurrency } from '@/utils/helpers';
 
 interface CategoryPageProps {
   userId: number | null;
@@ -147,7 +148,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categoryId, userId }) => {
         {/* Mobile filter dialog */}
         <div className="flex flex-col gap-3 lg:hidden">
           <div className="mb-4 sm:mb-6">
-            <h2 className="mb-2 text-4xl font-bold">All Products</h2>
+            <h2 className="mb-2 text-4xl font-bold">{currentCategory?.name}</h2>
           </div>
 
           <div className="flex items-center justify-between mb-6">
@@ -287,7 +288,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categoryId, userId }) => {
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="cursor-pointer overflow-hidden transition-shadow border rounded-lg group hover:shadow-md"
+                    className="overflow-hidden transition-shadow border rounded-lg cursor-pointer group hover:shadow-md"
                     onClick={() => router.push(`/products/${product.id}`)}
                   >
                     <div className="relative">
@@ -321,7 +322,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categoryId, userId }) => {
                     </div>
                     <div className="p-4">
                       <div className="flex items-center mb-2">
-                        <h3 className="text-lg font-medium line-clamp-1">
+                        <h3 className="text-md font-medium line-clamp-1">
                           {product.name}
                         </h3>
                       </div>
@@ -329,15 +330,15 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categoryId, userId }) => {
                         {/* {product.discountedPrice ? (
                           <>
                             <span className="text-lg font-bold">
-                            ${product.discountedPrice.toFixed(2)}
+                            {product.discountedPrice}
                             </span>
                             <span className="text-sm line-through text-muted-foreground">
-                              ${product.price.toFixed(2)}
+                              {product.price}
                             </span>
                           </>
                         ) : ( */}
-                        <span className="text-lg font-bold">
-                          ${product.price.toFixed(2)}
+                        <span className="text-md font-bold">
+                          {formatCurrency(product.price)}
                         </span>
                         {/* )} */}
                       </div>

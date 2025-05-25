@@ -2,6 +2,8 @@
 
 import useCartActions from '@/hooks/useCartActions';
 import { CartItem } from '@/types/cartItemModel';
+import { MinusIcon, PlusIcon } from 'lucide-react';
+import { Button } from './ui/button';
 
 export default function UpdateCartItemQuantity({
   onQuantityChange,
@@ -60,16 +62,19 @@ export default function UpdateCartItemQuantity({
   }
 
   return (
-    <div className="flex rounded-md border border-[#1c284b]">
-      <button
-        className="px-4 py-2 disabled:cursor-not-allowed"
+    <div className="flex items-center border rounded-md">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-6 2xs:h-8 2xs:w-8  w-6 rounded-none"
         onClick={handleDecrement}
         disabled={currentQuantity <= 1 || updateMutation.isPending}
       >
-        -
-      </button>
+        <MinusIcon className="h-3 w-3" />
+        <span className="sr-only">Decrease quantity</span>
+      </Button>
       <input
-        className="w-14 text-center outline-none"
+        className="w-8 2xs:w-10 text-center outline-none"
         type="number"
         value={currentQuantity ?? 1}
         min={1}
@@ -78,13 +83,16 @@ export default function UpdateCartItemQuantity({
         disabled={updateMutation.isPending}
         onChange={handleChange}
       />
-      <button
+      <Button
+        variant="ghost"
+        size="icon"
         disabled={currentQuantity >= totalStock || updateMutation.isPending}
-        className="px-4 py-2 disabled:cursor-not-allowed"
+        className="h-6 w-6 2xs:h-8 2xs:w-8 rounded-none"
         onClick={handleIncrement}
       >
-        +
-      </button>
+        <PlusIcon className="h-3 w-3" />
+        <span className="sr-only">Increase quantity</span>
+      </Button>
 
       {/* <div>
         <button onClick={updateMutation.mutate({})}></button>

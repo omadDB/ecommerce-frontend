@@ -7,6 +7,7 @@ import { Label } from './ui/label';
 import { Separator } from './ui/separator';
 import { Slider } from './ui/slider';
 import Spinner from './Spinner';
+import { formatCurrency } from '@/utils/helpers';
 
 interface FilterSidebarProps {
   priceRange: number[];
@@ -51,8 +52,8 @@ export default function FilterSidebar({
               className="mb-6"
             />
             <div className="flex items-center justify-between">
-              <span>${priceRange[0]}</span>
-              <span>${priceRange[1]}</span>
+              <span>{formatCurrency(priceRange[0])}</span>
+              <span>{formatCurrency(priceRange[1])}</span>
             </div>
           </div>
         </div>

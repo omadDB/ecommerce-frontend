@@ -14,6 +14,8 @@ import { CartItem } from '@/types/cartItemModel';
 import Container from '@/components/Container';
 import { getCurrentUser } from '@/services/apiUser';
 import { User } from '@/types/userModel';
+import { Button } from '@/components/ui/button';
+import { Check } from 'lucide-react';
 
 const checkoutSchema = z.object({
   fullName: z.string().min(2, 'Name must be at least 2 characters'),
@@ -126,7 +128,7 @@ export default function CheckoutClient({ userId }: { userId: number }) {
                   className="flex items-center justify-between p-3 transition-colors rounded-lg hover:bg-gray-50"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex items-center justify-center w-14 h-14 text-sm font-medium text-gray-600 bg-gray-100 rounded-full">
+                    <div className="flex items-center justify-center text-sm font-medium text-gray-600 bg-gray-100 rounded-full w-14 h-14">
                       {item.count || 0} x
                     </div>
                     <div className="flex flex-col">
@@ -250,13 +252,21 @@ export default function CheckoutClient({ userId }: { userId: number }) {
                 />
               </div>
 
-              <button
+              <Button
+                variant="default"
                 type="submit"
                 disabled={isCreatingOrder}
-                className="w-full px-6 py-3 text-base font-medium text-white transition-all duration-200 bg-primary-700 rounded-lg hover:bg-primary-800 hover:shadow-lg hover:shadow-primary-700/25 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full px-6 py-6 text-base font-medium text-white transition-all duration-200 bg-blue-600 rounded-lg hover:bg-primary-800 hover:shadow-lg hover:shadow-primary-700/25 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                {isCreatingOrder ? <Spinner /> : 'Proceed to Confirmation'}
-              </button>
+                {isCreatingOrder ? (
+                  <Spinner />
+                ) : (
+                  <>
+                    <Check className="w-5 h-5 mr-2" />
+                    Proceed to Confirmation
+                  </>
+                )}
+              </Button>
             </form>
           </div>
         </div>

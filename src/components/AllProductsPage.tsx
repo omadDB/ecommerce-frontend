@@ -26,6 +26,7 @@ import {
   SheetTrigger,
 } from './ui/sheet';
 import { useRouter } from 'next/navigation';
+import { formatCurrency } from '@/utils/helpers';
 
 interface AllProductsPageProps {
   userId: number | null;
@@ -163,7 +164,10 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
                     Filters
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+                <SheetContent
+                  side="left"
+                  className="w-[300px] sm:w-[350px] overflow-y-auto"
+                >
                   <SheetHeader className="mb-5">
                     <SheetTitle>Filters</SheetTitle>
                     <SheetDescription>
@@ -261,7 +265,7 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="overflow-hidden transition-shadow border rounded-lg group hover:shadow-md cursor-pointer"
+                    className="overflow-hidden transition-shadow border rounded-lg cursor-pointer group hover:shadow-md"
                     onClick={() => router.push(`/products/${product.id}`)}
                   >
                     <div className="relative">
@@ -295,7 +299,7 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
                     </div>
                     <div className="p-4">
                       <div className="flex items-center mb-2">
-                        <h3 className="text-lg font-medium line-clamp-1">
+                        <h3 className="text-md font-medium line-clamp-1">
                           {product.name}
                         </h3>
                       </div>
@@ -303,15 +307,15 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
                         {/* {product.discountedPrice ? (
                           <>
                             <span className="text-lg font-bold">
-                            ${product.discountedPrice.toFixed(2)}
+                          {product.discountedPrice}
                             </span>
                             <span className="text-sm line-through text-muted-foreground">
-                              ${product.price.toFixed(2)}
+                              {product.price}
                             </span>
                           </>
                         ) : ( */}
-                        <span className="text-lg font-bold">
-                          ${product.price.toFixed(2)}
+                        <span className="text-md font-bold">
+                          {formatCurrency(product.price)}
                         </span>
                         {/* )} */}
                       </div>

@@ -12,11 +12,11 @@ export function OrderCall() {
   };
 
   return (
-    <div className="relative w-full max-w-2xl mx-auto px-4 py-10 sm:px-8 sm:py-14 rounded-3xl shadow-2xl bg-gradient-to-br from-[#22304A] to-[#1a2746] border border-white/10 overflow-hidden">
+    <div className="relative w-full max-w-2xl px-4 py-10 mx-auto overflow-hidden border shadow-2xl sm:px-8 sm:py-14 rounded-3xl border-white/10">
       {/* Glassy Card Overlay */}
       <div className="absolute inset-0 pointer-events-none bg-white/10 backdrop-blur-md rounded-3xl" />
       {/* Decorative SVGs */}
-      <svg
+      {/* <svg
         className="absolute w-48 h-48 -top-10 -left-10 opacity-30"
         viewBox="0 0 200 200"
         fill="none"
@@ -57,51 +57,58 @@ export function OrderCall() {
             <stop offset="1" stopColor="#22304A" />
           </linearGradient>
         </defs>
-      </svg>
+      </svg> */}
       <div className="relative z-10 flex flex-col items-center gap-y-10">
         {/* Illustration Section */}
-        <div className="relative w-32 h-32 mb-2 sm:w-44 sm:h-44">
+        <div className="mb-2">
           <Image
-            src="/illustration.svg"
+            src="/phone-v2.png"
             alt="Call Illustration"
-            fill
-            className="object-contain drop-shadow-xl"
+            width={100}
+            height={100}
+            className=" drop-shadow-xl"
           />
         </div>
         {/* Headline */}
-        <h3 className="mb-2 text-2xl font-bold text-center text-white sm:text-3xl drop-shadow-lg">
+        <h3 className="mb-2 text-2xl font-bold text-center text-black sm:text-3xl drop-shadow-lg">
           Order a Call
         </h3>
         {/* Form Section */}
         <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
           <div className="space-y-5">
             <div className="flex flex-col gap-1">
-              <Label htmlFor="name" className="font-semibold text-blue-200">
-                Name
+              <Label htmlFor="name" className="font-semibold text-black">
+                Name <span className="text-red-500">*</span>
               </Label>
               <input
                 type="text"
-                className="w-full px-4 py-2 mt-2 transition-all border border-blue-400 shadow-sm bg-white/80 rounded-xl text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
+                id="name"
+                required
+                className="w-full px-4 py-2 mt-2 transition-all border shadow-sm focus:outline-none bg-white/80 rounded-xl text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-400"
                 placeholder="Enter your name"
               />
             </div>
             <div className="flex flex-col gap-1">
-              <Label htmlFor="email" className="font-semibold text-blue-200">
-                Email
+              <Label htmlFor="email" className="font-semibold text-black">
+                Email <span className="text-red-500">*</span>
               </Label>
               <input
                 type="email"
-                className="w-full px-4 py-2 mt-2 transition-all border border-blue-400 shadow-sm bg-white/80 rounded-xl text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
+                id="email"
+                required
+                className="w-full px-4 py-2 mt-2 transition-all border shadow-sm focus:outline-none bg-white/80 rounded-xl text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-400"
                 placeholder="Enter your email"
               />
             </div>
             <div className="flex flex-col gap-1">
-              <Label htmlFor="phone" className="font-semibold text-blue-200">
-                Phone Number
+              <Label htmlFor="phone" className="font-semibold text-black">
+                Phone Number <span className="text-red-500">*</span>
               </Label>
               <input
                 type="tel"
-                className="w-full px-4 py-2 mt-2 transition-all border border-blue-400 shadow-sm bg-white/80 rounded-xl text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
+                id="phone"
+                required
+                className="w-full px-4 py-2 mt-2 transition-all border shadow-sm focus:outline-none bg-white/80 rounded-xl text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-400"
                 placeholder="Enter your phone number"
               />
             </div>
@@ -109,7 +116,7 @@ export function OrderCall() {
           <Button
             size="lg"
             type="submit"
-            className="w-full py-3 text-lg font-bold tracking-wide text-white transition-all shadow-lg bg-gradient-to-r from-blue-600 to-blue-900 rounded-xl hover:from-blue-700 hover:to-blue-950"
+            className="w-full py-3 text-lg font-bold tracking-wide text-white transition-all duration-200 bg-blue-600 shadow-lg rounded-xl hover:bg-blue-700"
           >
             Request a Call
           </Button>

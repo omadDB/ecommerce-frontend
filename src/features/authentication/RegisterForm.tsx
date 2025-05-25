@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import Image from 'next/image';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IUserRegister } from '@/types/userModel';
@@ -103,8 +102,8 @@ export default function RegisterForm({
                   type="reset"
                   variant="outline"
                   className={clsx(
-                    'border border-gray-300 hover:bg-[#1c284b] duration-200 py-2 px-4 rounded-lg hover:text-white',
-                    isUsingEmail ? 'bg-[#1c284b] text-white' : ''
+                    'border border-gray-300 hover:bg-blue-800 duration-200 py-2 px-4 rounded-lg hover:text-white',
+                    isUsingEmail ? 'bg-blue-800 text-white' : ''
                   )}
                   onClick={() => handleSwitchRegisterType(true)}
                 >
@@ -114,8 +113,8 @@ export default function RegisterForm({
                   type="reset"
                   variant="outline"
                   className={clsx(
-                    'border border-gray-300 hover:bg-[#1c284b] duration-200 py-2 px-4 rounded-lg hover:text-white',
-                    !isUsingEmail ? 'bg-[#1c284b] text-white' : ''
+                    'border border-gray-300 hover:bg-blue-800 duration-200 py-2 px-4 rounded-lg hover:text-white',
+                    !isUsingEmail ? 'bg-blue-800 text-white' : ''
                   )}
                   onClick={() => handleSwitchRegisterType(false)}
                 >
@@ -233,7 +232,7 @@ export default function RegisterForm({
                 <Button type="submit" className="w-full">
                   {isPending ? <SpinnerMini /> : 'Register'}
                 </Button>
-                <Button variant="outline" className="w-full">
+                {/* <Button variant="outline" className="w-full">
                   Sign in with Google
                   <Image
                     src="https://authjs.dev/img/providers/google.svg"
@@ -241,7 +240,7 @@ export default function RegisterForm({
                     height="16"
                     width="16"
                   />
-                </Button>
+                </Button> */}
               </div>
             </div>
             <div className="mt-4 text-sm text-center">

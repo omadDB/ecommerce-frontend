@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import Image from 'next/image';
 import useLogin from '@/hooks/useLogin';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
@@ -96,8 +95,8 @@ export function LoginForm({
                   type="reset"
                   variant="outline"
                   className={clsx(
-                    'border border-gray-300 hover:bg-[#1c284b] duration-200 py-2 px-4 rounded-lg hover:text-white',
-                    isUsingEmail ? 'bg-[#1c284b] text-white' : ''
+                    'border border-gray-300 hover:bg-blue-800 duration-200 py-2 px-4 rounded-lg hover:text-white',
+                    isUsingEmail ? 'bg-blue-800 text-white' : ''
                   )}
                   onClick={() => handleSwitchLoginType(true)}
                 >
@@ -107,8 +106,8 @@ export function LoginForm({
                   type="reset"
                   variant="outline"
                   className={clsx(
-                    'border border-gray-300 hover:bg-[#1c284b] duration-200 py-2 px-4 rounded-lg hover:text-white',
-                    !isUsingEmail ? 'bg-[#1c284b] text-white' : ''
+                    'border border-gray-300 hover:bg-blue-800 duration-200 py-2 px-4 rounded-lg hover:text-white',
+                    !isUsingEmail ? 'bg-blue-800 text-white' : ''
                   )}
                   onClick={() => handleSwitchLoginType(false)}
                 >
@@ -191,7 +190,7 @@ export function LoginForm({
                 <Button type="submit" className="w-full">
                   {isPending ? <SpinnerMini /> : 'Login'}
                 </Button>
-                <Button variant="outline" type="button" className="w-full ">
+                {/* <Button variant="outline" type="button" className="w-full ">
                   Sign in with Google
                   <Image
                     src="https://authjs.dev/img/providers/google.svg"
@@ -199,7 +198,7 @@ export function LoginForm({
                     height="16"
                     width="16"
                   />
-                </Button>
+                </Button> */}
               </div>
             </div>
             <div className="mt-4 text-sm text-center">

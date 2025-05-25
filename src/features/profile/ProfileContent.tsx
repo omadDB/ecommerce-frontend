@@ -28,7 +28,7 @@ export default function ProfileContent({
   const router = useRouter();
 
   return (
-    <Container>
+    <Container className="">
       {/* Tabs for mobile/tablet */}
       <div className="block mt-4 md:hidden">
         <div className="flex">
@@ -58,7 +58,7 @@ export default function ProfileContent({
         </div> */}
       </div>
       {/* Sidebar for desktop */}
-      <div className="hidden md:grid grid-cols-[20%_1fr] gap-8 my-8 h-[calc(100vh-160px)]">
+      <div className="hidden md:grid grid-cols-[20%_1fr] gap-8 my-[21px] h-[calc(100vh-160px)]">
         <div className="sticky top-24">
           <Sidebar />
         </div>

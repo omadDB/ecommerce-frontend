@@ -37,9 +37,7 @@ function Sidebar() {
       icon: (
         <ShoppingBagIcon
           className={`h-5 w-5 group-hover:text-primary-600 ${
-            pathname === '/profile/orders'
-              ? 'text-primary-600'
-              : 'text-gray-400'
+            pathname === '/profile/orders' ? 'text-blue-600' : 'text-gray-400'
           }`}
         />
       ),
@@ -55,7 +53,7 @@ function Sidebar() {
               className={`py-3 px-5 flex items-center gap-4 font-semibold group rounded-lg transition-colors
                 ${
                   pathname === link.href
-                    ? 'bg-primary-50 border-l-4 border-primary-600 text-primary-700'
+                    ? 'bg-primary-50 border-l-4 border-blue-600 text-blue-600'
                     : 'text-gray-500 hover:bg-neutral-100'
                 }`}
               href={link.href}
@@ -68,7 +66,7 @@ function Sidebar() {
       </ul>
 
       <div className="pt-4 mt-auto">
-        <SignOutButton />
+        <SignOutButton isPopover={false} />
       </div>
     </div>
   );

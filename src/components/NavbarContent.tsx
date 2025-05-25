@@ -12,7 +12,6 @@ import {
   Menu,
   ChevronDown,
   Heart,
-  LogOut,
   Package,
   Settings,
   LogIn,
@@ -53,6 +52,7 @@ import { PaginatedProducts } from '@/services/apiProducts';
 import SearchResults from './SearchResults';
 import AuthModal from '@/features/authentication/AuthModal';
 import { useCategories } from '@/hooks/useCategories';
+import SignOutButton from './SignOutButton';
 
 // Mock data for categories
 // const categories = [
@@ -240,7 +240,10 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[300px] sm:w-[350px]">
+            <SheetContent
+              side="left"
+              className="w-[300px] sm:w-[350px] overflow-y-auto"
+            >
               <SheetHeader className="mb-4">
                 <SheetTitle>Menu</SheetTitle>
               </SheetHeader>
@@ -262,7 +265,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                   >
                     <div className="flex items-center justify-between px-3 py-2">
                       <Link
-                        href={`/products?category=${category.id}`}
+                        href={`/categories/${category.id}`}
                         className="font-medium"
                       >
                         {category.name}
@@ -284,7 +287,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                             <SheetClose key={subcategory.id} asChild>
                               <DropdownMenuItem asChild>
                                 <Link
-                                  href={`/products?category=${category.id}&subcategory=${subcategory.id}`}
+                                  href={`/categories/${subcategory.id}`}
                                   className="w-full"
                                 >
                                   {subcategory.name}
@@ -314,7 +317,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
 
                 <SheetClose asChild>
                   <Link
-                    href="/contact"
+                    href="/contacts"
                     className="flex items-center px-3 py-2 rounded-md hover:bg-accent"
                   >
                     Contact Us
@@ -324,7 +327,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                 <div className="pt-4 mt-4 border-t border-border">
                   <SheetClose asChild>
                     <Link
-                      href="/account"
+                      href="/profile"
                       className="flex items-center px-3 py-2 rounded-md hover:bg-accent"
                     >
                       <User className="w-4 h-4 mr-2" />
@@ -333,11 +336,13 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                   </SheetClose>
                   <SheetClose asChild>
                     <Link
-                      href="/favorite"
-                      className="flex items-center px-3 py-2 rounded-md hover:bg-accent"
+                      href="/favorites"
+                      aria-disabled={true}
+                      className="flex items-center px-3 py-2 rounded-md hover:bg-accent pointer-events-none"
+                      tabIndex={-1}
                     >
                       <Heart className="w-4 h-4 mr-2" />
-                      Favorite
+                      Favorites (soon)
                     </Link>
                   </SheetClose>
                   <SheetClose asChild>
@@ -409,7 +414,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link href="/contact" legacyBehavior passHref>
+                <Link href="/contacts" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                     Contact Us
                   </NavigationMenuLink>
@@ -420,13 +425,12 @@ export function NavbarContent({ userId }: NavbarContentProps) {
 
           {/* Right side - Search, Cart, Account */}
           <div className="flex items-center space-x-4">
-            {/* Mobile Search Toggle */}
             <div className="relative hidden px-2 md:block">
               <Input
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pr-10"
+                className="pr-10 w-48 lg:w-80"
               />
               {isSearching && (
                 <div className="absolute left-0 w-[150%] p-4 mt-2 bg-white rounded-lg shadow-lg top-full">
@@ -478,38 +482,45 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
-                      <Link href="/account" className="w-full cursor-pointer">
+                      <Link href="/profile" className="w-full cursor-pointer">
                         <User className="w-4 h-4 mr-2" />
                         <span>Profile</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/orders" className="w-full cursor-pointer">
+                      <Link
+                        href="/profile/orders"
+                        className="w-full cursor-pointer"
+                      >
                         <Package className="w-4 h-4 mr-2" />
                         <span>Orders</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/wishlist" className="w-full cursor-pointer">
+                      <Link
+                        href="/profile/favorites"
+                        className="w-full cursor-pointer pointer-events-none"
+                        aria-disabled={true}
+                        tabIndex={-1}
+                      >
                         <Heart className="w-4 h-4 mr-2" />
-                        <span>Wishlist</span>
+                        <span>Favorites (soon)</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                       <Link
-                        href="/account/settings"
-                        className="w-full cursor-pointer"
+                        href="/profile/settings"
+                        aria-disabled={true}
+                        className="w-full cursor-pointer pointer-events-none"
+                        tabIndex={-1}
                       >
                         <Settings className="w-4 h-4 mr-2" />
-                        <span>Settings</span>
+                        <span>Settings (soon)</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
-                      <Link href="/logout" className="w-full cursor-pointer">
-                        <LogOut className="w-4 h-4 mr-2" />
-                        <span>Logout</span>
-                      </Link>
+                      <SignOutButton isPopover={true} />
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
