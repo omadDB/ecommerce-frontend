@@ -185,14 +185,14 @@ export default function Footer() {
     ],
   };
 
-  const paymentMethods = [
-    { name: 'Visa', logo: '/placeholder.svg?height=30&width=50' },
-    { name: 'Mastercard', logo: '/placeholder.svg?height=30&width=50' },
-    { name: 'American Express', logo: '/placeholder.svg?height=30&width=50' },
-    { name: 'PayPal', logo: '/placeholder.svg?height=30&width=50' },
-    { name: 'Apple Pay', logo: '/placeholder.svg?height=30&width=50' },
-    { name: 'Google Pay', logo: '/placeholder.svg?height=30&width=50' },
-  ];
+  // const paymentMethods = [
+  //   { name: 'Visa', logo: '/placeholder.svg?height=30&width=50' },
+  //   { name: 'Mastercard', logo: '/placeholder.svg?height=30&width=50' },
+  //   { name: 'American Express', logo: '/placeholder.svg?height=30&width=50' },
+  //   { name: 'PayPal', logo: '/placeholder.svg?height=30&width=50' },
+  //   { name: 'Apple Pay', logo: '/placeholder.svg?height=30&width=50' },
+  //   { name: 'Google Pay', logo: '/placeholder.svg?height=30&width=50' },
+  // ];
 
   return (
     <footer className="bg-gray-50 border-t">
