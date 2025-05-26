@@ -280,350 +280,362 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative px-4 py-12 bg-gradient-to-r from-gray-50 to-gray-100 sm:py-12 md:py-14 lg:py-16">
-        <div className="container flex flex-col items-center px-4 mx-auto lg:flex-row">
-          <div className="mb-8 lg:w-1/2 lg:pr-12 lg:mb-0">
-            <Badge className="mb-4">Limited Time Offer</Badge>
-            <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-              Quality Building Materials for Your Projects
-            </h1>
-            <p className="max-w-md mb-8 text-lg text-muted-foreground">
-              Find everything you need for construction, renovation, and DIY
-              projects. Expert advice and professional-grade materials.
-            </p>
-            <div className="flex flex-row gap-4 sm:flex-row">
-              <Button size="lg" asChild>
-                <Link href="/products">Shop Now</Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/products?sale=true">View Deals</Link>
-              </Button>
+      <Transition>
+        <section className="relative px-4 py-12 bg-gradient-to-r from-gray-50 to-gray-100 sm:py-12 md:py-14 lg:py-16">
+          <div className="container flex flex-col items-center px-4 mx-auto lg:flex-row">
+            <div className="mb-8 lg:w-1/2 lg:pr-12 lg:mb-0">
+              <Badge className="mb-4">Limited Time Offer</Badge>
+              <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+                Quality Building Materials for Your Projects
+              </h1>
+              <p className="max-w-md mb-8 text-lg text-muted-foreground">
+                Find everything you need for construction, renovation, and DIY
+                projects. Expert advice and professional-grade materials.
+              </p>
+              <div className="flex flex-row gap-4 sm:flex-row">
+                <Button size="lg" asChild>
+                  <Link href="/products">Shop Now</Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <Link href="/products?sale=true">View Deals</Link>
+                </Button>
+              </div>
             </div>
-          </div>
-          <div className="relative lg:w-1/2">
-            <div className="relative overflow-hidden rounded-lg shadow-xl">
-              <Image
-                src="/placeholder.svg?height=600&width=800"
-                alt="Featured Products"
-                width={800}
-                height={600}
-                className="object-cover w-full h-auto"
-                priority
-              />
-              <div className="absolute p-3 rounded-lg bottom-4 left-4 bg-background/80 backdrop-blur-sm">
-                <p className="font-medium">Top of the day</p>
-                <p className="text-sm text-muted-foreground">Cement</p>
+            <div className="relative lg:w-1/2">
+              <div className="relative overflow-hidden rounded-lg shadow-xl">
+                <Image
+                  src="/placeholder.svg?height=600&width=800"
+                  alt="Featured Products"
+                  width={800}
+                  height={600}
+                  className="object-cover w-full h-auto"
+                  priority
+                />
+                <div className="absolute p-3 rounded-lg bottom-4 left-4 bg-background/80 backdrop-blur-sm">
+                  <p className="font-medium">Top of the day</p>
+                  <p className="text-sm text-muted-foreground">Cement</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Transition>
 
       {/* Categories Section */}
-      <section className="px-4 py-12 bg-white">
-        <div className="container px-4 mx-auto">
-          <div className="flex flex-col items-baseline justify-between mb-8 md:flex-row">
-            <div>
-              <h2 className="mb-2 text-3xl font-bold">Shop by Category</h2>
-              <p className="text-muted-foreground">
-                Browse our most popular categories
-              </p>
-            </div>
-            <Button variant="link" asChild className="hidden md:flex">
-              <Link href="/categories" className="flex items-center">
-                View All Categories <ChevronRight className="w-4 h-4 ml-1" />
-              </Link>
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-            {featuredCategories.map((category) => (
-              <Link
-                key={category.name}
-                href={`/products?category=${category.slug}`}
-                className="relative overflow-hidden rounded-lg group"
-              >
-                <div className="relative aspect-square">
-                  <Image
-                    src={category.image || '/placeholder.svg'}
-                    alt={category.name}
-                    fill
-                    className="object-cover transition-transform group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-lg font-medium text-white">
-                      {category.name}
-                    </h3>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex justify-center mt-6 md:hidden">
-            <Button variant="outline" asChild>
-              <Link href="/categories">View All Categories</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products Section */}
-      <section className="px-4 py-12 bg-gray-50">
-        <div className="container px-4 mx-auto">
-          <Tabs defaultValue="featured" className="w-full">
-            <div className="flex flex-col items-start justify-between mb-8 sm:flex-row sm:items-center">
+      <Transition>
+        <section className="px-4 py-12 bg-white">
+          <div className="container px-4 mx-auto">
+            <div className="flex flex-col items-baseline justify-between mb-8 md:flex-row">
               <div>
-                <h2 className="mb-2 text-3xl font-bold">Our Products</h2>
+                <h2 className="mb-2 text-3xl font-bold">Shop by Category</h2>
                 <p className="text-muted-foreground">
-                  Discover our selection of premium products
+                  Browse our most popular categories
                 </p>
               </div>
-              <TabsList className="mt-4 sm:mt-0">
-                <TabsTrigger value="featured">Featured</TabsTrigger>
-                <TabsTrigger value="bestsellers">Bestsellers</TabsTrigger>
-                <TabsTrigger value="new">New Arrivals</TabsTrigger>
-              </TabsList>
-            </div>
-
-            <TabsContent value="featured" className="mt-0">
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                {featuredProducts.map((product) => (
-                  <Link key={product.id} href={`/products/${product.id}`}>
-                    <Card className="h-full transition-shadow group hover:shadow-md">
-                      <CardContent className="p-4">
-                        <div className="relative mb-4 overflow-hidden rounded-md aspect-square">
-                          <Image
-                            src={product.image || '/placeholder.svg'}
-                            alt={product.name}
-                            fill
-                            className="object-cover transition-transform group-hover:scale-105"
-                          />
-                          {product.discount && (
-                            <Badge className="absolute top-2 left-2 bg-rose-500 hover:bg-rose-500">
-                              {product.discount}% OFF
-                            </Badge>
-                          )}
-                          {product.badge && (
-                            <Badge
-                              className={`absolute top-2 right-2 ${
-                                product.badge === 'New Arrival'
-                                  ? 'bg-blue-500 hover:bg-blue-500'
-                                  : 'bg-amber-500 hover:bg-amber-500'
-                              }`}
-                            >
-                              {product.badge}
-                            </Badge>
-                          )}
-                        </div>
-                        <div>
-                          <p className="mb-1 text-sm text-muted-foreground">
-                            {product.category}
-                          </p>
-                          <h3 className="mb-2 font-medium transition-colors line-clamp-2 group-hover:text-primary">
-                            {product.name}
-                          </h3>
-                          <div className="flex items-center gap-1 mb-2">
-                            {renderStars(product.rating)}
-                            <span className="text-xs text-muted-foreground">
-                              ({product.reviewCount})
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            {product.discountedPrice ? (
-                              <>
-                                <span className="font-bold">
-                                  {formatCurrency(product.discountedPrice)}
-                                </span>
-                                <span className="text-sm line-through text-muted-foreground">
-                                  {formatCurrency(product.price)}
-                                </span>
-                              </>
-                            ) : (
-                              <span className="font-bold">
-                                {formatCurrency(product.price)}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="bestsellers" className="mt-0">
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                {/* Using the same products but in different order for demo */}
-                {[...featuredProducts].reverse().map((product) => (
-                  <Link key={product.id} href={`/products/${product.id}`}>
-                    <Card className="h-full transition-shadow group hover:shadow-md">
-                      <CardContent className="p-4">
-                        <div className="relative mb-4 overflow-hidden rounded-md aspect-square">
-                          <Image
-                            src={product.image || '/placeholder.svg'}
-                            alt={product.name}
-                            fill
-                            className="object-cover transition-transform group-hover:scale-105"
-                          />
-                          {product.discount && (
-                            <Badge className="absolute top-2 left-2 bg-rose-500 hover:bg-rose-500">
-                              {product.discount}% OFF
-                            </Badge>
-                          )}
-                        </div>
-                        <div>
-                          <p className="mb-1 text-sm text-muted-foreground">
-                            {product.category}
-                          </p>
-                          <h3 className="mb-2 font-medium transition-colors line-clamp-2 group-hover:text-primary">
-                            {product.name}
-                          </h3>
-                          <div className="flex items-center gap-1 mb-2">
-                            {renderStars(product.rating)}
-                            <span className="text-xs text-muted-foreground">
-                              ({product.reviewCount})
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            {product.discountedPrice ? (
-                              <>
-                                <span className="font-bold">
-                                  {formatCurrency(product.discountedPrice)}
-                                </span>
-                                <span className="text-sm line-through text-muted-foreground">
-                                  {formatCurrency(product.price)}
-                                </span>
-                              </>
-                            ) : (
-                              <span className="font-bold">
-                                {formatCurrency(product.price)}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="new" className="mt-0">
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                {newArrivals.map((product) => (
-                  <Link key={product.id} href={`/products/${product.id}`}>
-                    <Card className="h-full transition-shadow group hover:shadow-md">
-                      <CardContent className="p-4">
-                        <div className="relative mb-4 overflow-hidden rounded-md aspect-square">
-                          <Image
-                            src={product.image || '/placeholder.svg'}
-                            alt={product.name}
-                            fill
-                            className="object-cover transition-transform group-hover:scale-105"
-                          />
-                          <Badge className="absolute bg-blue-500 top-2 right-2 hover:bg-blue-500">
-                            New
-                          </Badge>
-                        </div>
-                        <div>
-                          <p className="mb-1 text-sm text-muted-foreground">
-                            {product.category}
-                          </p>
-                          <h3 className="mb-2 font-medium transition-colors line-clamp-2 group-hover:text-primary">
-                            {product.name}
-                          </h3>
-                          <div className="flex items-center gap-2">
-                            <span className="font-bold">${product.price}</span>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </TabsContent>
-
-            <div className="flex justify-center mt-8">
-              <Button asChild>
-                <Link href="/products">View All Products</Link>
+              <Button variant="link" asChild className="hidden md:flex">
+                <Link href="/categories" className="flex items-center">
+                  View All Categories <ChevronRight className="w-4 h-4 ml-1" />
+                </Link>
               </Button>
             </div>
-          </Tabs>
-        </div>
-      </section>
+
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+              {featuredCategories.map((category) => (
+                <Link
+                  key={category.name}
+                  href={`/products?category=${category.slug}`}
+                  className="relative overflow-hidden rounded-lg group"
+                >
+                  <div className="relative aspect-square">
+                    <Image
+                      src={category.image || '/placeholder.svg'}
+                      alt={category.name}
+                      fill
+                      className="object-cover transition-transform group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h3 className="text-lg font-medium text-white">
+                        {category.name}
+                      </h3>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <div className="flex justify-center mt-6 md:hidden">
+              <Button variant="outline" asChild>
+                <Link href="/categories">View All Categories</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      </Transition>
+
+      {/* Featured Products Section */}
+      <Transition>
+        <section className="px-4 py-12 bg-gray-50">
+          <div className="container px-4 mx-auto">
+            <Tabs defaultValue="featured" className="w-full">
+              <div className="flex flex-col items-start justify-between mb-8 sm:flex-row sm:items-center">
+                <div>
+                  <h2 className="mb-2 text-3xl font-bold">Our Products</h2>
+                  <p className="text-muted-foreground">
+                    Discover our selection of premium products
+                  </p>
+                </div>
+                <TabsList className="mt-4 sm:mt-0">
+                  <TabsTrigger value="featured">Featured</TabsTrigger>
+                  <TabsTrigger value="bestsellers">Bestsellers</TabsTrigger>
+                  <TabsTrigger value="new">New Arrivals</TabsTrigger>
+                </TabsList>
+              </div>
+
+              <TabsContent value="featured" className="mt-0">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                  {featuredProducts.map((product) => (
+                    <Link key={product.id} href={`/products/${product.id}`}>
+                      <Card className="h-full transition-shadow group hover:shadow-md">
+                        <CardContent className="p-4">
+                          <div className="relative mb-4 overflow-hidden rounded-md aspect-square">
+                            <Image
+                              src={product.image || '/placeholder.svg'}
+                              alt={product.name}
+                              fill
+                              className="object-cover transition-transform group-hover:scale-105"
+                            />
+                            {product.discount && (
+                              <Badge className="absolute top-2 left-2 bg-rose-500 hover:bg-rose-500">
+                                {product.discount}% OFF
+                              </Badge>
+                            )}
+                            {product.badge && (
+                              <Badge
+                                className={`absolute top-2 right-2 ${
+                                  product.badge === 'New Arrival'
+                                    ? 'bg-blue-500 hover:bg-blue-500'
+                                    : 'bg-amber-500 hover:bg-amber-500'
+                                }`}
+                              >
+                                {product.badge}
+                              </Badge>
+                            )}
+                          </div>
+                          <div>
+                            <p className="mb-1 text-sm text-muted-foreground">
+                              {product.category}
+                            </p>
+                            <h3 className="mb-2 font-medium transition-colors line-clamp-2 group-hover:text-primary">
+                              {product.name}
+                            </h3>
+                            <div className="flex items-center gap-1 mb-2">
+                              {renderStars(product.rating)}
+                              <span className="text-xs text-muted-foreground">
+                                ({product.reviewCount})
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {product.discountedPrice ? (
+                                <>
+                                  <span className="font-bold">
+                                    {formatCurrency(product.discountedPrice)}
+                                  </span>
+                                  <span className="text-sm line-through text-muted-foreground">
+                                    {formatCurrency(product.price)}
+                                  </span>
+                                </>
+                              ) : (
+                                <span className="font-bold">
+                                  {formatCurrency(product.price)}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="bestsellers" className="mt-0">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                  {/* Using the same products but in different order for demo */}
+                  {[...featuredProducts].reverse().map((product) => (
+                    <Link key={product.id} href={`/products/${product.id}`}>
+                      <Card className="h-full transition-shadow group hover:shadow-md">
+                        <CardContent className="p-4">
+                          <div className="relative mb-4 overflow-hidden rounded-md aspect-square">
+                            <Image
+                              src={product.image || '/placeholder.svg'}
+                              alt={product.name}
+                              fill
+                              className="object-cover transition-transform group-hover:scale-105"
+                            />
+                            {product.discount && (
+                              <Badge className="absolute top-2 left-2 bg-rose-500 hover:bg-rose-500">
+                                {product.discount}% OFF
+                              </Badge>
+                            )}
+                          </div>
+                          <div>
+                            <p className="mb-1 text-sm text-muted-foreground">
+                              {product.category}
+                            </p>
+                            <h3 className="mb-2 font-medium transition-colors line-clamp-2 group-hover:text-primary">
+                              {product.name}
+                            </h3>
+                            <div className="flex items-center gap-1 mb-2">
+                              {renderStars(product.rating)}
+                              <span className="text-xs text-muted-foreground">
+                                ({product.reviewCount})
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {product.discountedPrice ? (
+                                <>
+                                  <span className="font-bold">
+                                    {formatCurrency(product.discountedPrice)}
+                                  </span>
+                                  <span className="text-sm line-through text-muted-foreground">
+                                    {formatCurrency(product.price)}
+                                  </span>
+                                </>
+                              ) : (
+                                <span className="font-bold">
+                                  {formatCurrency(product.price)}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="new" className="mt-0">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                  {newArrivals.map((product) => (
+                    <Link key={product.id} href={`/products/${product.id}`}>
+                      <Card className="h-full transition-shadow group hover:shadow-md">
+                        <CardContent className="p-4">
+                          <div className="relative mb-4 overflow-hidden rounded-md aspect-square">
+                            <Image
+                              src={product.image || '/placeholder.svg'}
+                              alt={product.name}
+                              fill
+                              className="object-cover transition-transform group-hover:scale-105"
+                            />
+                            <Badge className="absolute bg-blue-500 top-2 right-2 hover:bg-blue-500">
+                              New
+                            </Badge>
+                          </div>
+                          <div>
+                            <p className="mb-1 text-sm text-muted-foreground">
+                              {product.category}
+                            </p>
+                            <h3 className="mb-2 font-medium transition-colors line-clamp-2 group-hover:text-primary">
+                              {product.name}
+                            </h3>
+                            <div className="flex items-center gap-2">
+                              <span className="font-bold">
+                                ${product.price}
+                              </span>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              </TabsContent>
+
+              <div className="flex justify-center mt-8">
+                <Button asChild>
+                  <Link href="/products">View All Products</Link>
+                </Button>
+              </div>
+            </Tabs>
+          </div>
+        </section>
+      </Transition>
 
       {/* Special Offers Section */}
-      <section className="px-4 py-12 bg-white">
-        <div className="container px-4 mx-auto">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {specialOffers.map((offer, index) => (
-              <div
-                key={index}
-                className={`rounded-lg overflow-hidden ${offer.color}`}
-              >
-                <div className="flex flex-col md:flex-row">
-                  <div className="flex flex-col justify-center p-6 md:w-1/2 md:p-8">
-                    <h3 className="mb-2 text-2xl font-bold">{offer.title}</h3>
-                    <p className="mb-6 text-muted-foreground">
-                      {offer.description}
-                    </p>
-                    <Button asChild className="w-fit">
-                      <Link href={offer.link}>{offer.buttonText}</Link>
-                    </Button>
-                  </div>
-                  <div className="md:w-1/2">
-                    <Image
-                      src={offer.image || '/placeholder.svg'}
-                      alt={offer.title}
-                      width={400}
-                      height={300}
-                      className="object-cover w-full h-full"
-                    />
+      <Transition>
+        <section className="px-4 py-12 bg-white">
+          <div className="container px-4 mx-auto">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              {specialOffers.map((offer, index) => (
+                <div
+                  key={index}
+                  className={`rounded-lg overflow-hidden ${offer.color}`}
+                >
+                  <div className="flex flex-col md:flex-row">
+                    <div className="flex flex-col justify-center p-6 md:w-1/2 md:p-8">
+                      <h3 className="mb-2 text-2xl font-bold">{offer.title}</h3>
+                      <p className="mb-6 text-muted-foreground">
+                        {offer.description}
+                      </p>
+                      <Button asChild className="w-fit">
+                        <Link href={offer.link}>{offer.buttonText}</Link>
+                      </Button>
+                    </div>
+                    <div className="md:w-1/2">
+                      <Image
+                        src={offer.image || '/placeholder.svg'}
+                        alt={offer.title}
+                        width={400}
+                        height={300}
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Transition>
 
       {/* Benefits Section */}
-      <section className="py-12 bg-gray-50">
-        <div className="container px-4 mx-auto">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <div className="flex flex-col items-center p-6 text-center">
-              <div className="p-3 mb-4 rounded-full bg-primary/10">
-                <Truck className="w-6 h-6 text-primary" />
+      <Transition>
+        <section className="py-12 bg-gray-50">
+          <div className="container px-4 mx-auto">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="flex flex-col items-center p-6 text-center">
+                <div className="p-3 mb-4 rounded-full bg-primary/10">
+                  <Truck className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="mb-2 text-lg font-medium">Free Delivery</h3>
+                <p className="text-muted-foreground">
+                  Free delivery on orders over $500
+                </p>
               </div>
-              <h3 className="mb-2 text-lg font-medium">Free Delivery</h3>
-              <p className="text-muted-foreground">
-                Free delivery on orders over $500
-              </p>
-            </div>
-            <div className="flex flex-col items-center p-6 text-center">
-              <div className="p-3 mb-4 rounded-full bg-primary/10">
-                <RotateCcw className="w-6 h-6 text-primary" />
+              <div className="flex flex-col items-center p-6 text-center">
+                <div className="p-3 mb-4 rounded-full bg-primary/10">
+                  <RotateCcw className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="mb-2 text-lg font-medium">Easy Returns</h3>
+                <p className="text-muted-foreground">
+                  30-day return policy on unused items
+                </p>
               </div>
-              <h3 className="mb-2 text-lg font-medium">Easy Returns</h3>
-              <p className="text-muted-foreground">
-                30-day return policy on unused items
-              </p>
-            </div>
-            <div className="flex flex-col items-center p-6 text-center">
-              <div className="p-3 mb-4 rounded-full bg-primary/10">
-                <Shield className="w-6 h-6 text-primary" />
+              <div className="flex flex-col items-center p-6 text-center">
+                <div className="p-3 mb-4 rounded-full bg-primary/10">
+                  <Shield className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="mb-2 text-lg font-medium">Quality Guarantee</h3>
+                <p className="text-muted-foreground">
+                  All materials meet industry standards
+                </p>
               </div>
-              <h3 className="mb-2 text-lg font-medium">Quality Guarantee</h3>
-              <p className="text-muted-foreground">
-                All materials meet industry standards
-              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Transition>
 
       <Transition>
         <section>
@@ -678,29 +690,31 @@ export default function HomePage() {
       </Transition>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary">
-        <div className="container px-4 mx-auto text-center">
-          <div className="max-w-3xl mx-auto text-white">
-            <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
-              Ready to Explore Products?
-            </h2>
-            <p className="text-lg text-[#d6d6d6] mb-8">
-              Browse our extensive collection of building materials and
-              professional tools.
-            </p>
-            <Button
-              variant="secondary"
-              className="hover:bg-blue-500 hover:text-white"
-              size="lg"
-              asChild
-            >
-              <Link href="/categories/all">
-                <ShoppingBag className="w-5 h-5 mr-2" /> Shop Now
-              </Link>
-            </Button>
+      <Transition>
+        <section className="py-16 bg-primary">
+          <div className="container px-4 mx-auto text-center">
+            <div className="max-w-3xl mx-auto text-white">
+              <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+                Ready to Explore Products?
+              </h2>
+              <p className="text-lg text-[#d6d6d6] mb-8">
+                Browse our extensive collection of building materials and
+                professional tools.
+              </p>
+              <Button
+                variant="secondary"
+                className="hover:bg-blue-500 hover:text-white"
+                size="lg"
+                asChild
+              >
+                <Link href="/categories/all">
+                  <ShoppingBag className="w-5 h-5 mr-2" /> Shop Now
+                </Link>
+              </Button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Transition>
     </div>
   );
 }

@@ -16,7 +16,11 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'E-commerce',
   description: 'E-commerce website',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
 };
 
 export default async function RootLayout({
