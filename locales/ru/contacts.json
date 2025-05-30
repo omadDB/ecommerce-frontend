@@ -1,0 +1,21 @@
+{
+  "title": "Контакты",
+  "subtitle": "Свяжитесь с нами",
+  "address": "Адрес",
+  "phone": "Телефон",
+  "email": "Электронная почта",
+  "working-hours": "Часы работы",
+  "working-hours-weekdays": "Понедельник - Пятница: 09:00 - 18:00",
+  "working-hours-weekend": "Суббота - Воскресенье: 10:00 - 16:00",
+  "form-title": "Отправить сообщение",
+  "form-name": "Ваше имя",
+  "form-email": "Ваш email",
+  "form-phone": "Ваш телефон",
+  "form-message": "Ваше сообщение",
+  "form-submit": "Отправить",
+  "form-success": "Сообщение отправлено",
+  "form-error": "Произошла ошибка",
+  "social-media": "Социальные сети",
+  "follow-us": "Следите за нами",
+  "map": "Карта"
+}

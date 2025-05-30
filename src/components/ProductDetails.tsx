@@ -1,3 +1,5 @@
+// deprecated
+
 'use client';
 
 import { formatCurrency } from '@/utils/helpers';

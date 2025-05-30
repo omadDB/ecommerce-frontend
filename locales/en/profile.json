@@ -1,0 +1,21 @@
+{
+  "title": "Profile",
+  "subtitle": "Personal Information",
+  "form-title": "Profile Information",
+  "form-name": "Name",
+  "form-email": "Email",
+  "form-phone": "Phone",
+  "form-address": "Address",
+  "form-password": "Password",
+  "form-password-confirm": "Confirm Password",
+  "form-submit": "Save",
+  "orders-title": "Orders",
+  "orders-empty": "No orders",
+  "orders-view": "View",
+  "orders-date": "Date",
+  "orders-status": "Status",
+  "orders-total": "Total",
+  "logout": "Logout",
+  "success": "Information saved",
+  "error": "An error occurred"
+}

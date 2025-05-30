@@ -1,14 +1,18 @@
-import type { NextConfig } from 'next';
+import { NextConfig } from 'next';
 
-/** @type {import('next').NextConfig} */
-const nextConfig: NextConfig = {
+const config: NextConfig = {
+  // i18n: {
+  //   locales: ['en', 'es', 'fr'],
+  //   defaultLocale: 'en',
+  //   localeDetection: true,
+  // },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
-    ],
+    domains: ['images.unsplash.com', 'plus.unsplash.com'],
+  },
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['localhost:3000'],
+    },
   },
   env: {
     REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
@@ -59,4 +63,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default config;

@@ -1,0 +1,16 @@
+{
+  "button-addtocart": "Добавить в корзину",
+  "filter-availability": "Доступность",
+  "filter-availability-in-stock": "Только доступные товары",
+  "filter-price-range": "Диапазон цен",
+  "fitler-title": "Фильтры",
+  "number-of-results": "Показано {{filteredProducts.length}} продуктов",
+  "out-of-stock": "Не продается",
+  "pagination-next": "Следующий",
+  "pagination-page": "Страница {{currentPage}} / {{totalPages}}",
+  "pagination-previous": "Предыдущий",
+  "sort-a-z": "Имя: от А до Я",
+  "sort-price-asc": "Цена: от низкой к высокой",
+  "sort-price-desc": "Цена: от высокой к низкой",
+  "sort-z-a": "Имя: от Я до А"
+}

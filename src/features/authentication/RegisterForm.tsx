@@ -15,6 +15,7 @@ import { registerSchema } from '@/lib/zod/schema';
 import useRegister from '@/hooks/useRegister';
 import clsx from 'clsx';
 import SpinnerMini from '@/components/SpinnnerMini';
+import { useRouter } from 'next/navigation';
 
 const classnames = {
   label:
@@ -41,6 +42,7 @@ export default function RegisterForm({
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [isUsingEmail, setIsUsingEmail] = useState(true);
   const { register: registerAPI, isPending } = useRegister();
+  const router = useRouter();
 
   const { register, formState, handleSubmit, reset, clearErrors } =
     useForm<IUserRegister>({
@@ -69,6 +71,8 @@ export default function RegisterForm({
           setPassword('');
           setPasswordConfirm('');
           setIsAuthModalOpen(false);
+          router.push('/');
+          router.refresh();
         },
       }
     );

@@ -1,0 +1,16 @@
+{
+  "button-addtocart": "Add to cart",
+  "filter-availability": "Availability",
+  "filter-availability-in-stock": "In Stock Only",
+  "filter-price-range": "Price range",
+  "fitler-title": "Filters",
+  "number-of-results": "Showing {{filteredProducts.length}} products",
+  "out-of-stock": "Out of Stock",
+  "pagination-next": "Next",
+  "pagination-page": "Page {{currentPage}} / {{totalPages}}",
+  "pagination-previous": "Previous",
+  "sort-a-z": "Name: A to Z",
+  "sort-price-asc": "Price: from low to high",
+  "sort-price-desc": "Price: from top to bottom",
+  "sort-z-a": "Name: Z to A"
+}

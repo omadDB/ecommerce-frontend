@@ -1,0 +1,16 @@
+{
+  "button-addtocart": "Саватга кўшиш",
+  "filter-availability": "Мавжудлиги",
+  "filter-availability-in-stock": "Фақат мавжуд товарлар",
+  "filter-price-range": "Нарх диапазони",
+  "fitler-title": "Фильтрлар",
+  "number-of-results": "{{filteredProducts.length}} та маҳсулот кўрсатилмоқда",
+  "out-of-stock": "Сотувда йўқ",
+  "pagination-next": "Кейинги",
+  "pagination-page": "Саҳифа {{currentPage}} / {{totalPages}}",
+  "pagination-previous": "Олдинги",
+  "sort-a-z": "Номи: А дан З гача",
+  "sort-price-asc": "Нархи: пастдан юқорига",
+  "sort-price-desc": "Нархи: юқоридан пастга",
+  "sort-z-a": "Номи: З дан А гача"
+}

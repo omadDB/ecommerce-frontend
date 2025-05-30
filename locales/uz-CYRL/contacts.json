@@ -1,0 +1,21 @@
+{
+  "title": "Алоқа",
+  "subtitle": "Биз билан боғланинг",
+  "address": "Манзил",
+  "phone": "Телефон",
+  "email": "Электрон почта",
+  "working-hours": "Иш вақти",
+  "working-hours-weekdays": "Душанба - Жума: 09:00 - 18:00",
+  "working-hours-weekend": "Шанба - Якшанба: 10:00 - 16:00",
+  "form-title": "Хабар юбориш",
+  "form-name": "Исмингиз",
+  "form-email": "Электрон почтангиз",
+  "form-phone": "Телефонингиз",
+  "form-message": "Хабарингиз",
+  "form-submit": "Юбориш",
+  "form-success": "Хабарингиз юборилди",
+  "form-error": "Хато юз берди",
+  "social-media": "Ижтимоий тармоқлар",
+  "follow-us": "Бизни кузатинг",
+  "map": "Харита"
+}

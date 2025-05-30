@@ -1,0 +1,9 @@
+{
+  "available-quantity": "Mavjud: {{product?.stock}} dona",
+  "delivery-info-description-1": "Стандарт етказиб бериш: 5-7 иш куни",
+  "delivery-info-title": "Етказиб бериш ҳақида маълумот",
+  "guarantee": "2 йиллик кафолат",
+  "in-stock-badge": "Сотувда мавжуд",
+  "quantity": "Количество",
+  "return-policy": "30-кунлик қайтариш имконияти"
+}

@@ -77,6 +77,7 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
 
   function handleAddToCart(product: Product) {
     if (!userId) {
+      router.push('/login');
       return;
     }
     addMutation.mutate({
@@ -245,7 +246,7 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
             </Select>
           </div>
           {loadingProducts ? (
-            <div className="grid grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 2xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {Array.from({ length: 9 }).map((_, i) => (
                 <div
                   key={i}
@@ -265,8 +266,7 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="overflow-hidden transition-shadow border rounded-lg cursor-pointer group hover:shadow-md"
-                    onClick={() => router.push(`/products/${product.id}`)}
+                    className="overflow-hidden transition-shadow border rounded-lg group hover:shadow-md"
                   >
                     <div className="relative">
                       <Image
@@ -298,13 +298,17 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
                       </Button>
                     </div>
                     <div className="p-4">
-                      <div className="flex items-center mb-2">
-                        <h3 className="text-md font-medium line-clamp-1">
-                          {product.name}
-                        </h3>
-                      </div>
-                      <div className="flex items-center gap-2 mb-4">
-                        {/* {product.discountedPrice ? (
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => router.push(`/products/${product.id}`)}
+                      >
+                        <div className="flex items-center mb-2">
+                          <h3 className="text-md font-medium line-clamp-1">
+                            {product.name}
+                          </h3>
+                        </div>
+                        <div className="flex items-center gap-2 mb-4">
+                          {/* {product.discountedPrice ? (
                           <>
                             <span className="text-lg font-bold">
                           {product.discountedPrice}
@@ -314,10 +318,11 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
                             </span>
                           </>
                         ) : ( */}
-                        <span className="text-md font-bold">
-                          {formatCurrency(product.price)}
-                        </span>
-                        {/* )} */}
+                          <span className="text-md font-bold">
+                            {formatCurrency(product.price)}
+                          </span>
+                          {/* )} */}
+                        </div>
                       </div>
                       <Button
                         className="w-full"
@@ -342,7 +347,7 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
                     Previous
                   </button>
                   <span className="flex items-center px-4">
-                    Page {currentPage} of {totalPages}
+                    Page {currentPage} / {totalPages}
                   </span>
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}

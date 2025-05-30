@@ -1,0 +1,21 @@
+{
+  "title": "Contact",
+  "subtitle": "Get in Touch",
+  "address": "Address",
+  "phone": "Phone",
+  "email": "Email",
+  "working-hours": "Working Hours",
+  "working-hours-weekdays": "Monday - Friday: 09:00 - 18:00",
+  "working-hours-weekend": "Saturday - Sunday: 10:00 - 16:00",
+  "form-title": "Send Message",
+  "form-name": "Your Name",
+  "form-email": "Your Email",
+  "form-phone": "Your Phone",
+  "form-message": "Your Message",
+  "form-submit": "Send",
+  "form-success": "Message sent",
+  "form-error": "An error occurred",
+  "social-media": "Social Media",
+  "follow-us": "Follow Us",
+  "map": "Map"
+}

@@ -1,3 +1,5 @@
+// deprecated
+
 'use client';
 
 import { ProductDetails } from '@/components/ProductDetails';

@@ -1,105 +1,3 @@
-// 'use client';
-
-// import Bestsellers from '@/components/Bestsellers';
-// import EmblaCarousel from '@/components/Carousel/EmblaCarousel';
-// // import { EmblaCarousel } from '@/components/CarouselHero';
-// import Categories from '@/components/Categories';
-// import Container from '@/components/Container';
-// import Faq from '@/components/Faq';
-// import { OrderCall } from '@/components/OrderCall';
-// import { EmblaOptionsType } from 'embla-carousel';
-// import Transition from '@/components/Transition';
-
-// const OPTIONS: EmblaOptionsType = { loop: true };
-// const SLIDE_COUNT = 5;
-// const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
-
-// export default function Home() {
-//   return (
-//     <>
-//       <main>
-//         <Transition>
-//           <section className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] flex justify-center my-4 sm:my-6 md:my-8">
-//             <EmblaCarousel options={OPTIONS} slides={SLIDES} />
-//           </section>
-//         </Transition>
-
-//         <Transition>
-//           <section>
-//             <Bestsellers />
-//           </section>
-//         </Transition>
-
-//         <Transition>
-//           <section className="my-8 sm:my-10 md:my-12">
-//             <Container>
-//               <Categories />
-//             </Container>
-//           </section>
-//         </Transition>
-
-//         <Transition>
-//           <section className="border-gray-400 border-y">
-//             <div className="flex items-center justify-center min-h-[50vh] p-2">
-//               <Container className="flex flex-col items-center justify-center w-full gap-12 py-8 md:gap-8 md:flex-row sm:py-12 md:py-16">
-//                 <div className="relative flex flex-col items-center justify-center gap-4 md:items-end md:w-1/2">
-//                   <h2 className="text-3xl font-extrabold leading-tight text-center text-blue-900 sm:text-4xl md:text-5xl md:text-right">
-//                     Need expert advice?
-//                     <br />
-//                     Want us to call you back?
-//                   </h2>
-//                   <p className="max-w-md text-lg text-center text-black md:text-right">
-//                     Our team is ready to help you choose the best building
-//                     materials for your project.
-//                   </p>
-//                 </div>
-//                 <div>
-//                   <svg
-//                     className="w-32 h-20 mt-[-8px] md:rotate-0 rotate-90 text-blue-400 animate-bounce-slow"
-//                     fill="none"
-//                     viewBox="0 0 120 80"
-//                     xmlns="http://www.w3.org/2000/svg"
-//                   >
-//                     <path
-//                       d="M10 60 Q 60 10 110 40"
-//                       stroke="currentColor"
-//                       strokeWidth="4"
-//                       fill="none"
-//                       markerEnd="url(#arrowhead)"
-//                     />
-//                     <defs>
-//                       <marker
-//                         id="arrowhead"
-//                         markerWidth="8"
-//                         markerHeight="8"
-//                         refX="4"
-//                         refY="4"
-//                         orient="auto"
-//                         markerUnits="strokeWidth"
-//                       >
-//                         <path d="M0,0 L8,4 L0,8 L2,4 Z" fill="currentColor" />
-//                       </marker>
-//                     </defs>
-//                   </svg>
-//                 </div>
-//                 <div className="flex items-center justify-center w-full max-w-lg md:w-1/2">
-//                   <OrderCall />
-//                 </div>
-//               </Container>
-//             </div>
-//           </section>
-//         </Transition>
-
-//         <Transition>
-//           <section>
-//             <Faq />
-//           </section>
-//         </Transition>
-//       </main>
-//     </>
-//   );
-// }
-
 'use client';
 
 import type React from 'react';
@@ -122,8 +20,25 @@ import Transition from '@/components/Transition';
 import Container from '@/components/Container';
 import { OrderCall } from '@/components/OrderCall';
 import { formatCurrency } from '@/utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 export default function HomePage() {
+  const { t } = useTranslation('home');
+
+  // Debug information
+  // console.log('Current language:', i18n.language);
+  // console.log('Available languages:', i18n.languages);
+  // console.log('Translation test:', t('hero-title'));
+  // console.log('All resources:', i18n.getResourceBundle(i18n.language, 'home'));
+  // console.log('Translation exists:', i18n.exists('hero-title'));
+  // console.log('Translation options:', i18n.options);
+
+  // Test translation with fallback
+  const testTranslation = (key: string) => {
+    const translation = t(key, { defaultValue: key });
+    return translation;
+  };
+
   const featuredCategories = [
     {
       name: 'Construction Materials',
@@ -284,20 +199,23 @@ export default function HomePage() {
         <section className="relative px-4 py-12 bg-gradient-to-r from-gray-50 to-gray-100 sm:py-12 md:py-14 lg:py-16">
           <div className="container flex flex-col items-center px-4 mx-auto lg:flex-row">
             <div className="mb-8 lg:w-1/2 lg:pr-12 lg:mb-0">
-              <Badge className="mb-4">Limited Time Offer</Badge>
+              <Badge className="mb-4">
+                {testTranslation('hero-limited-time-offer')}
+              </Badge>
               <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-                Quality Building Materials for Your Projects
+                {testTranslation('hero-title')}
               </h1>
               <p className="max-w-md mb-8 text-lg text-muted-foreground">
-                Find everything you need for construction, renovation, and DIY
-                projects. Expert advice and professional-grade materials.
+                {testTranslation('hero-description')}
               </p>
               <div className="flex flex-row gap-4 sm:flex-row">
                 <Button size="lg" asChild>
-                  <Link href="/products">Shop Now</Link>
+                  <Link href="/products">{t('main-cta-shop-now')}</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <Link href="/products?sale=true">View Deals</Link>
+                  <Link href="/products?sale=true">
+                    {t('secondary-cta-offers')}
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -312,7 +230,7 @@ export default function HomePage() {
                   priority
                 />
                 <div className="absolute p-3 rounded-lg bottom-4 left-4 bg-background/80 backdrop-blur-sm">
-                  <p className="font-medium">Top of the day</p>
+                  <p className="font-medium">{t('hero-top-of-the-day')}</p>
                   <p className="text-sm text-muted-foreground">Cement</p>
                 </div>
               </div>
@@ -327,14 +245,17 @@ export default function HomePage() {
           <div className="container px-4 mx-auto">
             <div className="flex flex-col items-baseline justify-between mb-8 md:flex-row">
               <div>
-                <h2 className="mb-2 text-3xl font-bold">Shop by Category</h2>
+                <h2 className="mb-2 text-3xl font-bold">
+                  {t('section-shop-by-category-title')}
+                </h2>
                 <p className="text-muted-foreground">
-                  Browse our most popular categories
+                  {t('section-shop-by-category-description')}
                 </p>
               </div>
               <Button variant="link" asChild className="hidden md:flex">
                 <Link href="/categories" className="flex items-center">
-                  View All Categories <ChevronRight className="w-4 h-4 ml-1" />
+                  {t('section-products-view-all')}{' '}
+                  <ChevronRight className="w-4 h-4 ml-1" />
                 </Link>
               </Button>
             </div>
@@ -380,15 +301,23 @@ export default function HomePage() {
             <Tabs defaultValue="featured" className="w-full">
               <div className="flex flex-col items-start justify-between mb-8 sm:flex-row sm:items-center">
                 <div>
-                  <h2 className="mb-2 text-3xl font-bold">Our Products</h2>
+                  <h2 className="mb-2 text-3xl font-bold">
+                    {t('section-products-title')}
+                  </h2>
                   <p className="text-muted-foreground">
-                    Discover our selection of premium products
+                    {t('section-products-description')}
                   </p>
                 </div>
                 <TabsList className="mt-4 sm:mt-0">
-                  <TabsTrigger value="featured">Featured</TabsTrigger>
-                  <TabsTrigger value="bestsellers">Bestsellers</TabsTrigger>
-                  <TabsTrigger value="new">New Arrivals</TabsTrigger>
+                  <TabsTrigger value="featured">
+                    {t('filter-featured')}
+                  </TabsTrigger>
+                  <TabsTrigger value="bestsellers">
+                    {t('filter-bestseller')}
+                  </TabsTrigger>
+                  <TabsTrigger value="new">
+                    {t('filter-newcomings')}
+                  </TabsTrigger>
                 </TabsList>
               </div>
 
@@ -609,27 +538,33 @@ export default function HomePage() {
                 <div className="p-3 mb-4 rounded-full bg-primary/10">
                   <Truck className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="mb-2 text-lg font-medium">Free Delivery</h3>
+                <h3 className="mb-2 text-lg font-medium">
+                  {t('section-benefits-delivery-title')}
+                </h3>
                 <p className="text-muted-foreground">
-                  Free delivery on orders over $500
+                  {t('section-benefits-delivery-description')}
                 </p>
               </div>
               <div className="flex flex-col items-center p-6 text-center">
                 <div className="p-3 mb-4 rounded-full bg-primary/10">
                   <RotateCcw className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="mb-2 text-lg font-medium">Easy Returns</h3>
+                <h3 className="mb-2 text-lg font-medium">
+                  {t('section-benefits-returns-title')}
+                </h3>
                 <p className="text-muted-foreground">
-                  30-day return policy on unused items
+                  {t('section-benefits-returns-description')}
                 </p>
               </div>
               <div className="flex flex-col items-center p-6 text-center">
                 <div className="p-3 mb-4 rounded-full bg-primary/10">
                   <Shield className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="mb-2 text-lg font-medium">Quality Guarantee</h3>
+                <h3 className="mb-2 text-lg font-medium">
+                  {t('section-benefits-guarantee-title')}
+                </h3>
                 <p className="text-muted-foreground">
-                  All materials meet industry standards
+                  {t('section-benefits-guarantee-description')}
                 </p>
               </div>
             </div>
@@ -695,11 +630,10 @@ export default function HomePage() {
           <div className="container px-4 mx-auto text-center">
             <div className="max-w-3xl mx-auto text-white">
               <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
-                Ready to Explore Products?
+                {t('section-cta-title')}
               </h2>
               <p className="text-lg text-[#d6d6d6] mb-8">
-                Browse our extensive collection of building materials and
-                professional tools.
+                {t('section-cta-description')}
               </p>
               <Button
                 variant="secondary"
@@ -708,7 +642,8 @@ export default function HomePage() {
                 asChild
               >
                 <Link href="/categories/all">
-                  <ShoppingBag className="w-5 h-5 mr-2" /> Shop Now
+                  <ShoppingBag className="w-5 h-5 mr-2" />{' '}
+                  {t('main-cta-shop-now')}
                 </Link>
               </Button>
             </div>

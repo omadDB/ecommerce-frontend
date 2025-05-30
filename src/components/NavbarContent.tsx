@@ -53,6 +53,8 @@ import SearchResults from './SearchResults';
 import AuthModal from '@/features/authentication/AuthModal';
 import { useCategories } from '@/hooks/useCategories';
 import SignOutButton from './SignOutButton';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 // Mock data for categories
 // const categories = [
@@ -162,7 +164,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
   const searchRef = useRef<HTMLDivElement>(null);
   const { cart } = useCart(userId);
   const { data: categories } = useCategories();
-  //   const pathname = usePathname();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -253,7 +255,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                     href="/categories/all"
                     className="flex items-center px-3 py-2 rounded-md hover:bg-accent"
                   >
-                    All Products
+                    {t('navbar-all-products')}
                   </Link>
                 </SheetClose>
 
@@ -338,7 +340,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                     <Link
                       href="/favorites"
                       aria-disabled={true}
-                      className="flex items-center px-3 py-2 rounded-md hover:bg-accent pointer-events-none"
+                      className="flex items-center px-3 py-2 rounded-md pointer-events-none hover:bg-accent"
                       tabIndex={-1}
                     >
                       <Heart className="w-4 h-4 mr-2" />
@@ -430,7 +432,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pr-10 w-48 lg:w-80"
+                className="w-48 pr-10"
               />
               {isSearching && (
                 <div className="absolute left-0 w-[150%] p-4 mt-2 bg-white rounded-lg shadow-lg top-full">
@@ -444,6 +446,9 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                   setSearchQuery('');
                 }}
               />
+            </div>
+            <div className="flex items-center gap-1">
+              <LanguageSwitcher />
             </div>
             <Button
               variant="ghost"

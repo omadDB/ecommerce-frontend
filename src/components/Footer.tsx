@@ -336,8 +336,8 @@ export default function Footer() {
 
       {/* Bottom Footer */}
       <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <div className="text-sm text-muted-foreground">
+        <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0">
+          <div className="text-sm text-center text-muted-foreground">
             © 2025 Ipak Yo&apos;li Urgench. Все права защищены.
           </div>
 

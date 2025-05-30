@@ -9,14 +9,19 @@ import { AxiosError } from 'axios';
 
 export async function registerService(newUser: IUserRegister) {
   try {
-    const res = await axiosInstance.post<IUserRegister>(
+    const res = await axiosInstance.post<IUserLoggedIn>(
       '/auth/register',
       newUser
     );
 
     return res.data;
   } catch (err) {
-    console.error(err);
+    if (err instanceof AxiosError) {
+      const errorMessage =
+        err.response?.data?.message || err.message || 'Registration failed!';
+      throw new Error(errorMessage);
+    }
+    throw err;
   }
 }
 

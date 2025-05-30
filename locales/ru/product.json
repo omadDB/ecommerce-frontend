@@ -1,0 +1,9 @@
+{
+  "available-quantity": "В наличии: {{product?.stock}} шт.",
+  "delivery-info-description-1": "Стандартная доставка: 5–7 рабочих дней.",
+  "delivery-info-title": "Информация о доставке",
+  "guarantee": "Гарантия 2 года",
+  "in-stock-badge": "Доступно для продажи",
+  "quantity": "Количество",
+  "return-policy": "Возможность возврата в течение 30 дней"
+}

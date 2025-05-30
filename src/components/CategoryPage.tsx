@@ -91,6 +91,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categoryId, userId }) => {
 
   function handleAddToCart(product: Product) {
     if (!userId) {
+      router.push('/login');
       return;
     }
     addMutation.mutate({
@@ -268,7 +269,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categoryId, userId }) => {
             )}
           </div>
           {loading ? (
-            <div className="grid grid-cols-1 gap-6 2xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-6 2xs:grid-cols-2md:grid-cols-3 lg:grid-cols-4">
               {Array.from({ length: 9 }).map((_, i) => (
                 <div
                   key={i}
@@ -288,8 +289,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categoryId, userId }) => {
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="overflow-hidden transition-shadow border rounded-lg cursor-pointer group hover:shadow-md"
-                    onClick={() => router.push(`/products/${product.id}`)}
+                    className="overflow-hidden transition-shadow border rounded-lg group hover:shadow-md"
                   >
                     <div className="relative">
                       <Image
@@ -321,13 +321,17 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categoryId, userId }) => {
                       </Button>
                     </div>
                     <div className="p-4">
-                      <div className="flex items-center mb-2">
-                        <h3 className="text-md font-medium line-clamp-1">
-                          {product.name}
-                        </h3>
-                      </div>
-                      <div className="flex items-center gap-2 mb-4">
-                        {/* {product.discountedPrice ? (
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => router.push(`/products/${product.id}`)}
+                      >
+                        <div className="flex items-center mb-2">
+                          <h3 className="text-md font-medium line-clamp-1">
+                            {product.name}
+                          </h3>
+                        </div>
+                        <div className="flex items-center gap-2 mb-4">
+                          {/* {product.discountedPrice ? (
                           <>
                             <span className="text-lg font-bold">
                             {product.discountedPrice}
@@ -337,11 +341,13 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categoryId, userId }) => {
                             </span>
                           </>
                         ) : ( */}
-                        <span className="text-md font-bold">
-                          {formatCurrency(product.price)}
-                        </span>
-                        {/* )} */}
+                          <span className="text-md font-bold">
+                            {formatCurrency(product.price)}
+                          </span>
+                          {/* )} */}
+                        </div>
                       </div>
+
                       <Button
                         className="w-full"
                         variant={product.stock <= 0 ? 'secondary' : 'default'}

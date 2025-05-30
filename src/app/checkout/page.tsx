@@ -1,4 +1,4 @@
-import { getServerAuth } from '@/app/_lib/serverAuth';
+import { getServerAuth } from '../_lib/serverAuth';
 import { redirect } from 'next/navigation';
 import CheckoutClient from '@/features/checkout/CheckoutClient';
 
