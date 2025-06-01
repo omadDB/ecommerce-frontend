@@ -12,6 +12,7 @@ import Spinner from '@/components/Spinner';
 import useUser from '@/hooks/useUser';
 import useUpdateUser from '@/hooks/useUpdateUser';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const profileSchema = z.object({
   fullName: z.string().min(2, 'Name must be at least 2 characters'),
@@ -29,6 +30,7 @@ export default function Page() {
   // const [avatar, setAvatar] = useState<string | null>(userData?.avatar || null);
   const [email, setEmail] = useState(userData?.email);
   const [phone, setPhone] = useState(userData?.phone);
+  const { t } = useTranslation('profile');
   // const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 
   const {
@@ -128,12 +130,12 @@ export default function Page() {
                 htmlFor="fullName"
                 className="text-sm font-medium sm:text-base"
               >
-                Full Name
+                {t('full-name')}
               </Label>
               <Input
                 id="fullName"
                 {...register('fullName')}
-                placeholder="Enter your full name"
+                placeholder={t('section-ordercall-input-fullname')}
                 value={userData?.fullName}
                 disabled={userData?.fullName !== ''}
                 className="w-full text-sm h-11 bg-gray-50/50 sm:text-base"
@@ -150,13 +152,13 @@ export default function Page() {
                 htmlFor="email"
                 className="text-sm font-medium sm:text-base"
               >
-                Email
+                {t('email')}
               </Label>
               <Input
                 id="email"
                 type="email"
                 {...register('email')}
-                placeholder="Enter your email"
+                placeholder={t('section-ordercall-input-email')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isUpdating || isLoading}
@@ -172,12 +174,12 @@ export default function Page() {
                 htmlFor="phone"
                 className="text-sm font-medium sm:text-base"
               >
-                Phone Number
+                {t('phone-number')}
               </Label>
               <Input
                 id="phone"
                 {...register('phone')}
-                placeholder="Enter your phone number"
+                placeholder={t('section-ordercall-input-phone')}
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 disabled={isUpdating || isLoading}
@@ -210,7 +212,9 @@ export default function Page() {
               className="px-4 py-3 text-base font-medium sm:px-8 sm:py-4"
               disabled={isUpdating || isLoading}
             >
-              {isUpdating ? 'Updating...' : 'Update Profile'}
+              {isUpdating
+                ? `${t('update-profile-btn-updating')}`
+                : `${t('update-profile-btn')}`}
             </Button>
           </div>
         </form>

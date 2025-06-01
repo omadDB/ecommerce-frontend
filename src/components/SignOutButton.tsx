@@ -13,6 +13,7 @@ import useLogout from '@/hooks/useLogout';
 import SpinnerMini from './SpinnnerMini';
 import useUser from '@/hooks/useUser';
 import { LogOut } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface SignOutButtonProps {
   isPopover: boolean;
@@ -22,6 +23,7 @@ function SignOutButton({ isPopover }: SignOutButtonProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { isPending, logout } = useLogout();
   const { user } = useUser();
+  const { t } = useTranslation('profile');
 
   function handleLogout() {
     logout();
@@ -37,7 +39,7 @@ function SignOutButton({ isPopover }: SignOutButtonProps) {
             onClick={() => setIsOpen(true)}
           >
             <ArrowRightOnRectangleIcon className="w-5 h-5 text-gray-400 group-hover:text-white" />
-            <span>Sign out</span>
+            <span>{t('navbar-account-logout')}</span>
           </button>
         </>
       ) : (
@@ -46,32 +48,32 @@ function SignOutButton({ isPopover }: SignOutButtonProps) {
           onClick={() => setIsOpen(true)}
         >
           <LogOut className="w-4 h-4 mr-2" />
-          <span>Log out</span>
+          <span>{t('navbar-account-logout')}</span>
         </button>
       )}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="mb-2">
-              Signing out of{' '}
+              {t('logout-email-1')}
               <span className="underline underline-offset-[5px]">
                 {user?.email}
               </span>
             </DialogTitle>
             <DialogDescription className="text-lg">
-              Are you sure you want to log out of your account?
+              {t('logout-text')}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="mt-2">
             <Button variant="secondary" onClick={() => setIsOpen(false)}>
-              Cancel
+              {t('logout-cancel')}
             </Button>
             <Button
               onClick={handleLogout}
               type="submit"
               className="bg-red-500 hover:bg-[#B91C1C]"
             >
-              {isPending ? <SpinnerMini /> : 'Log out'}
+              {isPending ? <SpinnerMini /> : `${t('navbar-account-logout')}`}
             </Button>
           </DialogFooter>
         </DialogContent>

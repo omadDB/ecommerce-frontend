@@ -138,21 +138,16 @@ import type React from 'react';
 
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Facebook,
-  Twitter,
-  Instagram,
-  Youtube,
-} from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Instagram } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   const footerLinks = {
     shop: [
-      { name: 'All Products', href: '/categories' },
+      { name: `${t('navbar-all-products')}`, href: '/categories' },
       { name: 'Магазин', href: '/categories/2' },
       { name: 'Обои', href: '/categories/3' },
       { name: 'Люстра', href: '/categories/4' },
@@ -161,7 +156,7 @@ export default function Footer() {
       { name: 'Водоэмульсия завод', href: '/categories/7' },
     ],
     customerService: [
-      { name: 'Contact Us', href: '/contacts' },
+      { name: `${t('navbar-contacts')}`, href: '/contacts' },
       // { name: 'FAQ', href: '/faq' },
       // { name: 'Shipping Info', href: '/shipping' },
       // { name: 'Returns & Exchanges', href: '/returns' },
@@ -211,9 +206,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-muted-foreground mb-6 max-w-md">
-              Your trusted online destination for quality products at unbeatable
-              prices. We&apos;re committed to providing exceptional customer
-              service and a seamless shopping experience.
+              {t('footer-description')}
             </p>
 
             {/* Contact Info */}
@@ -245,29 +238,17 @@ export default function Footer() {
                 href="#"
                 className="text-muted-foreground hover:text-primary"
               >
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary"
-              >
                 <Instagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary"
-              >
-                <Youtube className="h-5 w-5" />
-                <span className="sr-only">YouTube</span>
               </Link>
             </div>
           </div>
 
           {/* Shop Links */}
           <div>
-            <h4 className="font-semibold mb-4">Shop</h4>
+            <h4 className="font-semibold mb-4">
+              {t('footer-col-title-categories')}
+            </h4>
             <ul className="space-y-2">
               {footerLinks.shop.map((link) => (
                 <li key={link.name}>
@@ -284,7 +265,9 @@ export default function Footer() {
 
           {/* Customer Service Links */}
           <div>
-            <h4 className="font-semibold mb-4">Customer Service</h4>
+            <h4 className="font-semibold mb-4">
+              {t('footer-col-title-customer-service')}
+            </h4>
             <ul className="space-y-2">
               {footerLinks.customerService.map((link) => (
                 <li key={link.name}>
@@ -338,7 +321,7 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0">
           <div className="text-sm text-center text-muted-foreground">
-            © 2025 Ipak Yo&apos;li Urgench. Все права защищены.
+            © 2025 Ipak Yo&apos;li Urgench. {t('all-rights-reserved')}
           </div>
 
           {/* Payment Methods */}

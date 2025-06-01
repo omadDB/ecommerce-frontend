@@ -27,6 +27,7 @@ import {
 } from './ui/sheet';
 import { useRouter } from 'next/navigation';
 import { formatCurrency } from '@/utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 interface AllProductsPageProps {
   userId: number | null;
@@ -50,6 +51,7 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
   const [sortOption, setSortOption] = useState('price-asc');
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const router = useRouter();
+  const { t } = useTranslation('home');
 
   useEffect(() => {
     async function fetchProducts() {
@@ -141,7 +143,9 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
         {/* Mobile filter dialog */}
         <div className="flex flex-col gap-3 lg:hidden">
           <div className="mb-4 sm:mb-6">
-            <h2 className="mb-2 text-4xl font-bold">All Products</h2>
+            <h2 className="mb-2 text-4xl font-bold">
+              {t('navbar-all-products')}
+            </h2>
           </div>
 
           <div className="flex items-center justify-between mb-6">
@@ -206,7 +210,9 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
         {/* Desktop filter sidebar */}
         <div className="hidden lg:block">
           <div className="mb-4 sm:mb-6">
-            <h2 className="mb-2 text-4xl font-bold">All Products</h2>
+            <h2 className="mb-2 text-4xl font-bold">
+              {t('navbar-all-products')}
+            </h2>
           </div>
 
           <div className="sticky top-8">
@@ -266,7 +272,7 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="overflow-hidden transition-shadow border rounded-lg group hover:shadow-md"
+                    className="overflow-hidden transition-shadow border rounded-lg group md:hover:shadow-md"
                   >
                     <div className="relative">
                       <Image
@@ -292,7 +298,7 @@ function AllProductsPage({ userId }: AllProductsPageProps) {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute transition-opacity opacity-0 top-2 right-2 group-hover:opacity-100"
+                        className="absolute transition-opacity opacity-0 top-2 right-2 md:group-hover:opacity-100"
                       >
                         <Heart className="w-5 h-5" />
                       </Button>

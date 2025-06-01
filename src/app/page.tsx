@@ -484,7 +484,7 @@ export default function HomePage() {
 
               <div className="flex justify-center mt-8">
                 <Button asChild>
-                  <Link href="/products">View All Products</Link>
+                  <Link href="/products">{t('section-products-view-all')}</Link>
                 </Button>
               </div>
             </Tabs>
@@ -509,7 +509,7 @@ export default function HomePage() {
                         {offer.description}
                       </p>
                       <Button asChild className="w-fit">
-                        <Link href={offer.link}>{offer.buttonText}</Link>
+                        <Link href={offer.link}>{t('main-cta-shop-now')}</Link>
                       </Button>
                     </div>
                     <div className="md:w-1/2">
@@ -578,13 +578,12 @@ export default function HomePage() {
             <Container className="flex flex-col items-center justify-center w-full gap-12 py-8 md:gap-8 md:flex-row sm:py-12 md:py-16">
               <div className="relative flex flex-col items-center justify-center gap-4 md:items-end md:w-1/2">
                 <h2 className="text-3xl font-extrabold leading-tight text-center text-blue-600 sm:text-4xl md:text-5xl md:text-right">
-                  Need expert advice?
+                  {t('section-ordercall-title-1')}
                   <br />
-                  Want us to call you back?
+                  {t('section-ordercall-title-2')}
                 </h2>
                 <p className="max-w-md text-lg text-center text-black md:text-right">
-                  Our team is ready to help you choose the best building
-                  materials for your project.
+                  {t('section-ordercall-description')}
                 </p>
               </div>
               <div>

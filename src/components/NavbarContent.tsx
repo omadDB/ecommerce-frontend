@@ -164,7 +164,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
   const searchRef = useRef<HTMLDivElement>(null);
   const { cart } = useCart(userId);
   const { data: categories } = useCategories();
-  const { t } = useTranslation();
+  const { t } = useTranslation('home');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -226,10 +226,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
     >
       {/* Top bar - can include announcements, language selector, etc. */}
       <div className="py-2 text-sm text-center bg-primary text-primary-foreground">
-        <div className="container px-4 mx-auto">
-          Free shipping on all orders over $50 | Use code WELCOME10 for 10% off
-          your first order
-        </div>
+        <div className="container px-4 mx-auto">{t('header-discount')}</div>
       </div>
 
       <div className="container px-4 mx-auto">
@@ -247,7 +244,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
               className="w-[300px] sm:w-[350px] overflow-y-auto"
             >
               <SheetHeader className="mb-4">
-                <SheetTitle>Menu</SheetTitle>
+                <SheetTitle>{t('navbar-mobile-menu')}</SheetTitle>
               </SheetHeader>
               <div className="flex flex-col py-4 space-y-4">
                 <SheetClose asChild>
@@ -260,45 +257,47 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                 </SheetClose>
 
                 {/* Mobile Categories Accordion */}
-                {categories?.map((category) => (
-                  <div
-                    key={category.id}
-                    className="border-b border-border last:border-0"
-                  >
-                    <div className="flex items-center justify-between px-3 py-2">
-                      <Link
-                        href={`/categories/${category.id}`}
-                        className="font-medium"
-                      >
-                        {category.name}
-                      </Link>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="w-8 h-8"
-                          >
-                            <ChevronDown className="w-4 h-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-56">
-                          <DropdownMenuLabel>Subcategories</DropdownMenuLabel>
-                          <DropdownMenuSeparator />
-                          {category?.subCategories.map((subcategory) => (
-                            <SheetClose key={subcategory.id} asChild>
-                              <DropdownMenuItem asChild>
-                                <Link
-                                  href={`/categories/${subcategory.id}`}
-                                  className="w-full"
-                                >
-                                  {subcategory.name}
-                                </Link>
-                              </DropdownMenuItem>
-                            </SheetClose>
-                          ))}
-                          <DropdownMenuSeparator />
-                          {/* <DropdownMenuLabel>Featured</DropdownMenuLabel>
+                {categories
+                  ?.filter((c) => c.id < 1000)
+                  .map((category) => (
+                    <div
+                      key={category.id}
+                      className="border-b border-border last:border-0"
+                    >
+                      <div className="flex items-center justify-between px-3 py-2">
+                        <Link
+                          href={`/categories/${category.id}`}
+                          className="font-medium"
+                        >
+                          {category.name}
+                        </Link>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="w-8 h-8"
+                            >
+                              <ChevronDown className="w-4 h-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end" className="w-56">
+                            <DropdownMenuLabel>Subcategories</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            {category?.subCategories.map((subcategory) => (
+                              <SheetClose key={subcategory.id} asChild>
+                                <DropdownMenuItem asChild>
+                                  <Link
+                                    href={`/categories/${subcategory.id}`}
+                                    className="w-full"
+                                  >
+                                    {subcategory.name}
+                                  </Link>
+                                </DropdownMenuItem>
+                              </SheetClose>
+                            ))}
+                            <DropdownMenuSeparator />
+                            {/* <DropdownMenuLabel>Featured</DropdownMenuLabel>
                           {category?.featured.map((item) => (
                             <SheetClose key={item.id} asChild>
                               <DropdownMenuItem asChild>
@@ -311,11 +310,11 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                               </DropdownMenuItem>
                             </SheetClose>
                           ))} */}
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
 
                 <SheetClose asChild>
                   <Link
@@ -356,6 +355,11 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                       Cart ({cart.cartItems.length})
                     </Link>
                   </SheetClose>
+                  <SheetClose asChild>
+                    <div className="flex items-center gap-1">
+                      <LanguageSwitcher />
+                    </div>
+                  </SheetClose>
                 </div>
               </div>
             </SheetContent>
@@ -380,13 +384,15 @@ export function NavbarContent({ userId }: NavbarContentProps) {
               <NavigationMenuItem>
                 <Link href="/categories/all" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    All Products
+                    {t('navbar-all-products')}
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
+                <NavigationMenuTrigger>
+                  {t('navbar-categories')}
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <div className="grid w-[800px] grid-cols-4 gap-3 p-4">
                     {categories?.map((category) => (
@@ -418,7 +424,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
               <NavigationMenuItem>
                 <Link href="/contacts" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Contact Us
+                    {t('navbar-contacts')}
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
@@ -426,10 +432,10 @@ export function NavbarContent({ userId }: NavbarContentProps) {
           </NavigationMenu>
 
           {/* Right side - Search, Cart, Account */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             <div className="relative hidden px-2 md:block">
               <Input
-                placeholder="Search products..."
+                placeholder={t('navbar-search')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-48 pr-10"
@@ -447,7 +453,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                 }}
               />
             </div>
-            <div className="flex items-center gap-1">
+            <div className="items-center hidden gap-1 md:flex">
               <LanguageSwitcher />
             </div>
             <Button
@@ -484,12 +490,14 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56">
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuLabel>
+                      {t('navbar-account-title')}
+                    </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
                       <Link href="/profile" className="w-full cursor-pointer">
                         <User className="w-4 h-4 mr-2" />
-                        <span>Profile</span>
+                        <span>{t('navbar-account-profile')}</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
@@ -498,7 +506,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                         className="w-full cursor-pointer"
                       >
                         <Package className="w-4 h-4 mr-2" />
-                        <span>Orders</span>
+                        <span>{t('navbar-account-orders')}</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
@@ -509,7 +517,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                         tabIndex={-1}
                       >
                         <Heart className="w-4 h-4 mr-2" />
-                        <span>Favorites (soon)</span>
+                        <span>{t('navbar-account-favorites')}</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
@@ -520,7 +528,7 @@ export function NavbarContent({ userId }: NavbarContentProps) {
                         tabIndex={-1}
                       >
                         <Settings className="w-4 h-4 mr-2" />
-                        <span>Settings (soon)</span>
+                        <span>{t('navbar-account-settings')}</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />

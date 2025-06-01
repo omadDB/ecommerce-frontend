@@ -3,8 +3,11 @@
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 
 export function OrderCall() {
+  const { t } = useTranslation('home');
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Handle form submission (e.g., send data to an API)
@@ -71,45 +74,45 @@ export function OrderCall() {
         </div>
         {/* Headline */}
         <h3 className="mb-2 text-2xl font-bold text-center text-black sm:text-3xl drop-shadow-lg">
-          Order a Call
+          {t('section-ordercall-cta-title')}
         </h3>
         {/* Form Section */}
         <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
           <div className="space-y-5">
             <div className="flex flex-col gap-1">
               <Label htmlFor="name" className="font-semibold text-black">
-                Name <span className="text-red-500">*</span>
+                {t('name')} <span className="text-red-500">*</span>
               </Label>
               <input
                 type="text"
                 id="name"
                 required
                 className="w-full px-4 py-2 mt-2 transition-all border shadow-sm focus:outline-none bg-white/80 rounded-xl text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-400"
-                placeholder="Enter your name"
+                placeholder={t('section-ordercall-input-name')}
               />
             </div>
             <div className="flex flex-col gap-1">
               <Label htmlFor="email" className="font-semibold text-black">
-                Email <span className="text-red-500">*</span>
+                {t('email')} <span className="text-red-500">*</span>
               </Label>
               <input
                 type="email"
                 id="email"
                 required
                 className="w-full px-4 py-2 mt-2 transition-all border shadow-sm focus:outline-none bg-white/80 rounded-xl text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-400"
-                placeholder="Enter your email"
+                placeholder={t('section-ordercall-input-email')}
               />
             </div>
             <div className="flex flex-col gap-1">
               <Label htmlFor="phone" className="font-semibold text-black">
-                Phone Number <span className="text-red-500">*</span>
+                {t('phone-number')} <span className="text-red-500">*</span>
               </Label>
               <input
                 type="tel"
                 id="phone"
                 required
                 className="w-full px-4 py-2 mt-2 transition-all border shadow-sm focus:outline-none bg-white/80 rounded-xl text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-400"
-                placeholder="Enter your phone number"
+                placeholder={t('section-ordercall-input-phone')}
               />
             </div>
           </div>
@@ -118,7 +121,7 @@ export function OrderCall() {
             type="submit"
             className="w-full py-3 text-lg font-bold tracking-wide text-white transition-all duration-200 bg-blue-600 shadow-lg rounded-xl hover:bg-blue-700"
           >
-            Request a Call
+            {t('section-ordercall-cta-button')}
           </Button>
         </form>
       </div>

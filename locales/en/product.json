@@ -1,9 +1,0 @@
-{
-  "available-quantity": "Available: {{product?.stock}} pcs.",
-  "delivery-info-description-1": "Standard Shipping: 5-7 business days",
-  "delivery-info-title": "Delivery information",
-  "guarantee": "2 year guarantee",
-  "in-stock-badge": "In Stock",
-  "quantity": "Quantity",
-  "return-policy": "30-day return option"
-}

@@ -28,7 +28,7 @@ export function LanguageSwitcher() {
 
   return (
     <Select value={i18n.language} onValueChange={handleLanguageChange}>
-      <SelectTrigger className=" h-8 bg-transparent border-none hover:bg-accent justify-end gap-2">
+      <SelectTrigger className=" h-8 bg-transparent border-none hover:bg-accent justify-end gap-2 p-1">
         <div className="flex items-center gap-2">
           <SelectValue placeholder={currentLang?.name} />
         </div>

@@ -4,13 +4,15 @@ import Link from 'next/link';
 import { ShoppingBagIcon, UserIcon } from '@heroicons/react/24/solid';
 import SignOutButton from './SignOutButton';
 import { usePathname } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
 function Sidebar() {
   const pathname = usePathname();
+  const { t } = useTranslation('home');
 
   const navLinks = [
     {
-      name: 'Profile',
+      name: `${t('navbar-account-profile')}`,
       href: '/profile',
       icon: (
         <UserIcon
@@ -32,7 +34,7 @@ function Sidebar() {
     //   ),
     // },
     {
-      name: 'Orders',
+      name: `${t('navbar-account-orders')}`,
       href: '/profile/orders',
       icon: (
         <ShoppingBagIcon

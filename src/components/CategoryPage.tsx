@@ -289,7 +289,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categoryId, userId }) => {
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="overflow-hidden transition-shadow border rounded-lg group hover:shadow-md"
+                    className="overflow-hidden transition-shadow border rounded-lg group md:hover:shadow-md"
                   >
                     <div className="relative">
                       <Image
@@ -315,7 +315,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ categoryId, userId }) => {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute transition-opacity opacity-0 top-2 right-2 group-hover:opacity-100"
+                        className="absolute transition-opacity opacity-0 top-2 right-2 md:group-hover:opacity-100"
                       >
                         <Heart className="w-5 h-5" />
                       </Button>
